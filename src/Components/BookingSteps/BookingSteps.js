@@ -24,7 +24,7 @@ const BookingSteps = () => {
     },
   ];
   return (
-    <div className="bookind-steps-container">
+    <div className="bookind-steps-container my-5">
       <div className="heading-container text-center">
         <h1>
           Plan Which In <span style={{ color: "#1EFFAC" }}>Your Mind</span>

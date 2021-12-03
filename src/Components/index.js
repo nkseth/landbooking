@@ -3,3 +3,5 @@ export { default as Footer } from "./Footer/Footer";
 export { default as MainBanner } from "./MainBanner/MainBanner";
 export { default as PopularListing } from "./PopularListing/PopularListing";
 export { default as BookingSteps } from "./BookingSteps/BookingSteps";
+export { default as Slider } from "./Slider/Slider";
+export { default as Testimonials } from "./Testimonials/Testimonials";

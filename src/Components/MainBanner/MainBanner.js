@@ -9,7 +9,11 @@ const MainBanner = () => {
       style={{
         backgroundImage: `url(${Bannerbg})`,
         backgroundRepeat: "no-repeat",
-        objectFit: "cover",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+        height: "80vh",
+        width: "100vw",
       }}
     >
       <div

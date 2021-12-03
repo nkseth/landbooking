@@ -1,5 +1,10 @@
 import React from "react";
-import { MainBanner, PopularListing, BookingSteps } from "../../Components";
+import {
+  MainBanner,
+  PopularListing,
+  BookingSteps,
+  Testimonials,
+} from "../../Components";
 
 const Home = () => {
   return (
@@ -7,6 +12,7 @@ const Home = () => {
       <MainBanner />
       <PopularListing />
       <BookingSteps />
+      <Testimonials />
     </div>
   );
 };
