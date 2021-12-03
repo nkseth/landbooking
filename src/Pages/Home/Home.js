@@ -1,12 +1,12 @@
 import React from "react";
+import { MainBanner, PopularListing, BookingSteps } from "../../Components";
 
 const Home = () => {
   return (
     <div>
-      <h2>JUned ALi Khan</h2>
-      <h2>JUned ALi Khan</h2>
-      <h2>JUned ALi Khan</h2>
-      <h2>JUned ALi Khan</h2>
+      <MainBanner />
+      <PopularListing />
+      <BookingSteps />
     </div>
   );
 };
