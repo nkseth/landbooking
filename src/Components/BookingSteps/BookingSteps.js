@@ -24,8 +24,11 @@ const BookingSteps = () => {
     },
   ];
   return (
-    <div className="bookind-steps-container my-5">
-      <div className="heading-container text-center">
+    <div className="bookind-steps-container my-5 p-5">
+      <div
+        className="heading-container text-center"
+        style={{ color: "#334E6F" }}
+      >
         <h1>
           Plan Which In <span style={{ color: "#1EFFAC" }}>Your Mind</span>
         </h1>
@@ -61,7 +64,10 @@ const BookingSteps = () => {
                     }}
                   />
                 </CardContent>
-                <CardContent className="text-center">
+                <CardContent
+                  className="text-center"
+                  style={{ color: "#334E6F" }}
+                >
                   <Typography gutterBottom variant="h6" component="div">
                     {item.title}
                   </Typography>

@@ -28,15 +28,18 @@ const Testimonials = () => {
   ];
   return (
     <div
-      className="testimonial-container m-5 p-5"
+      className="testimonial-container my-5 p-lg-5 p-md-5 p-1"
       style={{
         backgroundImage: `url(${Testimonialbg})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "top",
       }}
     >
-      <div className="heading-container text-center">
+      <div
+        className="heading-container text-center"
+        style={{ color: "#334E6F" }}
+      >
         <h1>
           What Say <span style={{ color: "#1EFFAC" }}> Our Customers</span>
         </h1>
@@ -62,12 +65,16 @@ const Testimonials = () => {
                     alt="green iguana"
                     style={{
                       borderRadius: "50%",
-                      height: "8rem",
-                      width: "8rem",
+                      height: "6rem",
+                      width: "6rem",
+                      border: "5px solid #EBEDF1",
                     }}
                   />
                 </CardContent>
-                <CardContent className="text-center">
+                <CardContent
+                  className="text-center"
+                  style={{ color: "#334E6F" }}
+                >
                   <Typography gutterBottom variant="h5" component="div">
                     {item.name}
                   </Typography>

@@ -2,6 +2,7 @@ import React from "react";
 import "./Header.css";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -10,12 +11,17 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="m-0 p-0" />
         <Navbar.Collapse id="basic-navbar-nav" className="m-0 p-0">
           <Nav className="mx-auto">
-            <Nav.Link className="mx--3" href="#home">
-              Home
-            </Nav.Link>
-            <Nav.Link className="mx-3" href="#listing">
-              Listing
-            </Nav.Link>
+            <Link to="/" className="link">
+              <Nav.Link className="mx--3 link" href="/listing">
+                Home
+              </Nav.Link>
+            </Link>
+            <Link to="/listing" className="link">
+              <Nav.Link className="mx-3 link" href="/listing">
+                Listing
+              </Nav.Link>
+            </Link>
+
             <Nav.Link className="mx-3" href="#work">
               How We Work
             </Nav.Link>

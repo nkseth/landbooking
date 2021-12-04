@@ -7,6 +7,7 @@ const Slider = ({ children }) => {
     <Flickity
       options={{
         pageDots: false,
+        wrapAround: true,
       }}
     >
       {children}
