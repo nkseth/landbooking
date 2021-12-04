@@ -80,36 +80,51 @@ const Listing = () => {
             </p>
           </div>
           <div
-            className="formInput-container container w-75"
+            className="formInput-container container w-75 p-md-4 p-3"
             style={{
               backgroundColor: "white",
-              padding: "4rem",
               borderRadius: "5px",
               boxShadow: " 0px 0px 5px 0px rgba(120,115,115,0.75)",
               position: "absolute",
-              bottom: "-15vh",
+              bottom: "-18vh",
             }}
           >
-            <Form className="d-flex">
+            <div className="text-center mb-4" style={{ color: "#334E6F" }}>
+              <h3>Search For Listing</h3>
+            </div>
+            <Form className="d-flex justify-content-center align-items-center flex-md-row flex-column">
               <Form.Control
-                style={{ outline: "none", borderRadius: "0", padding: "1rem" }}
+                style={{
+                  outline: "none",
+                  boxShadow: "none",
+                  borderRadius: "0",
+                  padding: "10px",
+                }}
                 size="lg"
                 type="location"
                 placeholder="Location"
+                className="m-2 w-90"
               />
               <Form.Control
-                style={{ outline: "none", borderRadius: "0" }}
+                style={{
+                  outline: "none",
+                  borderRadius: "0",
+                  boxShadow: "none",
+                }}
                 size="lg"
                 type="dropdown"
-                placeholder="Shop & Education"
+                placeholder="Choose Category"
+                className="m-2 w-90"
               />
               <Button
                 variant="btn "
+                className="m-2"
                 style={{
                   padding: "0 2rem",
                   backgroundColor: "#1EFFAC",
                   color: "white",
                   borderRadius: "0",
+                  boxShadow: "none",
                 }}
               >
                 <h4>Search</h4>

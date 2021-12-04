@@ -8,7 +8,11 @@ const Header = () => {
   return (
     <>
       <Navbar bg="white" fixed="top" expand="lg" className="m-0 p-0">
-        <Navbar.Toggle aria-controls="basic-navbar-nav" className="m-0 p-0" />
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          className="m-0 p-0"
+          style={{ boxShadow: "none", border: "none" }}
+        />
         <Navbar.Collapse id="basic-navbar-nav" className="m-0 p-0">
           <Nav className="mx-auto">
             <Link to="/" className="link">
