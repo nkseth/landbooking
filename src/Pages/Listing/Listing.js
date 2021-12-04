@@ -64,14 +64,14 @@ const Listing = () => {
         }}
       >
         <div
-          className="content-container d-flex justify-content-center align-items-center  p-5"
+          className="content-container d-flex justify-content-center align-items-md-center align-items-top p-5"
           style={{
             backgroundColor: "rgba(58, 87, 135, 0.45)",
             height: "100%",
             width: "100%",
           }}
         >
-          <div className="text-container text-white text-center p-5">
+          <div className="text-container text-white text-center p-3">
             <h1 style={{ fontSize: "3rem" }}>LISTING</h1>
             <p>
               <span style={{ color: "#1EFFAC" }}>HOME</span>{" "}
@@ -118,9 +118,9 @@ const Listing = () => {
               />
               <Button
                 variant="btn "
-                className="m-2"
+                className="m-2 "
                 style={{
-                  padding: "0 2rem",
+                  padding: "5px 30px",
                   backgroundColor: "#1EFFAC",
                   color: "white",
                   borderRadius: "0",

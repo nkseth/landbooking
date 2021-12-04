@@ -17,14 +17,14 @@ const MainBanner = () => {
       }}
     >
       <div
-        className="content-container  p-5"
+        className="content-container  p-md-5 p-2"
         style={{
           backgroundColor: "rgba(58, 87, 135, 0.45)",
           height: "100%",
           width: "100%",
         }}
       >
-        <div className="text-container text-white text-center p-5">
+        <div className="text-container text-white text-center p-md-5 p-1">
           <h1 style={{ fontSize: "3rem" }}>
             Looking to rent a Yard, parking space or Tennis Court for an Hour or
             more!!
@@ -34,7 +34,7 @@ const MainBanner = () => {
           </p>
         </div>
         <div className="formInput-container container w-75">
-          <Form className="d-flex">
+          <Form className="d-flex flex-md-row flex-column">
             <Form.Control
               style={{ outline: "none", borderRadius: "0", padding: "1rem" }}
               size="lg"
