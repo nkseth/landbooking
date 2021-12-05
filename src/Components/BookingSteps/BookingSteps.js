@@ -24,7 +24,7 @@ const BookingSteps = () => {
     },
   ];
   return (
-    <div className="bookind-steps-container my-5 p-5">
+    <div className="bookind-steps-container my-5 container">
       <div
         className="heading-container text-center"
         style={{ color: "#334E6F" }}
@@ -40,11 +40,11 @@ const BookingSteps = () => {
       <div className="cards-container d-flex justify-content-center align-items-top flex-wrap">
         {StepsData.map((item, index) => {
           return (
-            <div className="step-card mx-lg-3 mx-md-1 mx-sm-0 my-3" key={index}>
+            <div className="step-card mx-lg-3 mx-md-1 mx-sm-0 my-5" key={index}>
               <Card
                 className="d-flex flex-column justify-content-center align-items-center"
                 sx={{
-                  width: 400,
+                  width: 350,
                   boxShadow: "none",
                 }}
               >
@@ -68,10 +68,10 @@ const BookingSteps = () => {
                   className="text-center"
                   style={{ color: "#334E6F" }}
                 >
-                  <Typography gutterBottom variant="h6" component="div">
+                  <Typography gutterBottom variant="h6">
                     {item.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="subtitle2" color="text.secondary">
                     {item.desc}
                   </Typography>
                 </CardContent>

@@ -33,7 +33,7 @@ const Testimonials = () => {
         backgroundImage: `url(${Testimonialbg})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        backgroundPosition: "top",
+        backgroundPosition: "center",
       }}
     >
       <div
@@ -56,6 +56,7 @@ const Testimonials = () => {
                 className="d-flex flex-column justify-content-center align-items-center"
                 sx={{
                   boxShadow: "none",
+                  backgroundColor: "#ffffff00",
                 }}
               >
                 <CardContent className="d-flex justify-content-center">

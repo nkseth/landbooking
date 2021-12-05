@@ -9,22 +9,25 @@ const PopularListing = () => {
       imageSrc:
         "https://st.hzcdn.com/simgs/pictures/patios/keir-residence-true-north-architects-img~f5c174fe00f33ac2_8-4265-1-1305ad9.jpg",
       location: "Bishop Avenue, Newyork",
+      amount: "140$",
     },
     {
       title: "Tennis Court",
       imageSrc:
         "https://tigerturf.com/in/wp-content/uploads/2019/11/How-to-build-a-tennis-court.jpg",
       location: "Bishop Avenue, Newyork",
+      amount: "140$",
     },
     {
       title: "Basket Ball Court",
       imageSrc:
         "https://www.versacourt.com/cmss_files/photogallery/structure/Residential_Basketball_Courts/image57726.jpg",
       location: "Bishop Avenue, Newyork",
+      amount: "140$",
     },
   ];
   return (
-    <div className="popular-listing m-5">
+    <div className="popular-listing my-5">
       <div
         className="heading-container text-center"
         style={{ color: "#334E6F" }}
@@ -42,6 +45,7 @@ const PopularListing = () => {
                 title={item.title}
                 subTitle={item.location}
                 imageSrc={item.imageSrc}
+                amount={item.amount}
               />
             </div>
           );

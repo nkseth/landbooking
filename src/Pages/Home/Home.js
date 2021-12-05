@@ -4,6 +4,7 @@ import {
   PopularListing,
   BookingSteps,
   Testimonials,
+  Modal,
 } from "../../Components";
 
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
     <div>
       <MainBanner />
       <PopularListing />
+      <Modal />
       <BookingSteps />
       <Testimonials />
     </div>
