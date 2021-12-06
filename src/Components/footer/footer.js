@@ -1,5 +1,5 @@
 import React from "react";
-import "./footer.css";
+import "./Footer.css";
 const Footer = () => {
   return (
     <footer className="footer dark-footer dark-bg">
