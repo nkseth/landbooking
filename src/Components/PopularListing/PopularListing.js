@@ -27,9 +27,9 @@ const PopularListing = () => {
     },
   ];
   return (
-    <div className="popular-listing my-5">
+    <div className="popular-listing " style={{ margin: "5rem 0" }}>
       <div
-        className="heading-container text-center"
+        className="heading-container text-center "
         style={{ color: "#334E6F" }}
       >
         <h1>

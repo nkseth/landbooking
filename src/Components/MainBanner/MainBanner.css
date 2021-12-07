@@ -1,0 +1,21 @@
+.text-container {
+  padding: 5rem 7rem 2rem 7rem;
+}
+.text-container h1 {
+  font-size: 2.8rem;
+}
+.form-inputs {
+  width: 75%;
+}
+
+@media (max-width: 786px) {
+  .text-container {
+    padding: 1.5rem;
+  }
+  .text-container h1 {
+    font-size: 2.2rem;
+  }
+  .form-inputs {
+    width: 90vw;
+  }
+}

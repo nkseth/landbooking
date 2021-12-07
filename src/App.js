@@ -5,13 +5,13 @@ import { Header, Footer } from "./Components";
 
 function App() {
   return (
-    <>
+    <div className="app">
       <Router>
         <Header />
         <Routes />
         <Footer />
       </Router>
-    </>
+    </div>
   );
 }
 

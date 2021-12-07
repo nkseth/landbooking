@@ -3,7 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import Bannerbg from "../../assets/title-bg.jpg";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import FilterNoneOutlinedIcon from "@mui/icons-material/FilterNoneOutlined";
-
+import "./MainBanner.css";
 const MainBanner = () => {
   return (
     <div
@@ -26,17 +26,27 @@ const MainBanner = () => {
           width: "100%",
         }}
       >
-        <div className="text-container text-white text-center p-md-5 p-2 py-4">
-          <h1 style={{ fontSize: "2.6rem", letterSpacing: 2, wordSpacing: 3 }}>
+        <div className="text-container text-white text-center">
+          <h1
+            style={{
+              fontWeight: 550,
+              letterSpacing: 1.3,
+              wordSpacing: 3,
+            }}
+          >
             Looking to rent a Yard, parking space or Tennis Court for an Hour or
             more!!
           </h1>
-          <p>
+          <p
+            style={{
+              color: "#DFE1E7",
+            }}
+          >
             You Are At The Right Place. Lets Go Ahead And Grab The Best Deal
           </p>
         </div>
-        <div className="formInput-container container">
-          <Form className="d-flex flex-md-row flex-column w-75">
+        <div className="form-container container d-flex justify-content-center">
+          <Form className="d-flex flex-md-row flex-column form-inputs">
             <div className="d-flex justify-content-center align-items-center bg-white w-100 py-0 px-2 my-1">
               <LocationOnOutlinedIcon
                 className="d-flex justify-content-end"
@@ -88,12 +98,13 @@ const MainBanner = () => {
               style={{
                 backgroundColor: "#1EFFAC",
                 color: "white",
-                borderRadius: "0 5px 5px 0",
+                borderRadius: 0,
                 boxShadow: "none",
+                fontSize: "22px",
               }}
-              className=" px-5 p-2 my-1"
+              className="button px-5 p-1 my-1"
             >
-              <h4 style={{ fontWeight: 300 }}>Search</h4>
+              Search
             </Button>
           </Form>
         </div>

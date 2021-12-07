@@ -7,6 +7,7 @@ import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import "./Listing.css";
 
 const Listing = () => {
   const ListingData = [
@@ -66,7 +67,7 @@ const Listing = () => {
           height: "40vh",
           width: "100vw",
           position: "relative",
-          marginBottom: "10rem",
+          marginBottom: "12rem",
         }}
       >
         <div
@@ -85,55 +86,37 @@ const Listing = () => {
               LISTING
             </p>
           </div>
-          <div
-            className="formInput-container container w-75 p-md-4 p-3"
-            style={{
-              backgroundColor: "white",
-              borderRadius: "5px",
-              boxShadow: " 0px 0px 5px 0px rgba(120,115,115,0.75)",
-              position: "absolute",
-              bottom: "-18vh",
-            }}
-          >
-            <div className="text-center mb-4" style={{ color: "#334E6F" }}>
+          <div className="formInput-container ">
+            <div className="text-center mb-2" style={{ color: "#334E6F" }}>
               <h3>Search For Listing</h3>
             </div>
             <Form className="d-flex justify-content-center align-items-center flex-md-row flex-column">
               <Form.Control
-                style={{
-                  outline: "none",
-                  boxShadow: "none",
-                  borderRadius: "0",
-                  padding: "10px",
-                }}
                 size="lg"
-                type="location"
-                placeholder="Location"
-                className="m-2 w-90"
+                type="dropdown"
+                placeholder="Location.."
+                className="m-2 w-90 p-3 form-input"
+                id="form-input"
               />
               <Form.Control
-                style={{
-                  outline: "none",
-                  borderRadius: "0",
-                  boxShadow: "none",
-                }}
                 size="lg"
                 type="dropdown"
                 placeholder="Choose Category"
-                className="m-2 w-90"
+                className="m-2 w-90 p-3 form-input"
+                id="form-input"
               />
               <Button
                 variant="btn "
-                className="m-2 "
+                className="m-2 button"
                 style={{
-                  padding: "5px 30px",
+                  padding: "14px 50px",
                   backgroundColor: "#1EFFAC",
                   color: "white",
                   borderRadius: "0",
                   boxShadow: "none",
                 }}
               >
-                <h4>Search</h4>
+                Search
               </Button>
             </Form>
           </div>

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import Signup from "./Signup";
+import Login from "../Modal/Modal";
+
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-const LBModal = () => {
+
+const Signup = () => {
   const [show, setShow] = useState(false);
   return (
     <>
@@ -46,7 +48,7 @@ const LBModal = () => {
             style={{ color: "#334E6F" }}
           >
             <h1>
-              Welcome <span style={{ color: "#1EFFAC" }}>Back!</span>
+              Hi Mate!<span style={{ color: "#1EFFAC" }}> How are you?</span>
             </h1>
           </div>
           <div className="py-4 px-3">
@@ -96,8 +98,8 @@ const LBModal = () => {
               </Button>
             </div>
             <div className="text-center ">
-              <p className="m-0">Don't have an account</p>
-              <Signup />
+              <p className="m-0">Already Have an Acoount</p>
+              <Login />
             </div>
           </div>
         </Modal.Body>
@@ -106,4 +108,4 @@ const LBModal = () => {
   );
 };
 
-export default LBModal;
+export default Signup;
