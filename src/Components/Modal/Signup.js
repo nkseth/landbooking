@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import Login from "../Modal/Modal";
-
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
@@ -14,17 +11,14 @@ const Signup = () => {
         variant="btn"
         style={{
           height: "100%",
-          padding: "17px 50px",
-          backgroundColor: "#1EFFAC",
-          color: "white",
+          color: "#1EFFAC",
           boxShadow: "none",
           fontSize: "14px",
           borderRadius: 0,
         }}
         onClick={() => setShow(true)}
       >
-        <PersonOutlineIcon style={{ color: "#FFC8B8" }} />
-        Login/Signup
+        Create an Account
       </Button>
 
       <Modal
@@ -52,7 +46,7 @@ const Signup = () => {
             </h1>
           </div>
           <div className="py-4 px-3">
-            <div className="my-2">
+            <div className="my-3">
               <Form.Label style={{ fontWeight: 500, color: "#798092" }}>
                 User Name
               </Form.Label>
@@ -60,10 +54,10 @@ const Signup = () => {
                 size="lg"
                 type="text"
                 placeholder="username"
-                style={{ fontSize: "16px" }}
+                style={{ fontSize: "16px", boxShadow: "none" }}
               />
             </div>
-            <div className="my-2">
+            <div className="my-3">
               <Form.Label style={{ fontWeight: 500, color: "#798092" }}>
                 Password
               </Form.Label>
@@ -71,13 +65,35 @@ const Signup = () => {
                 size="lg"
                 type="password"
                 placeholder="********"
-                style={{ fontSize: "16px" }}
+                style={{ fontSize: "16px", boxShadow: "none" }}
+              />
+            </div>
+            <div className="my-3">
+              <Form.Label style={{ fontWeight: 500, color: "#798092" }}>
+                Confirm Password
+              </Form.Label>
+              <Form.Control
+                size="lg"
+                type="password"
+                placeholder="********"
+                style={{ fontSize: "16px", boxShadow: "none" }}
+              />
+            </div>
+            <div className="my-3">
+              <Form.Control
+                size="lg"
+                type="Dropdown"
+                placeholder="Register as a.."
+                style={{ fontSize: "16px", boxShadow: "none" }}
               />
             </div>
             <div className="my-2">
               <FormControlLabel
                 control={
-                  <Checkbox defaultChecked style={{ color: "#1EFFAC" }} />
+                  <Checkbox
+                    defaultChecked
+                    style={{ color: "#1EFFAC", boxShadow: "none" }}
+                  />
                 }
                 label="Keep me Signed in"
               />
@@ -94,12 +110,23 @@ const Signup = () => {
                   borderRadius: "1.9rem",
                 }}
               >
-                Login
+                Sign Up
               </Button>
             </div>
             <div className="text-center ">
-              <p className="m-0">Already Have an Acoount</p>
-              <Login />
+              <p className="m-0">Already Have an Acoount?</p>
+              <Button
+                variant="btn"
+                style={{
+                  height: "100%",
+                  color: "#1EFFAC",
+                  boxShadow: "none",
+                  borderRadius: "1.9rem",
+                }}
+                onClick={() => setShow(false)}
+              >
+                Login
+              </Button>
             </div>
           </div>
         </Modal.Body>

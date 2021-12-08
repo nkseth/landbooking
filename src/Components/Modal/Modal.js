@@ -61,7 +61,7 @@ const LBModal = () => {
                 style={{ fontSize: "16px" }}
               />
             </div>
-            <div className="my-2">
+            <div className="my-3">
               <Form.Label style={{ fontWeight: 500, color: "#798092" }}>
                 Password
               </Form.Label>
@@ -72,7 +72,7 @@ const LBModal = () => {
                 style={{ fontSize: "16px" }}
               />
             </div>
-            <div className="my-2">
+            <div className="my-3">
               <FormControlLabel
                 control={
                   <Checkbox defaultChecked style={{ color: "#1EFFAC" }} />
