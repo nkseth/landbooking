@@ -1,5 +1,6 @@
 import React from "react";
 import { Rating, Typography } from "@mui/material";
+import "./Reviews.css";
 
 const Reviews = () => {
   const ReviewData = [
@@ -41,29 +42,10 @@ const Reviews = () => {
       </div>
       {ReviewData.map((item, index) => {
         return (
-          <div className="review-container " key={index}>
-            <div
-              className="owner-card-container d-flex justify-content-start align-items-start"
-              style={{
-                backgroundColor: "white",
-                borderRadius: "5px",
-                padding: "2rem",
-                borderBottom: "1px solid #eaeff5",
-              }}
-            >
-              <div
-                className="owner-img mx-2"
-                style={{ width: "5rem", height: "5rem", borderRadius: "50%" }}
-              >
-                <img
-                  src={item.image}
-                  alt=""
-                  style={{
-                    width: "5rem",
-                    height: "5rem",
-                    borderRadius: "50%",
-                  }}
-                />
+          <div className="reviews-container " key={index}>
+            <div className="review-container d-flex justify-content-start align-items-start">
+              <div className="owner-img mx-1 mx-md-2">
+                <img src={item.image} alt="" className="owner-image" />
               </div>
               <div
                 className="name-container  mx-2"

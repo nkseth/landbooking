@@ -18,18 +18,18 @@ const Location = () => {
             <b>Location</b>{" "}
           </Typography>
         </div>
-        <div>
+      </div>
+      <div
+        className=" d-flex flex-column align-items-start my-3"
+        style={{ color: "#334E6F", fontSize: "14px" }}
+      >
+        <div className="my-2">
           <LocationOnOutlinedIcon style={{ fontSize: "18px" }} />
           <Typography variant="subtitle2 " style={{ fontSize: "14px" }}>
             {" "}
             171 Greenwich St QCH7
           </Typography>
         </div>
-      </div>
-      <div
-        className=" d-flex align-items-center"
-        style={{ color: "#334E6F", fontSize: "14px" }}
-      >
         <div className="mx-3">
           <Typography>
             <b> Share Listing</b>

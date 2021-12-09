@@ -25,7 +25,7 @@ const Reservation = () => {
         </div>
       </div>
       <div
-        className=" d-flex align-items-center"
+        className=" d-flex align-items-center "
         style={{ color: "#334E6F", fontSize: "14px" }}
       >
         <Form className="d-flex justify-content-center align-items-center flex-md-row flex-column">
@@ -44,13 +44,17 @@ const Reservation = () => {
           />
         </Form>
       </div>
-      <div className="counter-container d-flex align-items-center justify-content-between my-4">
-        <div className="counter1 d-flex flex-column align-items-start justify-content-center w-100">
-          <h6 className="mb-3">Adult</h6>
+      <div className="counter-container d-flex flex-md-row flex-column align-items-center justify-content-between my-4">
+        <div className="counter1 d-flex flex-column align-items-start justify-content-center w-100 my-3">
+          <h6 className="mb-3" style={{ color: "#334E6F" }}>
+            Adult
+          </h6>
           <Counter />
         </div>
-        <div className="counter2 d-flex flex-column align-items-start justify-content-center w-100">
-          <h6 className="mb-3">Children</h6>
+        <div className="counter2 d-flex flex-column align-items-start justify-content-center w-100 my-3">
+          <h6 className="mb-3" style={{ color: "#334E6F" }}>
+            Children
+          </h6>
           <Counter />
         </div>
       </div>

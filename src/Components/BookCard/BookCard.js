@@ -51,7 +51,11 @@ const BookCard = ({ title, subTitle, amount, imageSrc }) => {
             Booking Summary
           </Typography>
           <div className="date-timing my-2">
-            <Typography variant="body2" className="mb-2">
+            <Typography
+              variant="body2"
+              className="mb-2"
+              style={{ fontWeight: "bold" }}
+            >
               Your Dates
             </Typography>
             <div className="p-2">
@@ -66,7 +70,11 @@ const BookCard = ({ title, subTitle, amount, imageSrc }) => {
             </div>
           </div>
           <div className="stay-charges my-2">
-            <Typography variant="body2" className="mb-2">
+            <Typography
+              variant="body2"
+              className="mb-2"
+              style={{ fontWeight: "bold" }}
+            >
               Your Stay
             </Typography>
             <div className="p-2">
