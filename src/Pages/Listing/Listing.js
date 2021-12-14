@@ -55,7 +55,7 @@ const Listing = () => {
     },
   ];
   return (
-    <div id="listing" className="listing my-5">
+    <div id="listing" className="listing my-md-5 my-3">
       <div
         className="banner-container"
         style={{

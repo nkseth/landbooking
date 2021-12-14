@@ -47,7 +47,7 @@ const Accordian = () => {
       ],
     },
     {
-      title: "Credit / Debit Card",
+      title: "Credit/Debit Card",
       image: "https://webdesign.riolabz.com/yardcan/html/assets/img/credit.png",
       form: [
         {
@@ -97,7 +97,7 @@ const Accordian = () => {
             </Card.Header>
             <Accordion.Collapse eventKey={index}>
               <Card.Body>
-                <Form className="d-flex justify-content-start align-items-center flex-md-row flex-column flex-wrap w-100">
+                <Form className="d-flex justify-content-start align-items-md-center align-items-start flex-md-row flex-column flex-wrap w-100">
                   {item?.form.map((item, index) => {
                     return (
                       <div

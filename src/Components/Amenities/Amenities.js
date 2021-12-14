@@ -36,7 +36,7 @@ const Amenities = () => {
         {AmenitiesData.map((item, index) => {
           return (
             <div
-              className="overview p-3 d-flex justify-content-center align-items-center mx-4"
+              className="overview p-1 p-md-3 d-flex justify-content-center align-items-center mx-2 mx-md-4"
               style={{ color: "#334E6F", fontSize: "16px" }}
               key={index}
             >
