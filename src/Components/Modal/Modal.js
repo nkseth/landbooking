@@ -4,8 +4,19 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import Signup from "./Signup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { useDispatch, useSelector } from "react-redux";
+import {login} from '../../redux/slices/user'
 const LBModal = () => {
   const [show, setShow] = useState(false);
+  const dispatch=useDispatch()
+ const [logininfo,setlogininfo]=useState({un:'',pass:""})
+
+
+const onLogin=()=>{
+  dispatch(login(logininfo.un,logininfo.pass))
+}
+const userdata=useSelector((state)=>state.data)
+
   return (
     <>
       <Button
@@ -28,7 +39,7 @@ const LBModal = () => {
       <Modal
         size="lg"
         show={show}
-        onHide={() => setShow(false)}
+        onHide={() => {setShow(false)}}
         dialogClassName="modal-150w"
         aria-labelledby="example-custom-modal-styling-title"
       >
@@ -58,6 +69,8 @@ const LBModal = () => {
                 size="lg"
                 type="text"
                 placeholder="username"
+                value={logininfo.un}
+                onChange={(e)=>{setlogininfo({...logininfo,un:e.target.value})}}
                 style={{ fontSize: "16px" }}
               />
             </div>
@@ -68,6 +81,8 @@ const LBModal = () => {
               <Form.Control
                 size="lg"
                 type="password"
+                value={logininfo.pass}
+                onChange={(e)=>{setlogininfo({...logininfo,pass:e.target.value})}}
                 placeholder="********"
                 style={{ fontSize: "16px" }}
               />
@@ -90,7 +105,9 @@ const LBModal = () => {
                   color: "white",
                   boxShadow: "none",
                   borderRadius: "1.9rem",
+                  
                 }}
+                onClick={()=>{onLogin();setShow(false)}}
               >
                 Login
               </Button>
