@@ -1,0 +1,32 @@
+.formInput-container {
+  width: 75vw;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 1px rgb(71 85 95 / 8%);
+  position: absolute;
+  bottom: -16vh;
+  padding: 2.3rem 0.8rem;
+}
+#form-input {
+  outline: none;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 14px;
+  background-color: #fbfdff;
+}
+#form-input:hover,
+#form-input:focus {
+  border: 1px solid #f7628f;
+  transition: ease-in-out 0.15s;
+}
+@media (max-width: 900px) {
+  .formInput-container {
+    width: 90vw;
+    bottom: -32vh;
+    padding: 1.5rem 0.8rem;
+  }
+  .button {
+    width: 100%;
+    padding: "12px 50px";
+  }
+}

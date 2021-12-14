@@ -1,0 +1,27 @@
+.owner-card-container {
+  visibility: visible;
+}
+.banner-btns-container {
+  margin-right: 7rem;
+}
+.short-list {
+  visibility: visible;
+}
+.short-list-btn {
+  color: white;
+  background-color: #ffffff00;
+  border: 1px solid white;
+  padding: 0.75rem 1.4rem;
+  border-radius: 0;
+}
+@media (max-width: 768px) {
+  .owner-card-container {
+    visibility: hidden;
+  }
+  .banner-btns-container {
+    margin-right: 1rem;
+  }
+  .short-list {
+    display: none;
+  }
+}

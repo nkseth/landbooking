@@ -28,7 +28,7 @@ const Testimonials = () => {
   ];
   return (
     <div
-      className="testimonial-container my-5 p-lg-5 p-md-5 p-1"
+      className="testimonial-container my-5 p-lg-5 p-md-5 p-2"
       style={{
         backgroundImage: `url(${Testimonialbg})`,
         backgroundRepeat: "no-repeat",
@@ -37,7 +37,7 @@ const Testimonials = () => {
       }}
     >
       <div
-        className="heading-container text-center"
+        className="heading-container text-center p-1"
         style={{ color: "#334E6F" }}
       >
         <h1>

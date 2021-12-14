@@ -1,0 +1,19 @@
+.card-container {
+  width: 23vw;
+}
+
+@media (max-width: 1245px) {
+  .card-container {
+    width: 35vw;
+  }
+}
+@media (max-width: 900px) {
+  .card-container {
+    width: 50vw;
+  }
+}
+@media (max-width: 666px) {
+  .card-container {
+    width: 90vw;
+  }
+}

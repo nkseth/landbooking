@@ -1,8 +1,15 @@
 import * as React from "react";
 
 import Card from "../Card/Card";
+import {getlisting} from '../../redux/slices/popularlisting'
+import { useDispatch, useSelector } from "react-redux";
 
 const PopularListing = () => {
+  const dispatch=useDispatch()
+  const data=useSelector((state) => state.popularlisting);
+  React.useEffect(()=>{
+dispatch(getlisting())
+  },[])
   const ListingData = [
     {
       title: "Yard Can in NewYork",
@@ -27,9 +34,10 @@ const PopularListing = () => {
     },
   ];
   return (
-    <div className="popular-listing my-5">
+    <div className="popular-listing " style={{ margin: "5rem 0" }}>
+      {console.log(data)}
       <div
-        className="heading-container text-center"
+        className="heading-container text-center "
         style={{ color: "#334E6F" }}
       >
         <h1>

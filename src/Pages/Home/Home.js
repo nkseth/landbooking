@@ -4,15 +4,13 @@ import {
   PopularListing,
   BookingSteps,
   Testimonials,
-  Modal,
 } from "../../Components";
 
 const Home = () => {
   return (
-    <div>
+    <div style={{maxWidth:"100vw"}}>
       <MainBanner />
       <PopularListing />
-      <Modal />
       <BookingSteps />
       <Testimonials />
     </div>

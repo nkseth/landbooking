@@ -8,15 +8,22 @@ import {
   Button,
   Rating,
 } from "@mui/material";
+import "./Card.css";
+import { Link } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 const Cards = ({ title, subTitle, amount, imageSrc }) => {
   return (
-    <div className="card mx-lg-3 my-3">
-      <Card sx={{ width: 350 }}>
+    <div className="card mx-lg-3 my-3 px-2" style={{ border: "none" }}>
+      <Card
+        sx={{
+          boxShadow: " 0px 0px 10px 1px rgb(71 85 95 / 8%)",
+        }}
+        className="card-container"
+      >
         <div className="p-0 position-relative">
           <CardMedia
             component="img"
-            height="200"
+            sx={{ width: "100%", height: "25vh", objectFit: "cover" }}
             image={imageSrc}
             alt="green iguana"
           />
@@ -56,9 +63,14 @@ const Cards = ({ title, subTitle, amount, imageSrc }) => {
           <Typography variant="body2">{subTitle}</Typography>
         </CardContent>
         <CardActions className="d-flex justify-content-between border-top p-1">
-          <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-          <Button size="small" style={{ color: "#1EFFAC" }}>
-            View Details
+          <Rating name="half-rating" defaultValue={3} precision={1} />
+          <Button size="small">
+            <Link
+              to="./view-detail"
+              style={{ color: "#1EFFAC", textDecoration: "none" }}
+            >
+              View Details
+            </Link>
           </Button>
         </CardActions>
       </Card>
