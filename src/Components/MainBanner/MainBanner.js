@@ -4,10 +4,23 @@ import Bannerbg from "../../assets/title-bg.jpg";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import FilterNoneOutlinedIcon from "@mui/icons-material/FilterNoneOutlined";
 import "./MainBanner.css";
+import { useDispatch, useSelector } from "react-redux";
+import {login} from '../../redux/slices/user'
 const MainBanner = () => {
+  const dispatch=useDispatch()
+  React.useEffect(()=>{
+    // dispatch(login())
+  },[])
+
+  const data = useSelector((state) => state.user);
+
+  React.useEffect(()=>{
+   console.log(data)
+  },[data])
+ 
   return (
     <div
-      className="home-banner mt-5"
+      className="home-banner"
       style={{
         backgroundImage: `url(${Bannerbg})`,
         backgroundRepeat: "no-repeat",
@@ -15,23 +28,34 @@ const MainBanner = () => {
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
         height: "100vh",
-        width: "100vw",
+        maxWidth:'100vw',
+        color:'white',
+        marginTop: "0px",
+        padding: "0px"
       }}
     >
       <div
-        className="content-container  p-md-5 p-2"
+        className="content-container p-md-2 "
         style={{
           backgroundColor: "rgba(58, 87, 135, 0.45)",
           height: "100%",
           width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+         
+        
         }}
       >
-        <div className="text-container text-white text-center">
+        <div className="text-container text-white text-center  ">
           <h1
             style={{
               fontWeight: 550,
               letterSpacing: 1.3,
               wordSpacing: 3,
+              color: 'white',
+              marginTop:'20px',
+              marginTop:'-100px'
             }}
           >
             Looking to rent a Yard, parking space or Tennis Court for an Hour or
@@ -103,6 +127,7 @@ const MainBanner = () => {
                 fontSize: "22px",
               }}
               className="button px-5 p-1 my-1"
+              onClick={login}
             >
               Search
             </Button>

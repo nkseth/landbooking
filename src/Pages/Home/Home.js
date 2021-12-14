@@ -8,7 +8,7 @@ import {
 
 const Home = () => {
   return (
-    <div>
+    <div style={{maxWidth:"100vw"}}>
       <MainBanner />
       <PopularListing />
       <BookingSteps />

@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { Grid,Box } from "@mui/material";
 import { BookCard, PaymentForm } from "../../Components";
 
 const BookNow = () => {
@@ -13,16 +13,21 @@ const BookNow = () => {
     },
   ];
   return (
-    <div style={{ marginTop: "3.5rem" }}>
+    
       <Grid
         container
-        spacing={3}
-        sx={{ display: "flex", justifyContent: "center" }}
+        
+        mt={6}
+justifyContent='center'
+
+        sx={{ display: "flex", justifyContent: "center" ,width: "100%",}}
       >
-        <Grid item xs={11} md={6}>
+        <Grid  container style={{}} justifyContent="center">
+        <Grid item xs={11} md={6} container justifyContent="center">
           <PaymentForm />
         </Grid>
-        <Grid item xs={11} md={3}>
+        <Grid item xs={11} md={3} container  justifyContent="center" >
+          <Box style={{maxWidth:'80%',}}>
           {CardData.map((item, index) => {
             return (
               <BookCard
@@ -33,9 +38,11 @@ const BookNow = () => {
               />
             );
           })}
+          </Box>
+        </Grid>
         </Grid>
       </Grid>
-    </div>
+ 
   );
 };
 

@@ -2,16 +2,22 @@ import "./App.css";
 import Routes from "./Route";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Header, Footer } from "./Components";
-
+import {injectStore} from "./axios";
+import {store} from './redux/store'
 function App() {
+  injectStore(store);
   return (
-    <div className="app">
+    
+    <div style={{maxWidth:"100vw",width:'100%',overflowX:"hidden"}}>
+     
       <Router>
         <Header />
         <Routes />
-        <Footer />
+       
       </Router>
+     
     </div>
+ 
   );
 }
 
