@@ -1,8 +1,9 @@
 import axios from 'axios';
-import {nulluser} from './redux/slices/user'
+import {nulluser,renewtoken} from './redux/slices/user'
 import moment from 'moment';
+import {baseurl} from './config'
 // ----------------------------------------------------------------------
-const baseurl = 'https://yardcan.riolabz.com/';
+
 
 // const axiosInstance = axios.create();
 // axiosInstance.interceptors.response.use(
@@ -22,14 +23,24 @@ export const injectStore = _store => {
 }
 
 axiosInstance.interceptors.request.use(config => {
-    
-    const state=store.getState().user
-    console.log(state)
-    if(state.user!==null){
-     config.headers.authorization = state.user.tokens.access
+
+  const state=store.getState().user
+  
+if(state.user!==null){
+   if(moment(state.user?.tokens?.refresh?.expiresAt).diff(moment(),'seconds')>10){
+
+    if(moment(state.user?.tokens?.access?.expiresAt).diff(moment(),'seconds')<10)
+    {
+      config.headers.authorization = `Bearer ${state.user.tokens.refresh.value}`
+      store.dispatch(renewtoken(state.fcmtoken));
     }
- 
- // store.dispatch(nulluser())
+   else{ 
+    
+     config.headers.authorization = `Bearer ${state.user.tokens.access.value}`
+    
+  }
+   } else store.dispatch(nulluser())
+  }
   return config
 })
 

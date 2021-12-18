@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {message} from '../../fireabse'
 import axios from "../../axios";
 const initialState = {
   isLoading: false,
   error: false,
   user:null,
- validation:null
+ validation:null,
+ fcmtoken:null,
 };
 
 const slice = createSlice({
@@ -44,6 +46,13 @@ const slice = createSlice({
       state.user = null
     },
 
+    fcmtokenupdate(state, action) {
+      state.user.fcmtoken = action.payload
+    },
+ 
+    settingtokens(state,action){
+      state.user.tokens=action.payload
+    }
    
   },
 });
@@ -64,16 +73,22 @@ return async (dispatch)=>{
 }).then(async (res)=>{
   console.log(res)
   dispatch(slice.actions.userdetails(res.data.data))
+message.getToken({vapidKey:'BOIjFPKNQYl0YHeWETsCqh0Fh9UbTG4V9EalDPldQ9IBCdZyShSi8WG0dipZX4mvC7Zc0GzPK9QsVCxivhDdelk'})
+.then(async(currentoken)=>{
+console.log(currentoken);
+dispatch(slice.actions.fcmtokenupdate(currentoken))
 
-  await axios({
-    method: 'put',
-    url: '/api/v1/auth/token/fcm/update',
-    headers:{
-      'Authorization':`Bearer ${res.data.data.tokens.access.value}`
-  }
-  }).then((res)=>{
-    console.log(res)
-  
+await axios({
+  method: 'put',
+  url: '/api/v1/auth/token/fcm/update',
+ data:{fcmToken:currentoken}
+}).then((res)=>{
+  console.log(res)
+ 
+})
+
+}).catch((err)=>{
+  console.log(err)
 })
 
 
@@ -88,9 +103,7 @@ export const logout=(token)=>{
     return await axios({
     method: 'post',
     url: '/api/v1/auth/logout',
-    headers:{
-      'Authorization':`Bearer ${token.value}`
-  }
+   
   }).then((res)=>{
     console.log(res)
   dispatch(slice.actions.userdetails(null))
@@ -145,22 +158,18 @@ export const logout=(token)=>{
         }
         }
 
-        export const renewtoken=({,verificationId},token,type)=>{
+        export const renewtoken=(token)=>{
           return async (dispatch)=>{
             return await axios({
-            method: 'post',
-            url: '/api/v1/user/verification/token/validate',
+            method: 'put',
+            url: '/api/v1/auth/token/access/renew',
           data:{
-            userId,
-            verificationId,
-            token,
+           fcmToken:token,
           }
           }).then((res)=>{
             console.log(res)
-          dispatch(slice.actions.validate(null))
-    
-          dispatch(slice.actions.validateuserdata(type))
-          
+      
+          dispatch(slice.actions.settingtokens(res.data.data.tokens))
                 })
           }
           }

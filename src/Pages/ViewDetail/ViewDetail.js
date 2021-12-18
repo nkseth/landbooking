@@ -13,8 +13,22 @@ import {
   Gallery,
   Reservation,
 } from "../../Components";
-
+import { useParams } from 'react-router-dom';
+import { useSelector,useDispatch } from "react-redux";
+import { viewdetailsprivate, viewdetailspublic } from "../../redux/slices/popularlisting";
 const ViewDetail = () => {
+const dispatch=useDispatch()
+const data =useSelector((state) => state.popularlisting)
+const user =useSelector((state) => state.user)
+const {id}=useParams()
+  console.log(id)
+
+   React.useEffect(()=>{
+     if(user.user) dispatch(viewdetailsprivate(id))
+    else dispatch(viewdetailspublic(id))
+   
+   },[user.user])
+   console.log(data.listingdetails)
   return (
     <div id="listing" className="listing my-md-5 my-3">
       <div

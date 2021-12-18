@@ -17,8 +17,8 @@ const Listing = () => {
     
   }
  const  onverfyclick=(type)=>{
-   console.log("ndaksdnka")
-    dispatch(phoneandemailv(type,data.user.user?.uuid))
+  
+    dispatch(phoneandemailv(type,data.user?.user?.uuid))
   }
   return (
     <section className="padd-0" style={{marginTop:'150px'}}>
@@ -49,8 +49,8 @@ const Listing = () => {
               <div className="col-sm-6">
               <div style={{display: 'flex',alignItems:'center'}}>
                 <input type="email" className="form-control" defaultValue="nanaksethh@gmail.com" />
-               {console.log(data.user.user)}
-                { data.user.user?.emailVerified?<img src="https://img.icons8.com/color/48/000000/verified-account.png" alt="verified"/>:
+              
+                { data.user?.user?.emailVerified?<img src="https://img.icons8.com/color/48/000000/verified-account.png" alt="verified"/>:
                 <Button  variant="outline-primary" style={{width:'150px',height:'40px',marginLeft:'5px'}}
                 onClick={()=>{onverfyclick(1);setshow(true);settype(1)}}
                 >Verify</Button>
@@ -61,8 +61,8 @@ const Listing = () => {
                 <label>Phone</label>
                 <div style={{display: 'flex',alignItems:'center'}}>
                 <input type="text" className="form-control" defaultValue="91 703 4448 855  " />
-               {console.log(data.user.user)}
-                { data.user.user?.phoneVerified?<img src="https://img.icons8.com/color/48/000000/verified-account.png" alt="verified"/>:
+              
+                { data.user?.user?.phoneVerified?<img src="https://img.icons8.com/color/48/000000/verified-account.png" alt="verified"/>:
                 <Button  variant="outline-primary" style={{width:'150px',height:'40px',marginLeft:'5px'}}
                 onClick={()=>{onverfyclick(2);setshow(true);settype(2)}}
                 >Verify</Button>

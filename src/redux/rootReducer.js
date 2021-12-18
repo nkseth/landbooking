@@ -4,8 +4,9 @@ import storage from "redux-persist/lib/storage";
 import user from "./slices/user";
 import popularlisting from "./slices/popularlisting";
 // import productReducer from "./slices/product";
-
-
+import categories from "./slices/categories";
+import amenity from "./slices/amenity"
+import location from './slices/location'
 // ----------------------------------------------------------------------
 
 const rootPersistConfig = {
@@ -18,7 +19,10 @@ const rootPersistConfig = {
 
 const rootReducer = combineReducers({
  user,
- popularlisting
+ popularlisting,
+ categories,
+ amenity,
+ location
 });
 
 export { rootPersistConfig, rootReducer };
