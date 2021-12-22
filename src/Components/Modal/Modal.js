@@ -13,8 +13,8 @@ const LBModal = () => {
   const dispatch=useDispatch()
  const [logininfo,setlogininfo]=useState({un:'',pass:""})
 
-
 const onLogin=()=>{
+  
   dispatch(login(logininfo.un,logininfo.pass))
 
 }

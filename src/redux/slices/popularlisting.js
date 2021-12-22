@@ -1,25 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "../../axios";
+import {opensnackbar} from './user'
 const initialState = {
  
   listing:null,
- listingdetails:null
+ listingdetails:null,
+ hostedlisting:null,
+ reviews:null
 };
 
 const slice = createSlice({
   name: "popularlisting",
   initialState,
   reducers: {
-    // START LOADING
-    startLoading(state) {
-      state.isLoading = true;
-    },
-
-    // HAS ERROR
-    hasError(state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+  
 
     // GET PRODUCTS
    listing(state, action) {
@@ -29,6 +23,14 @@ const slice = createSlice({
     listingdetails(state, action) {
       state.isLoading = false;
       state.listingdetails = action.payload;
+    },
+    hostedlisting(state, action) {
+     
+      state.hostedlisting = action.payload;
+    },
+    reviews(state, action) {
+     
+      state.reviews = action.payload;
     },
   },
 });
@@ -47,6 +49,8 @@ return async (dispatch)=>{
  console.log("dasdasdasd",res)
   dispatch(slice.actions.listing(res.data.data))
 
+      }).catch((err)=>{
+        opensnackbar("error",err?.response?.data?.message) 
       })
 }
 }
@@ -62,6 +66,8 @@ export const getlistingpublic=()=>{
    console.log("dasdasdasd",res)
     dispatch(slice.actions.listing(res.data.data))
   
+        }).catch((err)=>{
+          opensnackbar("error",err?.response?.data?.message) 
         })
   }
   }
@@ -76,6 +82,8 @@ export const getlistingpublic=()=>{
      console.log("dasdasdasd",res)
       dispatch(slice.actions.listingdetails(res.data.data))
     
+          }).catch((err)=>{
+            opensnackbar("error",err?.response?.data?.message) 
           })
     }
     }
@@ -90,8 +98,47 @@ export const getlistingpublic=()=>{
        console.log("dasdasdasd",res)
         dispatch(slice.actions.listingdetails(res.data.data))
       
+            }).catch((err)=>{
+              opensnackbar("error",err?.response?.data?.message) 
             })
       }
       } 
   
+
+      export const viewhostedlisting=()=>{
+        return async (dispatch)=>{
+          return await axios({
+          method: 'get',
+          url: '/api/v1/venue/viewall/hosted',
+         
+          
+        }).then(async (res)=>{
+       
+
+        dispatch(slice.actions.hostedlisting(res.data.data))
+        
+              }).catch((err)=>{
+                dispatch(opensnackbar("error",err?.response?.data.message))
+              })
+        }
+        }
+
+        export const reviews=(id)=>{
+          return async (dispatch)=>{
+            return await axios({
+            method: 'get',
+            url: `/api/v1/review/${id}/viewall`,
+           
+            
+          }).then(async (res)=>{
+         
+  
+          dispatch(slice.actions.reviews(res.data.data))
+          
+                }).catch((err)=>{
+                  dispatch(opensnackbar("error",err?.response?.data.message))
+                })
+          }
+          }
+    
 

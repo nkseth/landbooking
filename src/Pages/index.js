@@ -5,4 +5,5 @@ export { default as ViewDetail } from "./ViewDetail/ViewDetail";
 export { default as BookNow } from "./BookNow/BookNow";
 export { default as ThankYou } from "./ThankYou/ThankYou";
 export {default as Addlisting} from "./Addlisting"
-export {default as Userlisting} from "./Userlisting"
+export {default as Userlisting} from "./Managelisiting"
+export {default as Editlisting} from "./editlisitng"

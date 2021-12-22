@@ -8,7 +8,8 @@ import { rootPersistConfig, rootReducer } from './rootReducer';
 
 const store = configureStore({
   reducer: persistReducer(rootPersistConfig, rootReducer),
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(logger),
+  
 });
 
 const persistor = persistStore(store);

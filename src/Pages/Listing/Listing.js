@@ -8,8 +8,19 @@ import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import "./Listing.css";
-
+import {getlistingpublic,getlistingprivate} from '../../redux/slices/popularlisting'
+import { useSelector,useDispatch } from "react-redux";
+import { baseurl } from "../../config";
 const Listing = () => {
+  const dispatch=useDispatch()
+  const data=useSelector((state) => state.popularlisting);
+  const user=useSelector((state) => state.user);
+  
+  React.useEffect(()=>{
+if(user.user) dispatch(getlistingprivate())
+
+dispatch(getlistingpublic())
+  },[user.user])
   const ListingData = [
     {
       title: "Yard Can in NewYork",
@@ -79,10 +90,10 @@ const Listing = () => {
           }}
         >
           <div className="text-container text-white text-center p-3">
-            <h1 style={{ fontSize: "3rem" }}>LISTING</h1>
-            <p>
+            <h1 style={{ fontSize: "3rem",color: "#FFFFFF" }}>LISTING</h1>
+            <p style={{color:'white'}}>
               <span style={{ color: "#1EFFAC" }}>HOME</span>{" "}
-              <ArrowForwardIosIcon sx={{ fontSize: "15px" }} />
+              <ArrowForwardIosIcon sx={{ fontSize: "15px",color: "#FFFFFF"}} />
               LISTING
             </p>
           </div>
@@ -124,14 +135,16 @@ const Listing = () => {
       </div>
 
       <div className="cards-container d-flex justify-content-center flex-wrap my-5">
-        {ListingData.map((item, index) => {
+        {data?.listing?.map((item, index) => {
           return (
             <div key={index}>
               <Card
-                title={item.title}
-                subTitle={item.location}
-                imageSrc={item.imageSrc}
-                amount={item.amount}
+                 title={item.title}
+                 subTitle={item.address}
+                 imageSrc={`${baseurl}${item.images[0]}`}
+                 amount={item.rent}
+                 rating={item.rating}
+                 id={item.uuid}
               />
             </div>
           );

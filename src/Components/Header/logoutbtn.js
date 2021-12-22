@@ -12,12 +12,12 @@ const Logout=()=>{
 
   React.useEffect(() => {
     window.addEventListener("scroll",()=>{
-        console.log("safsdf")
+    
         setopen(false)
     })
 
     window.addEventListener('mousedown', (event)=>{
-      console.log(event.target.id)
+    
       if(event.target.id!=="sol" || event.target.id!=="main")
       setopen(false)
     })
@@ -54,14 +54,14 @@ const dispatch=useDispatch()
       
       >
         
-       <Avatar style={{marginRight:'5px'}} src={`https://yardcan.riolabz.com/${state.user.user.displayImage.path}`}/> {state?.user?.user?.displayName}
+       <Avatar style={{marginRight:'5px'}} src={`https://yardcan.riolabz.com/${state.user?.user?.displayImage?.path}`}/> {state?.user?.user?.displayName}
       </Button>
 
       <div id="sol"
       onMouseLeave={()=>{setopen(false)}}
       className="ggi" style={{width:'250px',height:'300px',backgroundColor:'white',
       
-      position:'absolute',top:open?'55px':'20px',right:'0px',transition:'.7s ease-out',
+      position:'absolute',top:open?'55px':'20px',right:'0px',transition:'.5s ease-out',
       opacity:open?'1':'0',borderRadius:'10px 0px 0px 10px',
       zIndex:open?'1000':'-100'
       
@@ -69,21 +69,21 @@ const dispatch=useDispatch()
         <div style={{padding:'10px 15px',display:'flex',justifyContent: "center",alignItems:'flex-start',flexDirection:'column'}}>
       
         <Link  className="link"
-        style={{padding:'10px',width:'100%',borderBottom:'1px solid lightgray',fontWeight:'bold',color:'lightgray'}}
+        style={{padding:'10px',width:'100%',borderBottom:'1px solid lightgray',fontWeight:'bold',color:'gray'}}
         to='/addlisting'>Add Listing</Link>
         <Link  className="link"
-        style={{padding:'10px',width:'100%',borderBottom:'1px solid lightgray',fontWeight:'bold',color:'lightgray'}}
+        style={{padding:'10px',width:'100%',borderBottom:'1px solid gray',fontWeight:'bold',color:'gray'}}
         to='/userlisting'>Manage Listing</Link>
         <Link  className="link"
-        style={{padding:'10px',width:'100%',borderBottom:'1px solid lightgray',fontWeight:'bold',color:'lightgray'}}
+        style={{padding:'10px',width:'100%',borderBottom:'1px solid gray',fontWeight:'bold',color:'gray'}}
         to='/bookings'>Booking</Link>
         <Link  className="link"
-        style={{padding:'10px',width:'100%',borderBottom:'1px solid lightgray',fontWeight:'bold', color:'lightgray'}}
+        style={{padding:'10px',width:'100%',borderBottom:'1px solid gray',fontWeight:'bold', color:'gray'}}
         to='/editprofile'>Profile Edit</Link>
         <div  className="link"
           onClick={()=>{dispatch(logout(state.user.tokens.access))}}
         style={{padding:'10px',width:'100%',borderBottom:'1px solid #BFD1E5',fontWeight:'bold', 
-        color:'lightgray',cursor:'pointer'}}
+        color:'gray',cursor:'pointer'}}
         to='/addlisting'>Logout</div>
 
         </div>

@@ -5,7 +5,7 @@ import { useSelector,useDispatch } from "react-redux";
 import {getcategory} from '../../redux/slices/categories'
 import {amenity} from '../../redux/slices/amenity'
 import {locationfind,locationnull,locationfindll,locationlltz} from '../../redux/slices/location'
-import {addlisting} from '../../redux/slices/Addlisting'
+import {addlisting} from '../../redux/slices/managelisitings'
 import Addgallery from './Addgalary'
 const Listing = () => {
 const dispatch = useDispatch()

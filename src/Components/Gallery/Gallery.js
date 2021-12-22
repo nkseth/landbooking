@@ -1,18 +1,9 @@
 import React from "react";
 import CollectionsOutlinedIcon from "@mui/icons-material/CollectionsOutlined";
 import { Typography } from "@mui/material";
-const Gallery = () => {
-  const ImagesData = [
-    {
-      img: "https://st.hzcdn.com/simgs/pictures/patios/keir-residence-true-north-architects-img~f5c174fe00f33ac2_8-4265-1-1305ad9.jpg",
-    },
-    {
-      img: "https://www.versacourt.com/cmss_files/photogallery/structure/Residential_Basketball_Courts/image57726.jpg",
-    },
-    {
-      img: "https://www.versacourt.com/cmss_files/photogallery/structure/Residential_Basketball_Courts/image57726.jpg",
-    },
-  ];
+import {baseurl} from"../../config" 
+const Gallery = ({data}) => {
+  
   return (
     <div
       className="gallery-container p-2 my-4"
@@ -31,12 +22,12 @@ const Gallery = () => {
           </Typography>
         </div>
         <div className="d-flex justify-content-center align-items-center my-5">
-          {ImagesData.map((item, index) => {
+          {data?.map((item, index) => {
             return (
               <div key={index}>
                 <img
-                  src={item.img}
-                  style={{ width: "90%", borderRadius: "5px" }}
+                  src={`${baseurl}${item}`}
+                  style={{ width: "90%", borderRadius: "5px" ,maxWidth:'170px'}}
                   alt=""
                 />
               </div>

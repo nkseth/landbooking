@@ -6762,3 +6762,29 @@ a.cl-box {
     border-radius:100%
   }
 }
+
+.editlisting{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color:#1effac; 
+    border-radius:100%;
+   z-index: 100;
+   transition:'0.2s ease-in-out'
+    
+}
+
+.editlisting:hover{
+    color:white; 
+    background-color:#1effac
+}
+
+.slots{
+    
+}
+.slots:hover{
+    background-color:#1effac
+}
+.slotsactive{
+    background-color:#1effac
+}

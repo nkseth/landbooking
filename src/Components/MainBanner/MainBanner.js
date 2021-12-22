@@ -71,7 +71,7 @@ const MainBanner = () => {
         </div>
         <div className="form-container container d-flex justify-content-center">
           <Form className="d-flex flex-md-row flex-column form-inputs">
-            <div className="d-flex justify-content-center align-items-center bg-white w-100 py-0 px-2 my-1">
+            <div className="d-flex justify-content-center align-items-center bg-white w-100 py-0 px-2  " >
               <LocationOnOutlinedIcon
                 className="d-flex justify-content-end"
                 style={{ color: "#909DB4" }}
@@ -83,6 +83,8 @@ const MainBanner = () => {
                   boxShadow: "none",
                   fontSize: "15px",
                   border: "none",
+                  display:'flex',alignItems:'center',
+                  marginBottom:'0'
                 }}
                 size="lg"
                 type="location"
@@ -90,7 +92,7 @@ const MainBanner = () => {
                 className="py-md-4 py-2 px-0"
               />
             </div>
-            <div className="d-flex justify-content-center align-items-center bg-white border-start my-1 w-100 py-0 px-2 p-0">
+            <div className="d-flex justify-content-center align-items-center bg-white border-start  w-100 py-0 px-2 p-0">
               <FilterNoneOutlinedIcon
                 fontSize="small"
                 className="d-flex justify-content-end"
@@ -126,7 +128,7 @@ const MainBanner = () => {
                 boxShadow: "none",
                 fontSize: "22px",
               }}
-              className="button px-5 p-1 my-1"
+              className="button px-5 p-1 "
               onClick={login}
             >
               Search

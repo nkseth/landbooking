@@ -2,11 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import {message} from '../../fireabse'
 import axios from "../../axios";
 const initialState = {
-  isLoading: false,
+  isLoading: true,
   error: false,
   user:null,
  validation:null,
  fcmtoken:null,
+ snackbar:null,
 };
 
 const slice = createSlice({
@@ -17,25 +18,25 @@ const slice = createSlice({
     startLoading(state) {
       state.isLoading = true;
     },
+    stopLoading(state) {
+      state.isLoading = false;
+    },
 
     // HAS ERROR
-    hasError(state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+  
 
     // GET PRODUCTS
    userdetails(state, action) {
-      state.isLoading = false;
+      
       state.user = action.payload;
     },
 
     validate(state, action) {
-      state.isLoading = false;
+      
       state.validation = action.payload;
     },
     validateuserdata(state, action) {
-      state.isLoading = false;
+     
       if(action.payload===1)
       state.user.user.emailVerified = true
       if(action.payload===2)
@@ -52,6 +53,12 @@ const slice = createSlice({
  
     settingtokens(state,action){
       state.user.tokens=action.payload
+    },
+    closesnackbar(state,action){
+      state.snackbar=null
+    },
+    opensnackbar(state,action){
+      state.snackbar=action.payload
     }
    
   },
@@ -85,13 +92,18 @@ await axios({
 }).then((res)=>{
   console.log(res)
  
-})
-
+  dispatch(slice.actions.opensnackbar({type:"success",message:"Login successful"})) 
 }).catch((err)=>{
-  console.log(err)
+ 
+  dispatch(slice.actions.opensnackbar({type:"error",message:err?.response?.data?.message}))
+
+})
 })
 
 
+      }).catch((err)=>{
+  console.error(err.message)
+  dispatch(slice.actions.opensnackbar({type:"error",message:err?.response?.data?.message}))
       })
 }
 }
@@ -107,7 +119,9 @@ export const logout=(token)=>{
   }).then((res)=>{
     console.log(res)
   dispatch(slice.actions.userdetails(null))
-  
+  dispatch(slice.actions.opensnackbar({type:"success",message:"Logout successful"})) 
+        }).catch((err)=>{
+          dispatch(slice.actions.opensnackbar({type:"error",message:err?.response?.data?.message}))
         })
   }
   }
@@ -122,9 +136,12 @@ export const logout=(token)=>{
       type:type
     }
     }).then((res)=>{
+      dispatch(slice.actions.opensnackbar({type:"success",message:"Otp Send"})) 
       console.log(res.data.data)
     dispatch(slice.actions.validate(res.data.data))
     
+          }).catch((err)=>{
+            dispatch(slice.actions.opensnackbar({type:"error",message:err?.response?.data?.message}))
           })
     }
     }
@@ -142,9 +159,11 @@ export const logout=(token)=>{
       }).then((res)=>{
         console.log(res)
       dispatch(slice.actions.validate(null))
-
+      dispatch(slice.actions.opensnackbar({type:"success",message:"verification successful"})) 
       dispatch(slice.actions.validateuserdata(type))
       
+            }).catch((err)=>{
+              dispatch(slice.actions.opensnackbar({type:"error",message:err?.response?.data?.message}))
             })
       }
       }
@@ -153,23 +172,35 @@ export const logout=(token)=>{
         return async (dispatch)=>{
          console.log("wowo")
         dispatch(slice.actions.nulluser(null))
-  
+        dispatch(slice.actions.opensnackbar({type:"error",message:"your session has been expired"})) 
        
         }
         }
 
         export const renewtoken=(token)=>{
           return async (dispatch)=>{
-            return await axios({
-            method: 'put',
-            url: '/api/v1/auth/token/access/renew',
-          data:{
-           fcmToken:token,
+          
+            
+          dispatch(slice.actions.settingtokens(token.tokens))
           }
-          }).then((res)=>{
-            console.log(res)
-      
-          dispatch(slice.actions.settingtokens(res.data.data.tokens))
-                })
+        }
+
+          export const closesnackbar=()=>{
+            return (dispatch)=>{
+            dispatch(slice.actions.closesnackbar())
+            }
           }
+
+          export const opensnackbar=(type,message)=>{
+            return (dispatch)=>{
+            dispatch(slice.actions.opensnackbar({type,message}))
+            }
+          }
+
+          export const loading=(type)=>{
+            
+            return (dispatch)=>{
+              if(type) dispatch(slice.actions.startLoading()) 
+              else dispatch(slice.actions.stopLoading())
+            }
           }
