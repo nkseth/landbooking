@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "../../axios";
+import { opensnackbar } from "./user";
 const initialState = {
  
   addedlisting:null,
@@ -47,4 +48,19 @@ return async (dispatch)=>{
       })
 }
 }
+
+export const updatelisting=(fromdata,id)=>{
+  return async (dispatch)=>{
+    return await axios({
+    method: 'put',
+    url: `/api/v1/venue/${id}/update`,
+    data:fromdata
+    
+  }).then(async (res)=>{
+    console.log("heloo listin is creted",res.data)
+   dispatch(opensnackbar("success","Lisitng Updated successfully"))
+  
+        })
+  }
+  }
 
