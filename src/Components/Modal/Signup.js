@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { Avatar } from "@mui/material";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
@@ -45,8 +46,21 @@ const Signup = () => {
               Hi Mate!<span style={{ color: "#1EFFAC" }}> How are you?</span>
             </h1>
           </div>
-          <div className="py-4 px-3">
-            <div className="my-3">
+          <div className="py-4 px-3 ">
+          <div className="listing-box-header">
+            <div className="avater-box">
+              <Avatar src="" 
+              style={{width: '50px', height: '',borderRadius:"100%"}}
+              className="img-fluid img-circle edit-avater" alt="" />
+              <div className="upload-btn-wrapper">
+                <button className="btn theme-btn">Change Avatar</button>
+                <input type="file" name="myfile" />
+              </div>
+            </div>
+            
+          </div>
+          <div className="row mrg-r-10 mrg-l-10">
+            <div className="my-3 col-md-6">
               <Form.Label style={{ fontWeight: 500, color: "#798092" }}>
                 User Name
               </Form.Label>
@@ -57,7 +71,7 @@ const Signup = () => {
                 style={{ fontSize: "16px", boxShadow: "none" }}
               />
             </div>
-            <div className="my-3">
+            <div className="my-3 col-md-6">
               <Form.Label style={{ fontWeight: 500, color: "#798092" }}>
                 Password
               </Form.Label>
@@ -67,6 +81,7 @@ const Signup = () => {
                 placeholder="********"
                 style={{ fontSize: "16px", boxShadow: "none" }}
               />
+            </div>
             </div>
             <div className="my-3">
               <Form.Label style={{ fontWeight: 500, color: "#798092" }}>
