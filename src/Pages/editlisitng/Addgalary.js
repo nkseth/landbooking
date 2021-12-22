@@ -3,7 +3,29 @@ import React, { useState } from 'react'
 import { FileUploader } from "react-drag-drop-files";
 import { baseurl } from '../../config';
 const Addgallery = (props)=>{
-   const [deltedimages,setdeletedimages]=useState([...props.del])
+  const [del,setdel]=React.useState([])
+   React.useEffect(() => {
+
+    console.log("wowo")
+   },[del])
+
+   const adddeletedimages=(item)=>{
+
+    const newset=del
+  newset.push(item)
+  setdel(newset)
+  
+  }
+
+  
+  const removedeletedimages=(item)=>{
+ 
+    const newset=del
+    newset.splice(newset.indexOf(item),1)
+    setdel(newset)
+   
+  }
+  
     const fileTypes = ["JPG", "PNG", "GIF","JPEG"];
     const [localimage,setlocalimage]=React.useState([])
     const addimage=async (file)=>{
@@ -30,15 +52,16 @@ return(
 
     <div style={{display: 'flex',alignItems:'center',justifyContent: 'center',flexWrap:'wrap'}}>
 
-
+    {console.log(del)}
 {
    props.oldimages?.map((item,index)=>{
        
       return <div style={{display: 'flex', flexDirection: 'column'}}>
-      <img src={`${baseurl}${item}`} style={{width:'70px',height:'70px',margin:'10px',opacity:deltedimages.includes(item)?0.5:1}} alt={"uploaded images"}/>
-      {deltedimages.includes(item)?
-       <Button style={{fontSize:'14px'}} onClick={()=>{props.removedeletedimages(item)}}>undo</Button>:
-      <Button style={{fontSize:'14px'}} onClick={()=>{props.adddeletedimages(item)}}>Remove</Button>
+      <img src={`${baseurl}${item}`} style={{width:'70px',height:'70px',margin:'10px',opacity:del.includes(item)?0.5:1}} alt={"uploaded images"}/>
+      {console.log(del.includes(item))}
+      {del.includes(item)?
+       <Button style={{fontSize:'14px'}} onClick={()=>{props.removedeletedimages(item);removedeletedimages(item)}}>undo</Button>:
+      <Button style={{fontSize:'14px'}} onClick={()=>{props.adddeletedimages(item);adddeletedimages(item)}}>Remove</Button>
       }
        </div>
 

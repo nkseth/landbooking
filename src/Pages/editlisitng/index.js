@@ -1,11 +1,11 @@
 import React from "react";
-import { Cards as Card } from "../../Components";
-import { Form, Button } from "react-bootstrap";
+
+import {  Button } from "react-bootstrap";
 import { useSelector,useDispatch } from "react-redux";
 import {getcategory} from '../../redux/slices/categories'
 import {amenity} from '../../redux/slices/amenity'
 import {locationfind,locationnull,locationfindll,locationlltz} from '../../redux/slices/location'
-import {addlisting} from '../../redux/slices/managelisitings'
+
 import Addgallery from './Addgalary'
 import { useParams } from "react-router-dom";
 import { viewdetailsprivate } from "../../redux/slices/popularlisting";
@@ -15,11 +15,13 @@ import {withRouter} from 'react-router-dom'
 const Listing = ({history}) => {
 const dispatch = useDispatch()
 const {id}=useParams()
+
+
 React.useEffect(() => {
   dispatch(getcategory())
   dispatch(amenity())
   dispatch(viewdetailsprivate(id))
-}, [])
+}, [id])
 
 
 const [selectedamenity,setselectedeminity]=React.useState([])
@@ -31,7 +33,7 @@ const details=useSelector((state) => state.popularlisting)
 const [selectedcategory,setselectedcategory]=React.useState({})
 const [locationstring,setlocationstring]=React.useState("")
 const [displayauto,setdisplayauto]=React.useState(false)
-
+const [del,setdel]=React.useState([])
 const [data,setdata]=React.useState({
   title:'',
   discription:'',
@@ -42,7 +44,7 @@ const [data,setdata]=React.useState({
   zipcode:""
 })
 
-React.useState(()=>{
+React.useEffect(()=>{
  
   if(details.listingdetails){
 setdata({title:details.listingdetails.title,
@@ -59,7 +61,7 @@ setselectedeminity(details.listingdetails.amenities.map((item)=>item.uuid))
 }
 },[details.listingdetails])
 
-const [del,setdel]=React.useState([])
+
 
 const deleteimage=(index)=>{
   let newimage=gImages
@@ -70,14 +72,14 @@ const deleteimage=(index)=>{
 const adddeletedimages=(item)=>{
   const newset=del
 newset.push(item)
-setdel(newset)
-debugger
+setdel([...newset])
+
 }
 
 const removedeletedimages=(item)=>{
   const newset=del
   newset.splice(newset.indexOf(item),1)
-  setdel(newset)
+  setdel([...newset])
  
 }
 
@@ -116,9 +118,12 @@ const createlisting=()=>{
   history.push('/managelistings')
 }
 React.useEffect(()=>{
-  if(location.zipcode)
-  setdata({...data,zipcode:location.zipcode})
-  else setdata({...data,zipcode:""})
+  if(locationstring!==details.listingdetails?.address){
+    if(location.zipcode)
+    setdata({...data,zipcode:location.zipcode})
+    else setdata({...data,zipcode:""})
+  }
+ 
   
 },[location.zipcode])
 
@@ -131,6 +136,7 @@ React.useEffect(()=>{
 
   return (
     <section>
+      {console.log("rerender main")}
       {console.log("thisdjijwaidjqwd",data)}
     <div className="container d-flex flex-direction-column align-items-center justify-content-center">
       <div className="col-md-10 col-sm-12 col-md-offset-1 mob-padd-0">
