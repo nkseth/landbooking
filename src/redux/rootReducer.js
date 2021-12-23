@@ -7,6 +7,7 @@ import popularlisting from "./slices/popularlisting";
 import categories from "./slices/categories";
 import amenity from "./slices/amenity"
 import location from './slices/location'
+import reservartions from './slices/reservations'
 // ----------------------------------------------------------------------
 
 const rootPersistConfig = {
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
  popularlisting,
  categories,
  amenity,
- location
+ location,
+ reservartions
 });
 
 export { rootPersistConfig, rootReducer };
