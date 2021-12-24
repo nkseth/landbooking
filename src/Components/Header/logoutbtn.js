@@ -31,10 +31,10 @@ const Logout=()=>{
 
 const dispatch=useDispatch()
     return(
-        <div  style={{ backgroundColor: "#1effac"}}   onMouseLeave={()=>{setopen(false)}}>
+        <div  style={{ backgroundColor: "#1effac"}} >
            <Button className="btn"
-           onMouseEnter={()=>{setopen(true)}}
-         
+           
+           onMouseEnter={()=>{setopen(true)}}  onMouseLeave={()=>{setopen(false)}}
         variant="btn"
         style={{
           height: "100%",
@@ -55,17 +55,16 @@ const dispatch=useDispatch()
       >
         
        <Avatar style={{marginRight:'5px'}} src={`https://yardcan.riolabz.com/${state.user?.user?.displayImage?.path}`}/> {state?.user?.user?.displayName}
-      </Button>
-
-      <div id="sol"
-      onMouseLeave={()=>{setopen(false)}}
-      className="ggi" style={{width:'250px',height:'300px',backgroundColor:'white',
+       <div id="sol"
+     
+      className="ggi" style={{width:'250px',height:open?'300px':0,backgroundColor:'white',overflow:'hidden',
       
-      position:'absolute',top:open?'55px':'20px',right:'0px',transition:'.5s ease-out',
+      position:'absolute',top:open?'55px':'20px',transition:'.5s ease-out',
       opacity:open?'1':'0',borderRadius:'10px 0px 0px 10px',
-      zIndex:open?'1000':'-100'
+      zIndex:open?'1000':'-1000',right:0,
       
       }}>
+        {console.log(open)}
         <div style={{padding:'10px 15px',display:'flex',justifyContent: "center",alignItems:'flex-start',flexDirection:'column'}}>
       
         <Link  className="link"
@@ -89,6 +88,9 @@ const dispatch=useDispatch()
         </div>
 
       </div>
+      </Button>
+
+    
 </div>
         
     )

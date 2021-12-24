@@ -5,11 +5,12 @@ import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined
 import { Typography } from "@mui/material";
 import { Form, Button } from "react-bootstrap";
 import Counter from "../Counter/Counter";
-import { Link } from "react-router-dom";
+
 import Multidatepicker from "./multidatepicker";
 import moment from "moment";
-
-const Reservation = ({data}) => {
+import {requestreservation} from '../../redux/slices/reservations'
+import { useDispatch } from "react-redux";
+const Reservation = ({data,id}) => {
 const [avaliabletime,setavaliabletime]=React.useState({})
 const [selectedate,setselecteddate]=React.useState([])
 const [selectedatec,setselecteddatec]=React.useState([])
@@ -199,7 +200,7 @@ if(temp.includes(slot))
 }
 console.log(temp)
 }
-
+const dispatch=useDispatch()
 const Booknow=()=>{
 
 console.log(selectedatec)
@@ -209,6 +210,11 @@ console.log(finalslot)
 
    const schedules= selectedatec.map((item)=>{ return {date:item ,intervals:selecttime}})
    console.log(schedules)
+   const slots=finalslot
+   const guestList=guestlimit
+   const venueId=id
+
+   dispatch(requestreservation({schedules,slots,guestList,venueId}))
 }
 
 
@@ -253,7 +259,7 @@ console.log(finalslot)
               return <div style={{padding:'5px 8px',borderRadius:'50px',border:'1px solid #1effac',margin:'5px',
               color:'white',backgroundColor:'#1effac'
               }}>
-              {moment(item).format('YYYY/MM/DD')}
+              {moment(item.toDate()).format('YYYY-MM-DD')}
                </div>
             })
           }

@@ -1,6 +1,7 @@
 .app {
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
+  z-index: -999
 }
 /*-----------------------------------------
 * Theme Name: Listing Hub

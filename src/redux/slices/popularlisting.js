@@ -50,7 +50,7 @@ return async (dispatch)=>{
   dispatch(slice.actions.listing(res.data.data))
 
       }).catch((err)=>{
-        opensnackbar("error",err?.response?.data?.message) 
+      dispatch(opensnackbar("error",err?.response?.data?.message)) 
       })
 }
 }
@@ -67,7 +67,7 @@ export const getlistingpublic=()=>{
     dispatch(slice.actions.listing(res.data.data))
   
         }).catch((err)=>{
-          opensnackbar("error",err?.response?.data?.message) 
+          dispatch(opensnackbar("error",err?.response?.data?.message))
         })
   }
   }
@@ -83,7 +83,7 @@ export const getlistingpublic=()=>{
       dispatch(slice.actions.listingdetails(res.data.data))
     
           }).catch((err)=>{
-            opensnackbar("error",err?.response?.data?.message) 
+            dispatch(opensnackbar("error",err?.response?.data?.message)) 
           })
     }
     }
@@ -99,7 +99,7 @@ export const getlistingpublic=()=>{
         dispatch(slice.actions.listingdetails(res.data.data))
       
             }).catch((err)=>{
-              opensnackbar("error",err?.response?.data?.message) 
+             dispatch(opensnackbar("error",err?.response?.data?.message)) 
             })
       }
       } 

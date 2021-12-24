@@ -3,10 +3,7 @@ import axios from "../../axios";
 import {opensnackbar} from './user'
 const initialState = {
  
-  listing:null,
- listingdetails:null,
- hostedlisting:null,
- reviews:null
+ notification:null
 };
 
 const slice = createSlice({
@@ -20,6 +17,10 @@ const slice = createSlice({
       state.isLoading = false;
       state.listing = action.payload;
     },
+    notification(state, action) {
+      
+        state.notification = action.payload;
+      },
   
   },
 });
@@ -31,16 +32,29 @@ export default slice.reducer;
 export const requestreservation=(data)=>{
 return async (dispatch)=>{
   return await axios({
-  method: 'get',
+  method: 'post',
   url: '/api/v1/reservation/request',
-  data:data
+  headers: {'Content-Type': 'application/json'},
+  data:JSON.stringify(data)
 }).then(async (res)=>{
  console.log("dasdasdasd",res)
-  dispatch(slice.actions.listing(res.data.data))
-
+ 
+ dispatch(opensnackbar("success","Booking request submitted successfully")) 
       }).catch((err)=>{
         opensnackbar("error",err?.response?.data?.message) 
       })
 }
 }
 
+
+export const notification =(data)=>{
+    return (dispatch)=>{
+        dispatch(slice.actions.notification(data))
+    }
+}
+
+export const EmptyNotification =()=>{
+    return (dispatch)=>{
+        dispatch(slice.actions.notification(null))
+    }
+}
