@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import {withRouter} from 'react-router-dom'
-
+import { baseurl } from "../../config";
+import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
+import {confirmreservation} from '../../redux/slices/reservations'
+import StripeCheckout from "react-stripe-checkout";
 const LBModal = (props) => {
 const [data,setdata]=React.useState(null)
- React.useEffect(()=>{
-    if(props.noti){
-        setdata(JSON.parse(props.noti.data.content))
-    }
- },[props.noti])
-console.log(props)
+const user=useSelector((state) => state.user)
+const dispatch = useDispatch()
+const processcheckout=token=>{
+  debugger
+ dispatch(confirmreservation(token,props.data.reservationId,props.id))
+ props.close()
+}
+console.log(data)
   return (
     <>
-  
+  {console.log(props.data)}
 
       <Modal
         size="lg"
@@ -20,6 +26,8 @@ console.log(props)
         onHide={() => {props.close()}}
         dialogClassName="modal-100w"
         aria-labelledby="example-custom-modal-styling-title"
+        backdrop="static"
+        keyboard={false}
       >
         <Modal.Header closeButton>
           <Modal.Title
@@ -34,13 +42,20 @@ console.log(props)
       <div>
            {props.noti?.notification?.body}
       </div>
-      {data?<div>
-             paymentId:{data.paymentId} <br/>
-            request Id:{data.reservationId} 
-         </div>:null}
-         <Button style={{marginTop:50}} onClick={()=>{props.history.push(`/book-now?paymentId:${data.paymentId}&requestId:${data.reservationId}&venueId:${props.id}`)}}>
+      <h6>
+        {console.log(props.type)}
+     {props.eventtype==="payment"?"Please Proceed with the payment":props.eventtype==="failed"? "Your request could not be processed please try again":'Please Wait we are processing your request....'} 
+     </h6>
+     {props.eventtype==="payment" &&
+     <StripeCheckout
+     stripeKey="pk_test_51JxTaBHneeV50Qz279YeijjaIAMx5QaKg1vPxdFtVqZuY6lfr9HJXLrGWvkkA8xDrP6IXVO0ZkeJC2fdxXsEOPsh00rBgZxSZm"
+     token={processcheckout}
+     name="hello"
+     >
+         <Button style={{marginTop:50}} >
              Proceeed With Payment</Button>
-          
+          </StripeCheckout>
+}
         </Modal.Body>
       </Modal>
     </>

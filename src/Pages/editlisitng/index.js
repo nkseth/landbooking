@@ -22,7 +22,13 @@ React.useEffect(() => {
   dispatch(amenity())
   dispatch(viewdetailsprivate(id))
 }, [id])
+const user=useSelector((state) => state.user)
 
+React.useEffect(()=>{
+  if(user.user){
+    if(!user.user.user.emailVerified && !user.user.user.phoneVerified) history.push('/editprofile')
+  }
+},[user.user])
 
 const [selectedamenity,setselectedeminity]=React.useState([])
 const [gImages,setgimages]=React.useState([])

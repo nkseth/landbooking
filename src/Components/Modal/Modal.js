@@ -6,7 +6,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import {login} from '../../redux/slices/user'
-
+import {Link} from 'react-router-dom'
 
 const LBModal = () => {
   const [show, setShow] = useState(false);
@@ -117,8 +117,24 @@ const userdata=useSelector((state)=>state.data)
             </div>
             <div className="text-center ">
               <p className="m-0">Don't have an account</p>
-              <Signup />
+            <Link to="/signup">
+              <div
+        variant="btn"
+        style={{
+          height: "100%",
+          color: "#1EFFAC",
+          boxShadow: "none",
+          fontSize: "14px",
+          borderRadius: 0,
+          cursor:'pointer'
+        }}
+        onClick={() => setShow(false)}
+      >
+        Create an Account
+      </div>
+      </Link>
             </div>
+          
           </div>
         </Modal.Body>
       </Modal>

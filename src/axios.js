@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {nulluser,renewtoken,loading} from './redux/slices/user'
+import {nulluser,renewtoken,loading, logout, fcmupdate, opensnackbar} from './redux/slices/user'
 import moment from 'moment';
 import {baseurl} from './config'
 // ----------------------------------------------------------------------
@@ -72,7 +72,22 @@ axiosInstance.interceptors.response.use(config => {
   return config
 },(error)=>{
   store.dispatch(loading(false))
+  console.log("asdsadasd",error.response.status)
+  if(error.response.status===403){
+   console.log(error.response?.data?.data)
+   if(error.response?.data?.data.status!==1){
+    store.dispatch(logout())
+    store.dispatch(opensnackbar("error","Your account has been blocked please contact admin"))
+   }
+   if(!error.response?.data?.data.emailVerified && !error.response?.data?.data.phoneVerified){
+    store.dispatch(opensnackbar("error","Please verify your Phone No to continue using the Application"))
+   }
+   if(error.response?.data?.data.fcmTokenStatus!==1){
+    store.dispatch(fcmupdate())
+   }
+  }
   console.log("sdsdsadsadasd",error.response.data.message)
  return Promise.reject(error)
+
 })
 export default axiosInstance;

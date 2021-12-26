@@ -1,8 +1,20 @@
 import React from "react";
 import { Grid,Box } from "@mui/material";
 import { BookCard, PaymentForm } from "../../Components";
+import { useSelector } from "react-redux";
+import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
+import { baseurl } from "../../config";
+const BookNow = ({history}) => {
+  const [data,setdata]=React.useState(null)
+  const user= useSelector((state) => state.user)
+  React.useEffect(()=>{
+    if(user.user){
+      if(!user.user.user.emailVerified && !user.user.user.phoneVerified) history.push('/editprofile')
+    }
+  },[user.user])
+  
 
-const BookNow = () => {
+
   const CardData = [
     {
       title: "Yardcan",
@@ -13,7 +25,7 @@ const BookNow = () => {
     },
   ];
   return (
-    
+ 
       <Grid
         container
         
@@ -22,6 +34,7 @@ justifyContent='center'
 
         sx={{ display: "flex", justifyContent: "center" ,width: "100%",}}
       >
+           {console.log(data)}
         <Grid  container style={{}} justifyContent="center">
         <Grid item xs={11} md={6} container justifyContent="center">
           <PaymentForm />

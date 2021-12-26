@@ -5,6 +5,7 @@ import {useDispatch,useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Avatar } from '@mui/material'
 import './log.css'
+import { baseurl } from '../../config'
 
 const Logout=()=>{
   const state=useSelector((state) => state.user)
@@ -54,7 +55,7 @@ const dispatch=useDispatch()
       
       >
         
-       <Avatar style={{marginRight:'5px'}} src={`https://yardcan.riolabz.com/${state.user?.user?.displayImage?.path}`}/> {state?.user?.user?.displayName}
+       <Avatar style={{marginRight:'5px'}} src={`${baseurl}${state.user?.user?.displayImage?.path}`}/> {state?.user?.user?.displayName}
        <div id="sol"
      
       className="ggi" style={{width:'250px',height:open?'300px':0,backgroundColor:'white',overflow:'hidden',
@@ -67,12 +68,14 @@ const dispatch=useDispatch()
         {console.log(open)}
         <div style={{padding:'10px 15px',display:'flex',justifyContent: "center",alignItems:'flex-start',flexDirection:'column'}}>
       
-        <Link  className="link"
+        {state.user.user.host?
+          <Link  className="link"
         style={{padding:'10px',width:'100%',borderBottom:'1px solid lightgray',fontWeight:'bold',color:'gray'}}
-        to='/addlisting'>Add Listing</Link>
+        to='/addlisting'>Add Listing</Link>:null}
+        {state.user.user.host?
         <Link  className="link"
         style={{padding:'10px',width:'100%',borderBottom:'1px solid gray',fontWeight:'bold',color:'gray'}}
-        to='/managelistings'>Manage Listing</Link>
+        to='/managelistings'>Manage Listing</Link>:null}
         <Link  className="link"
         style={{padding:'10px',width:'100%',borderBottom:'1px solid gray',fontWeight:'bold',color:'gray'}}
         to='/bookings'>Booking</Link>

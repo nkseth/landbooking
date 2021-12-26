@@ -5,21 +5,27 @@ import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined
 import { Typography } from "@mui/material";
 import { Form, Button } from "react-bootstrap";
 import Counter from "../Counter/Counter";
-
+import Notification from "../Modal/notification";
 import Multidatepicker from "./multidatepicker";
 import moment from "moment";
-import {requestreservation} from '../../redux/slices/reservations'
-import { useDispatch } from "react-redux";
-const Reservation = ({data,id}) => {
-const [avaliabletime,setavaliabletime]=React.useState({})
+import {requestreservation,EmptyReservation} from '../../redux/slices/reservations'
+import { useDispatch, useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { EventSourcePolyfill } from "event-source-polyfill";
+import { baseurl } from "../../config";
+import {opensnackbar} from '../../redux/slices/user'
+const Reservation = ({data,id,history,setmo,resetdata}) => {
+const [avaliabletime,setavaliabletime]=React.useState([])
 const [selectedate,setselecteddate]=React.useState([])
 const [selectedatec,setselecteddatec]=React.useState([])
-const [selectdsalotff,setlectdsalotff]=React.useState([])
+
 const [selecttime,setselectitme]=React.useState([])
 const [avv,setavv]= React.useState(true)
 const [allslotarry,setallslotarry]=React.useState([])
 const [finalslot,setfinalslot]=React.useState([])
-
+const user=useSelector((state) => state.user)
+const reservation=useSelector((state) => state.reservartions)
+const [edata,setedata]=React.useState(null)
 const [guestlimit,setguestlimit]=React.useState({
   adults:0,infants:0,children:0
 })
@@ -90,139 +96,175 @@ React.useEffect(()=>{
  
   if(selecteddate.length!==selectedatec.length) setavv(false) 
   else setavv(true)
-
+console.log("first step",selecteddate)
   },[selectedatec])
 
-  React.useEffect(()=>{
-    const firstdateelement=avaliabletime[0]
-  
-    const timeslot=[]
-    console.log(firstdateelement)
-    if(avaliabletime.length>1){
-      let helo=false
-      // avaliabletime.map((item)=>{
-      //   firstdateelement.intervals.map((it)=>{
-      //           item.intervals.map((i)=>{
-      //                 if(it.status===1){
-      //                  if( i.status===1 && it===i){
-      //                       timeslot.push(it)
-      //                  }
-      //                 }
-      //           })
-      //   })
-      //  })
+const [eventtype,seteventtype]=React.useState(null)
 
-      firstdateelement.intervals.map((fi)=>{
-        helo=false
-        avaliabletime.map((at)=>{
-                  at.intervals.map((int)=>{
-                      if(fi.time===int.time && fi.status===1 && int.status===1) helo=true 
-                  })
-        })
+const ontimeselection=(date,time)=>{
+  console.log("wo")
+let temp=[...selecttime]
 
-        if(helo===true)
-        timeslot.push(fi)
-      })
-
-      console.log("woho",timeslot)
-    }
-    else{
-      avaliabletime[0]?.intervals.map((itw)=>{
-          if(itw.status===1){
-              timeslot.push(itw)
-          }
-      })
-      setlectdsalotff(timeslot)
-    }
-    
-    console.log(timeslot)
-    setlectdsalotff(timeslot)
+if(temp.find((item)=>{if(item.date===date) return true}))
+{ 
+  let avindex
+  temp.map((item,index)=>{if(item.date===date) avindex=index})
+  console.log(avindex)
+  if(temp[avindex].intervals.includes(time)){
+    temp[avindex].intervals.splice(temp[avindex].intervals.indexOf(time),1)
+    if(temp[avindex].intervals.length<1){temp.splice(avindex,1)}
+  }
+ 
+  else{
    
-     },[avaliabletime])
+    let subarray={}
+    const newdate=temp[avindex].date
+    const oldarray=[...temp[avindex].intervals]
+    oldarray.push(time)
+
+    subarray={date:newdate,intervals:oldarray}
+    temp.splice(avindex,1)
+    temp.push(subarray)
+  }
+  setselectitme([...temp])
+} else{
+  temp.push({date:date,intervals:[time]})
+  setselectitme([...temp])
+}
+
+console.log(temp)
+}
 
 React.useEffect(()=>{
- const tempslot=[]
-console.log(selecttime)
-selecttime.map((time)=>{
-  selectdsalotff.map((slots)=>{
-    if(time===slots.time) tempslot.push(slots.slots)
+  const tempslots=[]
+  let clength=0
+  selecttime.map((ii)=>{
+    console.log(ii)
+    clength= clength+ii.intervals.length
   })
-})
-console.log(tempslot)
-let finalslot=[]
-if(tempslot.length>0){
-  let helo=false
-  let firstlements=tempslot[0]
- 
-  firstlements.map((fs)=>{
-
-    helo=false
-      tempslot.map((item)=>{
-          item.map((s)=>{
-              if(fs.id===s.id && fs.status===1 && s.status===1) helo=true
-          })
+console.log("wowo",clength)
+avaliabletime.map((item)=>{
+  selecttime.map((s)=>{
+    if(item.date===s.date && item.status===1){
+      item.intervals.map((i)=>{
+            if(s.intervals.includes(i.time) && i.status===1){
+                  i.slots.map((f)=>{
+                      if(f.status===1){
+                        tempslots.push(f.id)
+                      }
+                  })
+            }
       })
-      if(helo===true) finalslot.push(fs)
+    }
   })
+ 
+})
+console.log(tempslots)
+const solo=[]
+const frequencies=s=>{
+  let fre=0
+  tempslots.map((ss)=>{
+if(ss===s) fre=fre+1 
+  })
+if(fre===clength){
+  if(!solo.includes(s))
+  solo.push(s)
+}
 
-  console.log("assdazsdassdasd",finalslot)
-  setallslotarry(finalslot)
 }
-else{
-  setallslotarry(tempslot)
-}
+
+tempslots.map((item)=>{
+  frequencies(item)
+})
+
+setallslotarry(solo)
+console.log("final",solo)
 
 },[selecttime])
 
-const ontimeselection=(time)=>{
-  console.log("wo")
-const temp=selecttime
-if(temp.includes(time))
-{
-  temp.splice(temp.indexOf(time),1)
-  setselectitme([...temp])
-} else{
-  temp.push(time)
-  setselectitme([...temp])
-}
-}
-
 const onslotselection=(slot)=>{
   console.log("wo")
-const temp=finalslot
+const temp=[...finalslot]
 if(temp.includes(slot))
 {
   temp.splice(temp.indexOf(slot),1)
   setfinalslot([...temp])
 } else{
+
   temp.push(slot)
   setfinalslot([...temp])
 }
 console.log(temp)
 }
-const dispatch=useDispatch()
-const Booknow=()=>{
 
-console.log(selectedatec)
+React.useEffect(()=>{
+if(eventtype!==null){
+  if(eventtype==="payment")dispatch(opensnackbar("success","payment processing"))
+  if(eventtype==="failed")dispatch(opensnackbar("success","booking processing Failed please retry"))
+}
+},[eventtype])
+
+const dispatch=useDispatch()
+
+const Booknow=()=>{
 console.log(selecttime)
 console.log(finalslot)
-
-
-   const schedules= selectedatec.map((item)=>{ return {date:item ,intervals:selecttime}})
-   console.log(schedules)
+ const schedules= selecttime
+  
    const slots=finalslot
    const guestList=guestlimit
    const venueId=id
 
    dispatch(requestreservation({schedules,slots,guestList,venueId}))
+ 
+  //  history.push(`/book-now/${id}`)
+}
+const [statusmodal,setmodal]=React.useState(false)
+const onclose=()=>{
+  setmodal(false)
+  debugger
+  dispatch(EmptyReservation())
+  seteventtype(null)
+  resetdata()
+  setallslotarry([])
+  setfinalslot([])
+  setselecteddate([])
+  setselecteddatec([])
+  setselectitme([])
 }
 
+React.useEffect(() => {
+  if(user.user){
+    let eventSource = new EventSourcePolyfill(`${baseurl}api/v1/event/restricted/subscribe/payment_required`
+    ,{headers: {'Authorization': 'Bearer ' + user.user.tokens.access.value},heartbeatTimeout: 300000})
+  
+    eventSource.onmessage = e => {setedata(JSON.parse(e.data)); 
+      seteventtype("payment")
+    }
 
+  let eventSource2 = new EventSourcePolyfill(`${baseurl}api/v1/event/restricted/subscribe/reservation_failed`
+      ,{headers: {'Authorization': 'Bearer ' + user.user.tokens.access.value},heartbeatTimeout: 300000})
+    
+      eventSource2.onmessage = e => {setedata(JSON.parse(e.data)); 
+        seteventtype("failed")
+        
+      }
+       
+      
+      }
+  }, [])
+
+ React.useEffect(()=>{
+  if(reservation.reservationdetails){
+    setmodal(true)
+  }
+  },[reservation.reservationdetails])
   return (
     <div
       className="Reservation-container p-3 py-4 my-4"
       style={{ boxShadow: "0px 0px 10px 1px rgb(71 85 95 / 8%)" }}
     >
+        <Notification show={statusmodal} close={onclose}  id={id} data={edata} eventtype={eventtype}/>
       <div className="heading-container " style={{ color: "#334E6F" }}>
         <div
           className="d-flex align-items-center p-2 mb-4"
@@ -254,57 +296,76 @@ console.log(finalslot)
         </Form>
       </div>
       <div className="d-flex flex-wrap justify-content-center">
-          {
-            selectedate?.map((item)=>{
-              return <div style={{padding:'5px 8px',borderRadius:'50px',border:'1px solid #1effac',margin:'5px',
+   
+        
+        
+        {avaliabletime?.map((item,index)=>{
+        return <div className="d-flex justify-content-center align-items-center flex-column">
+        <div  className="d-flex flex-column align-items-start justify-content-center my-3" style={{padding:'5px 8px',borderRadius:'50px',border:'1px solid #1effac',margin:'5px',
               color:'white',backgroundColor:'#1effac'
               }}>
-              {moment(item.toDate()).format('YYYY-MM-DD')}
+             {item.date}
                </div>
-            })
-          }
+<div className="d-flex justify-content-center align-items-center flex-wrap">
+{ avv && item.intervals.map((intervals,index2)=>{
+     
+      return <div key={index2}
+      className=" d-flex align-items-center flex-column"
+      style={{ 
+        color: selecttime.find((iteme)=>{if(iteme.date===item.date) {
+          if(iteme?.intervals?.includes(intervals.time)) return true
+}})?'white':"#334E6F",
+       fontSize: "14px",
+      border:'1px solid #1effac ',margin:'10px',padding:'3px', 
+    cursor:'pointer',borderRadius:'10px',
+    backgroundColor:selecttime.find((iteme)=>{if(iteme.date===item.date) {
+                if(iteme?.intervals?.includes(intervals.time)) return true
+    }})?"#1effac":'white'
+    }}
+    onClick={()=>{ontimeselection(item.date,intervals.time)}}
+    >
+   
+      {intervals.time}
+      
+      
+    </div>
+    })
+    }
+</div>
+
+          </div>     
+
+
+   }) }
+
         </div>
       <div className="d-flex justify-content-center align-items-center flex-wrap"> 
-      {avv? <p className="d-flex w-100 align-items-center justify-content-center">Please Select time</p>:
-       <p className="d-flex w-100 align-items-center justify-content-center">No Slot avalable for the dates</p>
-      }
-   
-     {selectdsalotff?.map((item,index)=>{
-    
-      return <div key={index}
-        className=" d-flex align-items-center flex-column"
-        style={{ color: selecttime.includes(item.time)?'white':"#334E6F", fontSize: "14px",
-        border:'1px solid #1effac ',margin:'10px',padding:'3px', 
-      cursor:'pointer',borderRadius:'10px',backgroundColor:selecttime.includes(item.time)?"#1effac":'white',
-      }}
-      onClick={()=>{ontimeselection(item.time)}}
-      >
      
-        {item.time}
-        
-        
-      </div>
-     }) }
+     
+
+   
+  
 
 
      </div>
 
      <div className="d-flex justify-content-center align-items-center flex-wrap"> 
-      <p className="d-flex w-100 align-items-center justify-content-center">Please Select slots</p>
+     {!avv && <p className="d-flex w-100 align-items-center justify-content-center">No Slot avalable for these dates Please Change Dates to get Slots</p>}
+     { avv && allslotarry?.length>0 && <p className="d-flex w-100 align-items-center justify-content-center">Please Select slots</p>}
    
    
-     {allslotarry?.map((item,index)=>{
+     {avv && allslotarry?.map((item,index)=>{
     
       return <div key={index}
         className=" d-flex align-items-center flex-column justify-content-center"
-        style={{ color: finalslot.includes(item.id)?'white':"#334E6F", fontSize: "14px",
+        style={{ color: finalslot.includes(item)?'white':"#334E6F", fontSize: "14px",
         border:'1px solid #1effac ',margin:'10px',width:'20px',height:'20px',
-      cursor:'pointer',borderRadius:'10px',backgroundColor:finalslot.includes(item.id)?"#1effac":'white',
+      cursor:'pointer',borderRadius:'10px',backgroundColor:finalslot.includes(item)?"#1effac":'white',
       }}
-      onClick={()=>{onslotselection(item.id)}}
+      onClick={()=>{onslotselection(item)}}
       >
      
-        {item.id}
+        {item}
         
         
       </div>
@@ -355,4 +416,4 @@ console.log(finalslot)
   );
 };
 
-export default Reservation;
+export default withRouter(Reservation);

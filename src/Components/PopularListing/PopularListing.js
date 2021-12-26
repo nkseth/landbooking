@@ -10,8 +10,7 @@ const PopularListing = () => {
   const user=useSelector((state) => state.user);
   React.useEffect(()=>{
 if(user.user) dispatch(getlistingprivate())
-
-dispatch(getlistingpublic())
+else dispatch(getlistingpublic())
   },[user.user])
 
   return (

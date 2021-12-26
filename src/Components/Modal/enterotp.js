@@ -5,8 +5,9 @@ import Signup from "./Signup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
-import {validate} from '../../redux/slices/user'
+import {phoneandemailv, validate} from '../../redux/slices/user'
 import OtpInput from "react-otp-input";
+
 const LBModal = (props) => {
 
   const dispatch=useDispatch()
@@ -47,9 +48,16 @@ const [otp,setotp]=React.useState("")
         separator={<span>-</span>}
       />
       </div>
-      {console.lo}
-      <Button style={{marginTop:50}} onClick={()=>{ dispatch(validate(data.validation,otp,props.type));props.close()}}>Verify</Button>
-          
+     
+      <Button style={{marginTop:50}} onClick={()=>{ 
+
+        dispatch(validate(data.validation,otp,props.type));setotp("")
+      ;props.close()}}>Verify</Button>
+         <div className="text-center">
+         <Button style={{marginTop:20,maxWidth:'150px',fontSize:'15px',backgroundColor:'#1effac',
+         color:'white',border:'none'}} onClick={()=>{ 
+        dispatch(phoneandemailv(props.type,props.userid));setotp("")}}>Resend Otp</Button>  
+        </div>
         </Modal.Body>
       </Modal>
     </>

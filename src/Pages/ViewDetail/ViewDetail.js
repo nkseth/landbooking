@@ -19,33 +19,33 @@ import { useParams } from 'react-router-dom';
 import { useSelector,useDispatch } from "react-redux";
 import { viewdetailsprivate, viewdetailspublic,reviews } from "../../redux/slices/popularlisting";
 import { EmptyNotification } from "../../redux/slices/reservations";
+import {  EventSourcePolyfill } from 'event-source-polyfill';
+import { baseurl } from "../../config";
 const ViewDetail = () => {
 const dispatch=useDispatch()
 const data =useSelector((state) => state.popularlisting)
 const user =useSelector((state) => state.user)
 const {notification}=useSelector((state) => state.reservartions)
-const [statusmodal,setmodal]=React.useState(false)
+const [edata,setedata]=React.useState(null)
 const {id}=useParams()
   console.log(id)
-const onclose=()=>{
-  setmodal(false)
- 
-}
-  React.useEffect(()=>{
-   if(notification!==null){
-     setmodal(true)
-   }
-  },[notification])
+
+  
+
 
    React.useEffect(()=>{
      if(user.user) {dispatch(viewdetailsprivate(id));dispatch(reviews(id))}
     else dispatch(viewdetailspublic(id))
    
    },[user.user])
+
+const resetdata=()=>{
+  dispatch(viewdetailsprivate(id));dispatch(reviews(id))
+}
    console.log("thisdidid",data.listingdetails)
   return (
     <div id="listing" className="listing my-md-5 my-3">
-      <Notification show={statusmodal} close={onclose} noti={notification} id={id}/>
+    
       <div
         className="banner-container"
         style={{
@@ -60,6 +60,7 @@ const onclose=()=>{
           marginBottom: "3rem",
         }}
       >
+      
         <div
           className="content-container d-flex justify-content-start justify-content-md-end align-items-md-end align-items-end p-2"
           style={{
@@ -157,7 +158,7 @@ const onclose=()=>{
             <Reviews data={data.reviews} />
           </Grid>
           <Grid item xs={11} md={3}>
-            <Reservation data={data.listingdetails} id={id}/>
+            <Reservation data={data.listingdetails} id={id}  resetdata={resetdata}/>
             <Gallery data={data.listingdetails?.images} />
             <Location  data={data.listingdetails?.address}/>
           </Grid>

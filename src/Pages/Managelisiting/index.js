@@ -4,21 +4,32 @@ import {useSelector,useDispatch} from 'react-redux';
 import {viewhostedlisting} from '../../redux/slices/popularlisting'
 import {baseurl} from '../../config'
 import { Avatar } from "@mui/material";
+import { withRouter } from "react-router-dom";
 
 
-const Listing = () => {
-  const dispatch=useDispatch()
-  React.useEffect(()=>{
-    dispatch(viewhostedlisting())
-    },[])
+const ManageListing = ({history}) => {
+
+
 const data = useSelector((state)=>state.popularlisting)
 const user = useSelector((state)=>state.user)
 
-console.log(data)
+React.useEffect(()=>{
+  if(user.user){
+    if(!user.user.user.emailVerified && !user.user.user.phoneVerified) history.push('/editprofile')
+  }
+},[user.user])
+
+const dispatch=useDispatch()
+React.useEffect(()=>{
+  dispatch(viewhostedlisting())
+  },[])
+
   return (
   <div style={{marginTop:150}}>
    <section className="padd-0" >
           <div className="container">
+
+           
             <div className="col-md-12 translateY-60 col-sm-12">
               {/* General Information */}
               <div className="add-listing-box edit-info mrg-bot-25 padd-bot-30 padd-top-25">
@@ -61,4 +72,4 @@ console.log(data)
   );
 };
 
-export default Listing;
+export default withRouter(ManageListing);

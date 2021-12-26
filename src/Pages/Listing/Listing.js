@@ -11,60 +11,23 @@ import "./Listing.css";
 import {getlistingpublic,getlistingprivate} from '../../redux/slices/popularlisting'
 import { useSelector,useDispatch } from "react-redux";
 import { baseurl } from "../../config";
-const Listing = () => {
+import { withRouter } from "react-router-dom";
+const Listing = ({history}) => {
   const dispatch=useDispatch()
   const data=useSelector((state) => state.popularlisting);
   const user=useSelector((state) => state.user);
   
   React.useEffect(()=>{
+    if(user.user){
+      if(!user.user.user.emailVerified && !user.user.user.phoneVerified) history.push('/editprofile')
+    }
 if(user.user) dispatch(getlistingprivate())
 
 dispatch(getlistingpublic())
   },[user.user])
-  const ListingData = [
-    {
-      title: "Yard Can in NewYork",
-      imageSrc:
-        "https://st.hzcdn.com/simgs/pictures/patios/keir-residence-true-north-architects-img~f5c174fe00f33ac2_8-4265-1-1305ad9.jpg",
-      location: "Bishop Avenue, Newyork",
-      amount: "140$",
-    },
-    {
-      title: "Tennis Court",
-      imageSrc:
-        "https://tigerturf.com/in/wp-content/uploads/2019/11/How-to-build-a-tennis-court.jpg",
-      location: "Bishop Avenue, Newyork",
-      amount: "140$",
-    },
-    {
-      title: "Basket Ball Court",
-      imageSrc:
-        "https://www.versacourt.com/cmss_files/photogallery/structure/Residential_Basketball_Courts/image57726.jpg",
-      location: "Bishop Avenue, Newyork",
-      amount: "140$",
-    },
-    {
-      title: "Yard Can in NewYork",
-      imageSrc:
-        "https://st.hzcdn.com/simgs/pictures/patios/keir-residence-true-north-architects-img~f5c174fe00f33ac2_8-4265-1-1305ad9.jpg",
-      location: "Bishop Avenue, Newyork",
-      amount: "140$",
-    },
-    {
-      title: "Tennis Court",
-      imageSrc:
-        "https://tigerturf.com/in/wp-content/uploads/2019/11/How-to-build-a-tennis-court.jpg",
-      location: "Bishop Avenue, Newyork",
-      amount: "140$",
-    },
-    {
-      title: "Basket Ball Court",
-      imageSrc:
-        "https://www.versacourt.com/cmss_files/photogallery/structure/Residential_Basketball_Courts/image57726.jpg",
-      location: "Bishop Avenue, Newyork",
-      amount: "140$",
-    },
-  ];
+
+
+
   return (
     <div id="listing" className="listing my-md-5 my-3">
       <div
@@ -165,4 +128,4 @@ dispatch(getlistingpublic())
   );
 };
 
-export default Listing;
+export default withRouter(Listing);

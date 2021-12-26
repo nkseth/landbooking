@@ -7,7 +7,8 @@ import {amenity} from '../../redux/slices/amenity'
 import {locationfind,locationnull,locationfindll,locationlltz} from '../../redux/slices/location'
 import {addlisting} from '../../redux/slices/managelisitings'
 import Addgallery from './Addgalary'
-const Listing = () => {
+import { withRouter } from "react-router-dom";
+const Listing = ({history}) => {
 const dispatch = useDispatch()
 React.useEffect(() => {
   dispatch(getcategory())
@@ -17,6 +18,7 @@ React.useEffect(() => {
 const [selectedamenity,setselectedeminity]=React.useState([])
 const [gImages,setgimages]=React.useState([])
 const categories=useSelector((state) => state.categories)
+const user=useSelector((state) => state.user)
 const amenities=useSelector((state) => state.amenity)
 const location =useSelector((state) => state.location)
 const [selectedcategory,setselectedcategory]=React.useState({})
@@ -50,6 +52,12 @@ if(!selectedamenity.includes(item))
 }
 }
 
+React.useEffect(()=>{
+  if(user.user){
+    if(!user.user.user.emailVerified && !user.user.user.phoneVerified) history.push('/editprofile')
+  }
+},[user.user])
+
 const delamenity=(item)=>{
   const newam=[...selectedamenity]
   
@@ -67,12 +75,12 @@ const createlisting=()=>{
   formdata.append('categoryId',selectedcategory.uuid)
   formdata.append('amenityIds',JSON.stringify(selectedamenity))
   gImages.map((item)=> formdata.append('images',item))
-  formdata.append('latitude',location.latitude)
-  formdata.append('longitude',location.longitude)
-  formdata.append('zipcode',location.zipcode)
+  formdata.append('latitude',location?.latitude)
+  formdata.append('longitude',location?.longitude)
+  formdata.append('zipcode',location?.zipcode)
   formdata.append('address',locationstring)
   formdata.append('guestLimit',JSON.stringify(data.guestLimit))
-  formdata.append('timezone',location.timezone.id)
+  formdata.append('timezone',location?.timezone?.id)
 
   dispatch(addlisting(formdata))
 }
@@ -276,4 +284,4 @@ React.useEffect(()=>{
   );
 };
 
-export default Listing;
+export default withRouter(Listing);

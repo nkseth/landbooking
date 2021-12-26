@@ -42,13 +42,24 @@ const slice = createSlice({
       if(action.payload===2)
       state.user.user.phoneVerified = true
     },
+    revalidatevalidateuserdata(state, action) {
+     
+      if(action.payload===1)
+      state.user.user.emailVerified = false
+      if(action.payload===2)
+      state.user.user.phoneVerified = false
+      if(action.payload===3){
+        state.user.user.phoneVerified = false
+        state.user.user.emailVerified = false
+      }
+    },
 
     nulluser(state, action) {
       state.user = null
     },
 
     fcmtokenupdate(state, action) {
-      state.user.fcmtoken = action.payload
+      state.fcmtoken = action.payload
     },
  
     settingtokens(state,action){
@@ -70,34 +81,26 @@ export default slice.reducer;
 
 export const login=(un,pass)=>{
 return async (dispatch)=>{
-  return await axios({
+  message.getToken({vapidKey:'BOIjFPKNQYl0YHeWETsCqh0Fh9UbTG4V9EalDPldQ9IBCdZyShSi8WG0dipZX4mvC7Zc0GzPK9QsVCxivhDdelk'})
+  .then(async(currentoken)=>{
+  
+    console.log(currentoken);
+    debugger
+    dispatch(slice.actions.fcmtokenupdate(currentoken))
+    debugger
+   await axios({
   method: 'post',
   url: '/api/v1/auth/login',
   data:{
     "userName": un,
-    "password": pass
+    "password": pass,
+    "fcmToken": currentoken
   }
 }).then(async (res)=>{
   console.log(res)
-  dispatch(slice.actions.userdetails(res.data.data))
-message.getToken({vapidKey:'BOIjFPKNQYl0YHeWETsCqh0Fh9UbTG4V9EalDPldQ9IBCdZyShSi8WG0dipZX4mvC7Zc0GzPK9QsVCxivhDdelk'})
-.then(async(currentoken)=>{
-console.log(currentoken);
-dispatch(slice.actions.fcmtokenupdate(currentoken))
+dispatch(slice.actions.userdetails(res.data.data))
+dispatch(slice.actions.opensnackbar({type:"success",message:"Login successful"})) 
 
-await axios({
-  method: 'put',
-  url: '/api/v1/auth/token/fcm/update',
- data:{fcmToken:currentoken}
-}).then((res)=>{
-  console.log(res)
- 
-  dispatch(slice.actions.opensnackbar({type:"success",message:"Login successful"})) 
-}).catch((err)=>{
- 
-  dispatch(slice.actions.opensnackbar({type:"error",message:err?.response?.data?.message}))
-
-})
 })
 
 
@@ -109,8 +112,8 @@ await axios({
 }
 
 
-export const logout=(token)=>{
-  console.log(token)
+export const logout=()=>{
+
   return async (dispatch)=>{
     return await axios({
     method: 'post',
@@ -127,14 +130,12 @@ export const logout=(token)=>{
   }
 
   export const phoneandemailv=(type,uuid)=>{
+   
     return async (dispatch)=>{
       return await axios({
       method: 'post',
       url: '/api/v1/user/verification/token/request',
-    data:{
-      userName:uuid,
-      type:type
-    }
+    data:{ userName:uuid,type:type }
     }).then((res)=>{
       dispatch(slice.actions.opensnackbar({type:"success",message:"Otp Send"})) 
       console.log(res.data.data)
@@ -204,3 +205,48 @@ export const logout=(token)=>{
               else dispatch(slice.actions.stopLoading())
             }
           }
+
+          export const signup=(formdata)=>{
+            return async (dispatch)=>{
+              return await axios({
+              method: 'post',
+              url: '/api/v1/customer/register/public',
+            data:formdata
+            }).then((res)=>{
+              dispatch(slice.actions.opensnackbar({type:"success",message:"User Created Successfully"})) 
+               }).catch((err)=>{
+                    dispatch(slice.actions.opensnackbar({type:"error",message:err?.response?.data?.message}))
+                  })
+            }
+            }
+
+        export const  fcmupdate=()=>{
+          return (dispatch)=>{
+            message.getToken({vapidKey:'BOIjFPKNQYl0YHeWETsCqh0Fh9UbTG4V9EalDPldQ9IBCdZyShSi8WG0dipZX4mvC7Zc0GzPK9QsVCxivhDdelk'})
+            .then(async(currentoken)=>{
+              await axios({
+                method: 'put',
+                url: '/api/v1/auth/token/fcm/update',
+               data:{fcmToken:currentoken}
+              }).then((res)=>{
+                console.log(res)
+                dispatch(slice.actions.fcmtokenupdate(currentoken))
+                
+              }).catch((err)=>{
+                throw(err)
+              })
+
+            }).catch((err)=>{
+              dispatch(slice.actions.opensnackbar({type:"error",message:err?.message}))
+            })
+         
+          }
+        }  
+        
+        
+  export  const updateverificationsettings=(type)=>{
+  return (dispatch)=>{
+    dispatch(slice.actions.revalidatevalidateuserdata(type))
+  }
+     
+    }
