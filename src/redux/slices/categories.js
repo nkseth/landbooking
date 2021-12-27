@@ -39,3 +39,19 @@ return async (dispatch)=>{
 }
 }
 
+export const getcategorypublic=()=>{
+  return async (dispatch)=>{
+    return await axios({
+    method: 'get',
+    url: '/api/v1/category/viewall/public',
+  
+    
+  }).then(async (res)=>{
+    
+    dispatch(slice.actions.category(res.data.data))
+  
+        })
+  }
+  }
+  
+

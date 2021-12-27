@@ -47,7 +47,8 @@ console.log("adfdsfsdfsd")
     if(moment(state.user?.tokens?.access?.expiresAt).diff(moment(),'seconds')<10)
     {
      console.log("new1")
-      await renewtokencall(state.user.fcmtoken,state.user.tokens.refresh.value).then((res)=>{
+     debugger
+      await renewtokencall(state.fcmtoken,state.user.tokens.refresh.value).then((res)=>{
         console.log(res)
         debugger
       store.dispatch(renewtoken(res.data.data))

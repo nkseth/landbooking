@@ -6,7 +6,8 @@ const initialState = {
   listing:null,
  listingdetails:null,
  hostedlisting:null,
- reviews:null
+ reviews:null,
+ listingcount:null
 };
 
 const slice = createSlice({
@@ -17,8 +18,9 @@ const slice = createSlice({
 
     // GET PRODUCTS
    listing(state, action) {
-      state.isLoading = false;
-      state.listing = action.payload;
+    
+      state.listingcount = action.payload.count;
+      state.listing = action.payload.data;
     },
     listingdetails(state, action) {
       state.isLoading = false;
@@ -39,15 +41,20 @@ const slice = createSlice({
 export default slice.reducer;
 
 
-export const getlistingprivate=()=>{
+export const getlistingprivate=({ search,limit,page,categoryId,coordinateRange,zipcode})=>{
+  let restdata={}
+  if(search!==null) restdata[search]=search
+  if(categoryId!==null) restdata[categoryId]=categoryId
+  if(coordinateRange!==null) restdata[coordinateRange]=coordinateRange
+  if(zipcode!==null) restdata[zipcode]=zipcode
 return async (dispatch)=>{
   return await axios({
   method: 'get',
   url: '/api/v1/venue/viewall/',
-  
+  data:{ limit,page,...restdata}
 }).then(async (res)=>{
  console.log("dasdasdasd",res)
-  dispatch(slice.actions.listing(res.data.data))
+  dispatch(slice.actions.listing({data:res.data.data,count:res.data.count}))
 
       }).catch((err)=>{
       dispatch(opensnackbar("error",err?.response?.data?.message)) 
@@ -56,15 +63,20 @@ return async (dispatch)=>{
 }
 
 
-export const getlistingpublic=()=>{
+export const getlistingpublic=({ search,limit,page,categoryId,coordinateRange,zipcode})=>{
+  let restdata={}
+  if(search!==null) restdata[search]=search
+  if(categoryId!==null) restdata[categoryId]=categoryId
+  if(coordinateRange!==null) restdata[coordinateRange]=coordinateRange
+  if(zipcode!==null) restdata[zipcode]=zipcode
   return async (dispatch)=>{
     return await axios({
     method: 'get',
     url: '/api/v1/venue/viewall/public',
-    
+    data:{ limit,page,...restdata}
   }).then(async (res)=>{
    console.log("dasdasdasd",res)
-    dispatch(slice.actions.listing(res.data.data))
+    dispatch(slice.actions.listing({data:res.data.data,count:res.data.count}))
   
         }).catch((err)=>{
           dispatch(opensnackbar("error",err?.response?.data?.message))

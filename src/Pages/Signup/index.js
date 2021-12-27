@@ -3,14 +3,14 @@ import React, { useEffect } from "react";
 import { Cards as Card } from "../../Components";
 import { Form, Button } from "react-bootstrap";
 import { useSelector ,useDispatch} from "react-redux";
-
+import InputMask from 'react-input-mask';
 
 import "./Editprofile.css";
 
 import { Avatar } from "@mui/material";
 import Locationstring from "../../Components/locationstring/location";
 import { locationnull } from "../../redux/slices/location";
-import { signup } from "../../redux/slices/user";
+import { opensnackbar, signup } from "../../redux/slices/user";
 import { withRouter } from "react-router-dom";
 
 const Editprofile = ({history}) => {
@@ -40,7 +40,7 @@ const [profiledetails,setprofiledetails]=React.useState({
     ishost:false,
     password:"",
     cpassword:"",
-    images:null
+    image:null
   })
   
 useEffect(()=>{
@@ -68,6 +68,7 @@ await toBase64(e.target.files[0]).then((result)=>{
 }
  
 const onSignup=()=>{
+  if(profiledetails.password===profiledetails.cpassword){
     console.log(profiledetails)
     const formdata= new FormData()
     formdata.append('name',profiledetails.name)
@@ -82,8 +83,13 @@ const onSignup=()=>{
     formdata.append('address',data.locationstring[0])
     formdata.append('registerAsHost',profiledetails.ishost)
    
-  if(profiledetails.image) formdata.append('image',data.profiledetails.image)
+  if(profiledetails.image) formdata.append('image',profiledetails.image)
     dispatch(signup(formdata))
+  }
+  else{
+    dispatch(opensnackbar("error","Password Does not Match"))
+  }
+    
 }
   
 return (
@@ -129,7 +135,7 @@ return (
               <div className="col-sm-6">
                 <label>Phone</label>
                 <div style={{display: 'flex',alignItems:'center'}}>
-                <input type="number" className="form-control" defaultValue="91 703 4448 855  "
+                 <InputMask  mask='(+1) 999 999 9999'  className="form-control" defaultValue="91 703 4448 855  "
                 value={profiledetails.phone}
                 onChange={(e)=>{setprofiledetails({...profiledetails, phone:e.target.value})}}
                 />

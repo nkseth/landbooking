@@ -16,11 +16,17 @@ const Locationstring=(props)=>{
  React.useEffect(()=>{
 if(props?.dtype) setdisplayauto(props.dtype) 
  },[])
+
+ React.useEffect(()=>{
+  props?.getaddress &&props.onaddresschanging(locationstring)
+ },[locationstring])
 return (
-    <div className="col-sm-6" style={{position:'relative'}}>
-    <label>Address</label>
-    <input type="text" className="form-control" value={props?.default?props.default:locationstring}
-     onChange={(e)=>{setlocationstring(e.target.value)}}
+    <div className={props.size?"col-sm-4":"col-sm-6"} style={{position:'relative'}}>
+   {!props.label?<label>Address</label>:null}
+    <input type="text" className="form-control" 
+    placeholder="Search location"
+    value={props?.default?props.default:locationstring}
+     onChange={(e)=>{setlocationstring(e.target.value);}}
     onKeyDown={(e)=>{if(e.key==="Backspace"){setdisplayauto(true);dispatch(locationlltz())}}}
     />
       {

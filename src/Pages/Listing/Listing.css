@@ -22,7 +22,7 @@
 @media (max-width: 900px) {
   .formInput-container {
     width: 90vw;
-    bottom: -32vh;
+    bottom: -35vh;
     padding: 1.5rem 0.8rem;
   }
   .button {

@@ -1789,6 +1789,7 @@ form.form-verticle {
 .form-box {
     position: relative;
     min-height: 52px;
+    display: flex;
 }
 .pulse-tag {
     width: 100%;

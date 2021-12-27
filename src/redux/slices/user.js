@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {message} from '../../fireabse'
 import axios from "../../axios";
+import { setverificationstate, setverificationstatenull } from "./profile";
 const initialState = {
   isLoading: true,
   error: false,
@@ -44,14 +45,10 @@ const slice = createSlice({
     },
     revalidatevalidateuserdata(state, action) {
      
-      if(action.payload===1)
-      state.user.user.emailVerified = false
-      if(action.payload===2)
-      state.user.user.phoneVerified = false
-      if(action.payload===3){
-        state.user.user.phoneVerified = false
-        state.user.user.emailVerified = false
-      }
+   
+      state.user.user = {...state.user.user,...action.payload}
+     
+     
     },
 
     nulluser(state, action) {
@@ -85,9 +82,9 @@ return async (dispatch)=>{
   .then(async(currentoken)=>{
   
     console.log(currentoken);
-    debugger
+  
     dispatch(slice.actions.fcmtokenupdate(currentoken))
-    debugger
+   
    await axios({
   method: 'post',
   url: '/api/v1/auth/login',
@@ -100,14 +97,23 @@ return async (dispatch)=>{
   console.log(res)
 dispatch(slice.actions.userdetails(res.data.data))
 dispatch(slice.actions.opensnackbar({type:"success",message:"Login successful"})) 
-
-})
-
-
-      }).catch((err)=>{
+debugger
+let paper={}
+if(Object.keys(res.data.data.user.verifications).length>0) {
+  
+  if(Object.keys(res.data.data.user.verifications).includes("email"))
+  paper["emailVerificationId"]=res.data.data.user.verifications.email.uuid
+ 
+  if(Object.keys(res.data.data.user.verifications).includes("phone"))
+  paper["phoneVerificationId"]=res.data.data.user.verifications.phone.uuid
+}
+debugger
+dispatch(setverificationstate(paper))
+}).catch((err)=>{
   console.error(err.message)
   dispatch(slice.actions.opensnackbar({type:"error",message:err?.response?.data?.message}))
       })
+})
 }
 }
 
@@ -147,7 +153,10 @@ export const logout=()=>{
     }
     }
 
-    export const validate=({userId,verificationId},token,type)=>{
+    export const validate=({userId,verificationId},token,type,ifpassword)=>{
+      
+    
+     
       return async (dispatch)=>{
         return await axios({
         method: 'post',
@@ -157,11 +166,28 @@ export const logout=()=>{
         verificationId,
         token,
       }
-      }).then((res)=>{
+      }).then(async(res)=>{
         console.log(res)
       dispatch(slice.actions.validate(null))
+    
       dispatch(slice.actions.opensnackbar({type:"success",message:"verification successful"})) 
       dispatch(slice.actions.validateuserdata(type))
+
+      if(ifpassword){
+        await axios({
+          method: 'put',
+          url: `/api/v1/user/${userId}/resetpassword`,
+        data:{
+        
+          verificationId,
+          password:ifpassword,
+        }
+        }).then(()=>{
+          dispatch(slice.actions.opensnackbar({type:"success",message:"Password Updated successfully"})) 
+        }).catch((error)=>{
+          throw new Error('Password Reset failed')
+        })
+      }
       
             }).catch((err)=>{
               dispatch(slice.actions.opensnackbar({type:"error",message:err?.response?.data?.message}))
@@ -244,9 +270,9 @@ export const logout=()=>{
         }  
         
         
-  export  const updateverificationsettings=(type)=>{
+  export  const updateverificationsettings=(data)=>{
   return (dispatch)=>{
-    dispatch(slice.actions.revalidatevalidateuserdata(type))
+    dispatch(slice.actions.revalidatevalidateuserdata(data))
   }
      
     }

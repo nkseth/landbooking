@@ -8,10 +8,25 @@ const PopularListing = () => {
   const dispatch=useDispatch()
   const data=useSelector((state) => state.popularlisting);
   const user=useSelector((state) => state.user);
+  const [queryperams,setqueryperams] =React.useState({
+    search:null,
+    limit:6,
+    page:1,
+    categoryId:null,
+    coordinateRange:null,
+    zipcode:null
+  })
+
   React.useEffect(()=>{
-if(user.user) dispatch(getlistingprivate())
-else dispatch(getlistingpublic())
+
+    if(user.user && (user.user.user.emailVerified && user.user.user.phoneVerified)) dispatch(getlistingprivate(queryperams))
+    else dispatch(getlistingpublic(queryperams))
   },[user.user])
+  
+  // const searchclicked=()=>{
+  //   if(user.user && (user.user.user.emailVerified && user.user.user.phoneVerified)) dispatch(getlistingprivate(queryperams))
+  //   else dispatch(getlistingpublic(queryperams))
+  // }
 
   return (
     <div className="popular-listing " style={{ margin: "5rem 0" }}>
@@ -27,6 +42,7 @@ else dispatch(getlistingpublic())
       </div>
       <div className="cards-container d-flex justify-content-center flex-wrap">
         {data?.listing?.map((item, index) => {
+          if(index<6)
           return (
             <div key={index}>
               <Card

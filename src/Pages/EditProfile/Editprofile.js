@@ -4,15 +4,15 @@ import { Cards as Card } from "../../Components";
 import { Form, Button } from "react-bootstrap";
 import { useSelector ,useDispatch} from "react-redux";
 import Enterotp from '../../Components/Modal/enterotp'
-
+import InputMask from 'react-input-mask';
 import "./Editprofile.css";
 
 import { Avatar } from "@mui/material";
 import Locationstring from "../../Components/locationstring/location";
 import { locationnull } from "../../redux/slices/location";
-import { signup } from "../../redux/slices/user";
+import { opensnackbar, signup } from "../../redux/slices/user";
 import { withRouter } from "react-router-dom";
-import { getprofiledetails, updateprivacysettings } from "../../redux/slices/profile";
+import { getprofiledetails, updategeneralsettings, updateprivacysettings } from "../../redux/slices/profile";
 import user, {phoneandemailv} from '../../redux/slices/user'
 import { baseurl } from "../../config";
 import MaskedFormControl from 'react-bootstrap-maskedinput'
@@ -36,7 +36,12 @@ const Editprofile = ({history}) => {
    dispatch(locationnull())
     },[user.user])
 
-   console.log(profile.profile) 
+   const [localaddress,setlocalddress]=React.useState("")
+
+   const updateaddress=(string)=>{
+  
+    setlocalddress(string)
+   }
   const data =useSelector((state) => state.location)
   const [baseurli,setbaseurl]=React.useState("")
 const [profiledetails,setprofiledetails]=React.useState({
@@ -51,7 +56,7 @@ const [profiledetails,setprofiledetails]=React.useState({
     
     password:"",
     cpassword:"",
-    images:null
+    image:null
   })
   
 useEffect(()=>{
@@ -68,10 +73,13 @@ phone:parseInt(profile.profile.phone),
 address:profile.profile.address,
 dob:profile.profile.dob,
 gender:profile.profile.gender,
-zipcode:profile.profile.zipcode
+zipcode:profile.profile.zipcode,
+latitude:profile.profile.latitude,
+longitude:profile.profile.longitude
+
 })
 setbaseurl(`${baseurl}${profile.profile?.image?.path}`)
-console.log(`${baseurl}${profile.profile?.image?.path}`)
+
   }
 },[profile.profile])
 
@@ -93,33 +101,40 @@ await toBase64(e.target.files[0]).then((result)=>{
    
 }
 const updateprivacysettingslocal=()=>{
+
   const formdata= new FormData()
   formdata.append('displayName',profiledetails.name)
-  if(profiledetails.images!==null) formdata.append('displayImage',profiledetails.image)
+  debugger
+  if(profiledetails.image!==null) formdata.append('displayImage',profiledetails.image)
   formdata.append('email',profiledetails.email)
   formdata.append('phone',profiledetails.phone.toString())
  if(profiledetails.password!=="") formdata.append('password',profiledetails.password)
   formdata.append('deleteImage',baseurli==="")
-  dispatch(updateprivacysettings(formdata))
+  if(profiledetails.password!==""){
+    if(profiledetails.password===profiledetails.cpassword){
+      dispatch(updateprivacysettings(formdata))
+    }else dispatch(opensnackbar("error","Passwords and confirm Password does not match"))
+  }else{
+    dispatch(updateprivacysettings(formdata))
+  }
+
+  setprofiledetails({...profiledetails,image:null})
 } 
 
-const onSignup=()=>{
+const updategeneralsettingslocal=()=>{
     console.log(profiledetails)
     
-  
-  //   formdata.append('email',profiledetails.email)
-  //   formdata.append('phone',profiledetails.phone)
-  //   formdata.append('password',profiledetails.password)
-  //   formdata.append('latitude',data.latitude)
-  //   formdata.append('longitude',data.longitude)
-  //   formdata.append('zipcode',data.zipcode)
-  //   formdata.append('gender',profiledetails.gender)
-  //   formdata.append('dob',profiledetails.dob)
-  //   formdata.append('address',data.locationstring[0])
-  //   formdata.append('registerAsHost',profiledetails.ishost)
-   
-  // if(profiledetails.image) formdata.append('image',data.profiledetails.image)
-  //   dispatch(signup(formdata))
+    const formdata= new FormData()
+    formdata.append('name',profiledetails.name)
+    formdata.append('latitude',localaddress===profile.profile.address?profile.profile.latitude:data.latitude)
+    formdata.append('longitude',localaddress===profile.profile.address?profile.profile.longitude:data.longitude)
+    formdata.append('zipcode',localaddress===profile.profile.address?profile.profile.zipcode:data.zipcode)
+    formdata.append('gender',profiledetails.gender)
+    formdata.append('dob',profiledetails.dob)
+    formdata.append('address',localaddress)
+   debugger
+ 
+  dispatch( updategeneralsettings(formdata))
 }
  
 const [show,setshow]=React.useState(false)
@@ -189,7 +204,7 @@ return (
               <div className="col-sm-6">
                 <label>Phone</label>
                 <div style={{display: 'flex',alignItems:'center'}}>
-                <input type="number" className="form-control"  
+                <InputMask  mask='(+1) 999 999 9999'  className="form-control"  
                 value={profiledetails.phone}
                 onChange={(e)=>{setprofiledetails({...profiledetails, phone:e.target.value})}}
                 />
@@ -241,7 +256,8 @@ return (
               </div>
          
              
-              <Locationstring default={profile.profile?.address} dtype={false}/>
+              <Locationstring default={profile.profile?.address} dtype={false} onaddresschanging={updateaddress}
+              getaddress={true}/>
               <div className="col-sm-6">
                 <label>Owner Designation</label> 
                 <input type="text" className="form-control" value={profiledetails.owner} 
@@ -283,7 +299,7 @@ return (
           </form>
           <div className="text-center mw-50">
           <Button style={{maxWidth:'50%',backgroundColor:'#1effac',border:'none',color:'white',marginTop:'20px'}} 
-           title="Submit Listing" onClick={onSignup}>Update General Settings</Button>
+           title="Submit Listing" onClick={updategeneralsettingslocal}>Update General Settings</Button>
         </div>
         </div>
       
