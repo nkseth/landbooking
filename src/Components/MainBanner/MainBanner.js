@@ -6,17 +6,48 @@ import FilterNoneOutlinedIcon from "@mui/icons-material/FilterNoneOutlined";
 import "./MainBanner.css";
 import { useDispatch, useSelector } from "react-redux";
 import {login} from '../../redux/slices/user'
-const MainBanner = () => {
+import Locationstring from "../locationstring/location";
+import { withRouter } from "react-router-dom";
+import { getcategory, getcategorypublic } from "../../redux/slices/categories";
+const MainBanner = ({history}) => {
   const dispatch=useDispatch()
+  const user=useSelector((state) => state.user)
   React.useEffect(()=>{
-    // dispatch(login())
+ 
+ 
+    if(!user.user) dispatch(getcategorypublic())
+   else dispatch(getcategory())
   },[])
+  
+  
+  const location=useSelector((state) => state.location);
+ 
+ 
+ 
+  const [localaddress,setlocalddress]=React.useState("")
+  
+  
+  
+  const updateaddress=(string)=>{
+  
+    setlocalddress(string)
+   }
+  
+  
+   const data = useSelector((state) => state.user);
 
-  const data = useSelector((state) => state.user);
 
+  const [r,setr]=React.useState(10)
   React.useEffect(()=>{
    console.log(data)
   },[data])
+ 
+ 
+  const [selectedcategory,setselectedcategory]=React.useState({})
+ 
+ 
+  const categories=useSelector((state) => state.categories)
+ 
  
   return (
     <div
@@ -69,55 +100,48 @@ const MainBanner = () => {
             You Are At The Right Place. Lets Go Ahead And Grab The Best Deal
           </p>
         </div>
-        <div className="form-container container d-flex justify-content-center">
+        <div className="form-container container d-flex justify-content-center ">
           <Form className="d-flex flex-md-row flex-column form-inputs">
-            <div className="d-flex justify-content-center align-items-center bg-white w-100 py-0 px-2  " >
-              <LocationOnOutlinedIcon
-                className="d-flex justify-content-end"
-                style={{ color: "#909DB4" }}
+          <div className="d-flex justify-content-center align-items-center bg-white  w-100 p-2  p-0 flex-wrap flex-md-nowrap" 
+          style={{backgroundColor:'red'}}> 
+             
+             
+             <Locationstring label="none" size="col-sm-8" 
+              onaddresschanging={updateaddress}
+              getaddress={true}
+              style={{border:'none',marginBottom:'0px',width:'100%',color:'gray'}}
               />
+               
               <Form.Control
-                style={{
-                  outline: "none",
-                  borderRadius: "0",
-                  boxShadow: "none",
-                  fontSize: "15px",
-                  border: "none",
-                  display:'flex',alignItems:'center',
-                  marginBottom:'0'
-                }}
                 size="lg"
-                type="location"
-                placeholder="Location"
-                className="py-md-4 py-2 px-0"
+                type="number"
+                placeholder="Radius"
+                className=" form-control w-100"
+                id="form-input"
+                
+                style={{ marginBottom:'0px',}}
+               onChange={(e)=>{setr(e.target.value)}}
               />
-            </div>
-            <div className="d-flex justify-content-center align-items-center bg-white border-start  w-100 py-0 px-2 p-0">
-              <FilterNoneOutlinedIcon
-                fontSize="small"
-                className="d-flex justify-content-end"
-                style={{ color: "#909DB4" }}
-              />
-              <Form.Select
-                style={{
-                  color: "#909DB4",
-                  outline: "none",
-                  borderRadius: "0",
-                  boxShadow: "none",
-                  fontSize: "15px",
-                  border: "none",
-                }}
-                size="lg"
-                type="location"
-                placeholder="Choose Category"
-                className="py-md-4 py-2 px-0 "
-              >
-                <option>Choose Category</option>
-                <option>Food and Resturant</option>
-                <option>Shop and Education</option>
-                <option>Education</option>
-                <option>Business</option>
-              </Form.Select>
+              </div>
+           
+            <div className="d-flex justify-content-center align-items-center bg-white  w-100 py-0  p-0">
+           
+            <select data-placeholder="Choose Category" 
+            style={{marginBottom:0}}
+                onChange={(e)=>{
+                  setselectedcategory(
+                    categories?.categories?.find((item,index)=>{if(e.target.value===item.uuid) return true}))
+            }
+            }
+                className="form-control chosen-select" tabIndex={2}>	<option value={0} >Select Category</option>
+                {
+                  categories?.categories?.map((item)=>{
+                      return <option value={item.uuid}> {item.name}</option>
+                  })
+                }
+                  
+                </select>
+         
             </div>
             <Button
               variant="btn"
@@ -129,7 +153,7 @@ const MainBanner = () => {
                 fontSize: "22px",
               }}
               className="button px-5 p-1 "
-              onClick={login}
+              onClick={()=>{history.push(`/listing?categoryId=${selectedcategory && selectedcategory.uuid}&address=${localaddress&&localaddress}&r=${r && r}`)}}
             >
               Search
             </Button>
@@ -140,4 +164,4 @@ const MainBanner = () => {
   );
 };
 
-export default MainBanner;
+export default withRouter(MainBanner);

@@ -14,14 +14,15 @@ import {
   Gallery,
   Reservation,
 } from "../../Components";
-import Notification from '../../Components/Modal/notification'
+
 import { useParams } from 'react-router-dom';
 import { useSelector,useDispatch } from "react-redux";
 import { viewdetailsprivate, viewdetailspublic,reviews } from "../../redux/slices/popularlisting";
-import { EmptyNotification } from "../../redux/slices/reservations";
-import {  EventSourcePolyfill } from 'event-source-polyfill';
-import { baseurl } from "../../config";
-const ViewDetail = () => {
+import {withRouter} from 'react-router-dom'
+import { booking } from "../../redux/slices/reservations";
+
+
+const ViewDetail = ({history}) => {
 const dispatch=useDispatch()
 const data =useSelector((state) => state.popularlisting)
 const user =useSelector((state) => state.user)
@@ -30,8 +31,14 @@ const [edata,setedata]=React.useState(null)
 const {id}=useParams()
   console.log(id)
 
+  const booked=useSelector((state) => state.reservartions)
+ React.useEffect(()=>{
+  if(booked.booked==="done"){
+    dispatch(booking(null))
+    history.push('/thankyou')
+  }
+  },[booked.booked])
   
-
 
    React.useEffect(()=>{
      if(user.user) {dispatch(viewdetailsprivate(id));dispatch(reviews(id))}
@@ -168,4 +175,4 @@ const resetdata=()=>{
   );
 };
 
-export default ViewDetail;
+export default withRouter(ViewDetail);

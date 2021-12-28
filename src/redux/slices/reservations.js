@@ -4,7 +4,8 @@ import {opensnackbar} from './user'
 const initialState = {
  
  notification:null,
- reservationdetails:null
+ reservationdetails:null,
+ booked:null
 };
 
 const slice = createSlice({
@@ -21,6 +22,10 @@ const slice = createSlice({
     notification(state, action) {
       
         state.notification = action.payload;
+      },
+      booking(state, action) {
+      
+        state.booked = action.payload;
       },
   
   },
@@ -75,10 +80,18 @@ export const confirmreservation=(token,rid,vid)=>{
     data:JSON.stringify({venueId:vid,stripetoken:token.id})
   }).then(async (res)=>{
    console.log("dasdasdasd",res)
- 
+   dispatch(slice.actions.booking("done"))
    dispatch(opensnackbar("success","Booking Confirmed")) 
         }).catch((err)=>{
+          dispatch(slice.actions.booking("goterror"))
          dispatch(opensnackbar("error",err?.response?.data?.details)) 
         })
   }
+}
+
+  export const booking=(data)=>{
+    return (dispatch)=>{
+      dispatch(slice.actions.booking(data))
+    }
+    
   }

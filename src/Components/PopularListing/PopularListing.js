@@ -19,14 +19,14 @@ const PopularListing = () => {
 
   React.useEffect(()=>{
 
-    if(user.user && (user.user.user.emailVerified && user.user.user.phoneVerified)) dispatch(getlistingprivate(queryperams))
-    else dispatch(getlistingpublic(queryperams))
-  },[user.user])
+    if(user.user){
+      if(user.user.user.emailVerified && user.user.user.phoneVerified)
+       dispatch(getlistingprivate(queryperams))
+    }
+     else dispatch(getlistingpublic(queryperams))
+  },[])
   
-  // const searchclicked=()=>{
-  //   if(user.user && (user.user.user.emailVerified && user.user.user.phoneVerified)) dispatch(getlistingprivate(queryperams))
-  //   else dispatch(getlistingpublic(queryperams))
-  // }
+
 
   return (
     <div className="popular-listing " style={{ margin: "5rem 0" }}>
@@ -42,19 +42,37 @@ const PopularListing = () => {
       </div>
       <div className="cards-container d-flex justify-content-center flex-wrap">
         {data?.listing?.map((item, index) => {
-          if(index<6)
-          return (
-            <div key={index}>
-              <Card
-                title={item.title}
-                subTitle={item.address}
-                imageSrc={`${baseurl}${item.images[0]}`}
-                amount={item.rent}
-                rating={item.rating}
-                id={item.uuid}
-              />
-            </div>
-          );
+          if(user.user){
+              if(item.host.userId!==user.user.user.uuid){
+                return (
+                  <div key={index}>
+                    <Card
+                      title={item.title}
+                      subTitle={item.address}
+                      imageSrc={`${baseurl}${item.images[0]}`}
+                      amount={item.rent}
+                      rating={item.rating}
+                      id={item.uuid}
+                    />
+                  </div>
+                );
+              }
+          } 
+          else{
+            return (
+              <div key={index}>
+                <Card
+                  title={item.title}
+                  subTitle={item.address}
+                  imageSrc={`${baseurl}${item.images[0]}`}
+                  amount={item.rent}
+                  rating={item.rating}
+                  id={item.uuid}
+                />
+              </div>
+            );
+          }
+         
         })}
       </div>
     </div>

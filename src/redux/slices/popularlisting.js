@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import axios from "../../axios";
 import {opensnackbar} from './user'
 const initialState = {
@@ -41,21 +42,27 @@ const slice = createSlice({
 export default slice.reducer;
 
 
-export const getlistingprivate=({ search,limit,page,categoryId,coordinateRange,zipcode})=>{
-  let restdata={}
-  if(search!==null) restdata[search]=search
-  if(categoryId!==null) restdata[categoryId]=categoryId
-  if(coordinateRange!==null) restdata[coordinateRange]=coordinateRange
-  if(zipcode!==null) restdata[zipcode]=zipcode
+export const getlistingprivate=({ search,limit,page,categoryId,coordinateRange,zipcode,latitude,longitude,radius})=>{
+  let restdata={limit,page}
+  if(search!==null) restdata["search"]=search
+  if(categoryId) restdata["categoryId"]=categoryId
+  if(coordinateRange?.latitude) restdata["coordinateRange"]=JSON.stringify(coordinateRange)
+  if(zipcode) restdata["zipcode"]=zipcode
+
+  const qs = Object.keys(restdata)
+    .map(key => `${key}=${restdata[key]}`)
+    .join('&');
 return async (dispatch)=>{
   return await axios({
   method: 'get',
-  url: '/api/v1/venue/viewall/',
+  url: `/api/v1/venue/viewall?${qs}`,
   data:{ limit,page,...restdata}
 }).then(async (res)=>{
  console.log("dasdasdasd",res)
-  dispatch(slice.actions.listing({data:res.data.data,count:res.data.count}))
-
+ if(res.data.data.length > 0)
+    dispatch(slice.actions.listing({data:res.data.data,count:res.data.count}))
+   
+else  dispatch(opensnackbar("error","No result found"))
       }).catch((err)=>{
       dispatch(opensnackbar("error",err?.response?.data?.message)) 
       })
@@ -63,23 +70,32 @@ return async (dispatch)=>{
 }
 
 
-export const getlistingpublic=({ search,limit,page,categoryId,coordinateRange,zipcode})=>{
-  let restdata={}
-  if(search!==null) restdata[search]=search
-  if(categoryId!==null) restdata[categoryId]=categoryId
-  if(coordinateRange!==null) restdata[coordinateRange]=coordinateRange
-  if(zipcode!==null) restdata[zipcode]=zipcode
+
+
+export const getlistingpublic=({ search,limit,page,categoryId,coordinateRange,zipcode,latitude,longitude,radius})=>{
+
+  let restdata={limit,page}
+  if(search){ restdata["search"]=search}
+  if(categoryId) restdata["categoryId"]=categoryId
+  if(coordinateRange?.latitude) restdata["coordinateRange"]=JSON.stringify(coordinateRange)
+  if(zipcode) restdata["zipcode"]=zipcode
+
+  const qs = Object.keys(restdata)
+    .map(key => `${key}=${restdata[key]}`)
+    .join('&');
+
   return async (dispatch)=>{
     return await axios({
     method: 'get',
-    url: '/api/v1/venue/viewall/public',
-    data:{ limit,page,...restdata}
+    url: `/api/v1/venue/viewall/public?${qs}`,
+   
   }).then(async (res)=>{
    console.log("dasdasdasd",res)
+   if(res.data.data.length > 0)
     dispatch(slice.actions.listing({data:res.data.data,count:res.data.count}))
-  
+else  dispatch(opensnackbar("error","No result found"))
         }).catch((err)=>{
-          dispatch(opensnackbar("error",err?.response?.data?.message))
+         
         })
   }
   }

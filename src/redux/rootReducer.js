@@ -9,6 +9,7 @@ import amenity from "./slices/amenity"
 import location from './slices/location'
 import reservartions from './slices/reservations'
 import profile from './slices/profile'
+import mybookings from './slices/mybookings'
 // ----------------------------------------------------------------------
 
 const rootPersistConfig = {
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
  amenity,
  location,
  reservartions,
- profile
+ profile,
+ mybookings
 });
 
 export { rootPersistConfig, rootReducer };

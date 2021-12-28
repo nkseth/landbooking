@@ -1,7 +1,9 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
-import { Home, Listing, ViewDetail, BookNow, ThankYou ,EditProfile,Addlisting,Managelisting,Editlisting,Signup} from "./Pages";
+import { Home, Listing, ViewDetail, BookNow, ThankYou ,EditProfile,Addlisting,Managelisting,Editlisting,Signup
+,Mybookings
+} from "./Pages";
 import PrivateRoute from "./privateroute";
 import Geaustroute from './guestroute'
 
@@ -19,6 +21,7 @@ const Routes = () => {
       <PrivateRoute><Route exact path="/addlisting" component={Addlisting} /></PrivateRoute>
       <PrivateRoute><Route exact path="/editlisting/:id" component={Editlisting} /></PrivateRoute>
       <PrivateRoute><Route exact path="/managelistings" component={Managelisting} /></PrivateRoute>
+      <PrivateRoute><Route exact path="/mybookings" component={Mybookings} /></PrivateRoute>
     </>
   );
 };

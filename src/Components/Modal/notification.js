@@ -3,18 +3,23 @@ import { Button, Modal, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {withRouter} from 'react-router-dom'
 import { baseurl } from "../../config";
-import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
+
 import {confirmreservation} from '../../redux/slices/reservations'
 import StripeCheckout from "react-stripe-checkout";
 const LBModal = (props) => {
 const [data,setdata]=React.useState(null)
 const user=useSelector((state) => state.user)
 const dispatch = useDispatch()
+
 const processcheckout=token=>{
-  debugger
+ 
  dispatch(confirmreservation(token,props.data.reservationId,props.id))
+
+ 
+ 
  props.close()
 }
+
 console.log(data)
   return (
     <>
@@ -45,6 +50,10 @@ console.log(data)
       <h6>
         {console.log(props.type)}
      {props.eventtype==="payment"?"Please Proceed with the payment":props.eventtype==="failed"? "Your request could not be processed please try again":'Please Wait we are processing your request....'} 
+     </h6>
+     <h6>
+        {console.log(props.type)}
+     {props.eventtype==="payment"?`total Amount:${props.data.amount}`:props.eventtype==="failed"? "Your request could not be processed please try again":'Please Wait we are processing your request....'} 
      </h6>
      {props.eventtype==="payment" &&
      <StripeCheckout

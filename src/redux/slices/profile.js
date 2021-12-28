@@ -74,6 +74,7 @@ export const updateprivacysettings=(data)=>{
           dispatch(updateverificationsettings(res.data.data.user))
           dispatch(opensnackbar("success","Settings Updated")) 
               }).catch((err)=>{
+                debugger
                dispatch(opensnackbar("error",err?.response?.data?.message)) 
               })
         }

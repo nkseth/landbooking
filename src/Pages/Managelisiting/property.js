@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { baseurl } from "../../config";
-import {FaPencilAlt} from 'react-icons/fa'
+import {FaCalendarAlt, FaPencilAlt} from 'react-icons/fa'
 import { IconButton, Tooltip } from "@mui/material";
 
 const Property=({item})=>{
@@ -18,13 +18,17 @@ const Property=({item})=>{
       <Link to={`/editlisting/${item.uuid}`}>
      
      <div className="editlisting">  
+        <FaCalendarAlt style={{fontSize:32,margin:10}} />
+       
+ </div></Link>
+
+ <Link to={`/editlisting/${item.uuid}`}>
+     
+ <div className="editlisting" style={{top:'70px'}}>  
         <FaPencilAlt style={{fontSize:32,margin:10}} />
        
- </div>
-       
-      
-       
-        </Link>
+ </div></Link>
+
        
       <div className="listing-shot-caption" style={{height:'75%'}}>
         <h4>{item.title}</h4>

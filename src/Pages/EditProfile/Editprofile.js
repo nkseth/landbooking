@@ -79,7 +79,7 @@ longitude:profile.profile.longitude
 
 })
 setbaseurl(`${baseurl}${profile.profile?.image?.path}`)
-
+setlocalddress(profile.profile.address)
   }
 },[profile.profile])
 
@@ -119,22 +119,24 @@ const updateprivacysettingslocal=()=>{
   }
 
   setprofiledetails({...profiledetails,image:null})
+  history.push('/')
 } 
 
 const updategeneralsettingslocal=()=>{
     console.log(profiledetails)
-    
-    const formdata= new FormData()
-    formdata.append('name',profiledetails.name)
-    formdata.append('latitude',localaddress===profile.profile.address?profile.profile.latitude:data.latitude)
-    formdata.append('longitude',localaddress===profile.profile.address?profile.profile.longitude:data.longitude)
-    formdata.append('zipcode',localaddress===profile.profile.address?profile.profile.zipcode:data.zipcode)
-    formdata.append('gender',profiledetails.gender)
-    formdata.append('dob',profiledetails.dob)
-    formdata.append('address',localaddress)
-   debugger
+    const finalobject={}
+  
+    finalobject['name']=profiledetails.name
+    finalobject['latitude']=localaddress===profile.profile.address?profile.profile.latitude:data.latitude
+    finalobject['longitude']=localaddress===profile.profile.address?profile.profile.longitude:data.longitude
+    finalobject['zipcode']=localaddress===profile.profile.address?profile.profile.zipcode:data.zipcode
+    finalobject['gender']=profiledetails.gender
+    finalobject['dob']=profiledetails.dob
+    finalobject['address']=localaddress
+
  
-  dispatch( updategeneralsettings(formdata))
+  dispatch( updategeneralsettings(finalobject))
+  history.push('/')
 }
  
 const [show,setshow]=React.useState(false)

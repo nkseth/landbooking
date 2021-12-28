@@ -21,10 +21,11 @@ if(props?.dtype) setdisplayauto(props.dtype)
   props?.getaddress &&props.onaddresschanging(locationstring)
  },[locationstring])
 return (
-    <div className={props.size?"col-sm-4":"col-sm-6"} style={{position:'relative'}}>
+    <div className={props.size?props.size:"col-sm-6"} style={{position:'relative'}}>
    {!props.label?<label>Address</label>:null}
     <input type="text" className="form-control" 
     placeholder="Search location"
+    style={{...props.style}}
     value={props?.default?props.default:locationstring}
      onChange={(e)=>{setlocationstring(e.target.value);}}
     onKeyDown={(e)=>{if(e.key==="Backspace"){setdisplayauto(true);dispatch(locationlltz())}}}
@@ -33,7 +34,7 @@ return (
        (locationstring!=="" && displayauto) &&  
     <div style={{width:"90%",minHeight:'50px',position:'absolute',zIndex:'100',backgroundColor:'white',
   borderRadius:'10px',boxShadow:'0px 0px 15px lightgray',padding:'10px',display:'flex',justifyContent:'center',
-  alignItems:'center'
+  alignItems:'center',maxHeight:'270px',overflow:'auto',
   }}>
  
    
@@ -49,7 +50,7 @@ setdisplayauto(false);
 dispatch(locationfindll(item))
 }} 
 >
-<label style={{cursor:'pointer'}}>{item}</label>
+<label style={{cursor:'pointer',color:'gray'}}>{item}</label>
 </div>
 })
 :'loading'
