@@ -1,5 +1,5 @@
 import React from "react";
-import { Rating, Typography } from "@mui/material";
+import { Avatar, Rating, Typography } from "@mui/material";
 import "./Reviews.css";
 
 const Reviews = ({data}) => {
@@ -20,16 +20,16 @@ const Reviews = ({data}) => {
           <div className="reviews-container " key={index}>
             <div className="review-container d-flex justify-content-start align-items-start">
               <div className="owner-img mx-1 mx-md-2">
-                <img src={item.image} alt="" className="owner-image" />
+                <Avatar  className="owner-image" >{item.postedBy.name[0]}</Avatar>
               </div>
               <div
                 className="name-container  mx-2"
                 style={{ color: "#334E6F" }}
               >
-                <Typography variant="h6">{item.name}</Typography>
-                <Rating name="half-rating" defaultValue={3} precision={1} />
+                <Typography variant="h6">{item.postedBy.name}</Typography>
+                <Rating name="half-rating" value={item.rating}  precision={0.5} />
                 <Typography varient="caption" style={{ fontSize: "14px" }}>
-                  {item.description}
+                  {item.remark}
                 </Typography>
               </div>
             </div>

@@ -8,11 +8,21 @@ import { useDispatch, useSelector } from "react-redux";
 import {login} from '../../redux/slices/user'
 import {Link} from 'react-router-dom'
 import Forgototp from './forgotpass'
+import { Grid,Box } from "@mui/material";
+import { BookCard, PaymentForm } from "..";
 const LBModal = (props) => {
   
    const dispatch=useDispatch()
 const userdata=useSelector((state)=>state.data)
-
+const CardData = [
+    {
+      title: "Yardcan",
+      imageSrc:
+        "https://st.hzcdn.com/simgs/pictures/patios/keir-residence-true-north-architects-img~f5c174fe00f33ac2_8-4265-1-1305ad9.jpg",
+      location: "Bishop Avenue, Newyork",
+      amount: "140$",
+    },
+  ];
   return (
     <>
  
@@ -33,7 +43,34 @@ const userdata=useSelector((state)=>state.data)
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          
+        <Grid
+        container
+        
+       
+justifyContent='center'
+
+        sx={{ display: "flex", justifyContent: "center" ,width: "100%",}}
+      >
+       
+        <Grid  container  justifyContent="center">
+      
+        <Grid item xs={11}  container  justifyContent="center" >
+          <Box >
+          {CardData.map((item, index) => {
+            return (
+              <BookCard
+                title={item.title}
+                subTitle={item.location}
+                amount={item.amount}
+                imageSrc={item.imageSrc}
+                data={props.data}
+              />
+            );
+          })}
+          </Box>
+        </Grid>
+        </Grid>
+      </Grid>
         </Modal.Body>
       </Modal>
     </>

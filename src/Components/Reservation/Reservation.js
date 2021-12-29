@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import { Typography } from "@mui/material";
 import { Form, Button } from "react-bootstrap";
@@ -8,13 +8,13 @@ import Counter from "../Counter/Counter";
 import Notification from "../Modal/notification";
 import Multidatepicker from "./multidatepicker";
 import moment from "moment";
-import {requestreservation,EmptyReservation} from '../../redux/slices/reservations'
+import {requestreservation,EmptyReservation, reschedulereservation} from '../../redux/slices/reservations'
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import { baseurl } from "../../config";
 import {opensnackbar} from '../../redux/slices/user'
-const Reservation = ({data,id,history,setmo,resetdata}) => {
+const Reservation = ({data,id,history,setmo,resetdata,reservationid}) => {
 const [avaliabletime,setavaliabletime]=React.useState([])
 const [selectedate,setselecteddate]=React.useState([])
 const [selectedatec,setselecteddatec]=React.useState([])
@@ -136,6 +136,7 @@ console.log(temp)
 }
 
 React.useEffect(()=>{
+
   const tempslots=[]
   let clength=0
   selecttime.map((ii)=>{
@@ -211,18 +212,26 @@ console.log(selecttime)
 console.log(finalslot)
  const schedules= selecttime
   
-   const slots=finalslot
+   const slots=data.slots &&finalslot
    const guestList=guestlimit
    const venueId=id
+   if(!reservationid){
+    if(slots){
+      dispatch(requestreservation({schedules,slots,guestList,venueId}))
+    }else dispatch(requestreservation({schedules,guestList,venueId}))
+     
+   }else if(reservationid){
+    if(slots){
+      dispatch(reschedulereservation({schedules,slots,guestList,venueId},reservationid))
+    }else dispatch(reschedulereservation({schedules,guestList,venueId},reservationid))
+   }
 
-   dispatch(requestreservation({schedules,slots,guestList,venueId}))
- 
   //  history.push(`/book-now/${id}`)
 }
 const [statusmodal,setmodal]=React.useState(false)
 const onclose=()=>{
   setmodal(false)
-  debugger
+ 
   dispatch(EmptyReservation())
   seteventtype(null)
   resetdata()
@@ -233,13 +242,15 @@ const onclose=()=>{
   setselectitme([])
 }
 
-React.useEffect(() => {
+React.useEffect(useCallback(
+  () => {
   if(user.user){
     let eventSource = new EventSourcePolyfill(`${baseurl}api/v1/event/restricted/subscribe/payment_required`
     ,{headers: {'Authorization': 'Bearer ' + user.user.tokens.access.value},heartbeatTimeout: 300000})
   
     eventSource.onmessage = e => {setedata(JSON.parse(e.data)); 
       seteventtype("payment")
+      eventSource.close()
     }
 
   let eventSource2 = new EventSourcePolyfill(`${baseurl}api/v1/event/restricted/subscribe/reservation_failed`
@@ -247,12 +258,12 @@ React.useEffect(() => {
     
       eventSource2.onmessage = e => {setedata(JSON.parse(e.data)); 
         seteventtype("failed")
-        
+        eventSource2.close();
       }
        
       
       }
-  }, [])
+  },[user.user]), [user.user])
 
  React.useEffect(()=>{
   if(reservation.reservationdetails){
@@ -408,7 +419,7 @@ React.useEffect(() => {
             }}
             onClick={Booknow}
           >
-            Book Now
+            {reservationid?"Reschedule":"Book Now"}
           </Button>
        
       </div>

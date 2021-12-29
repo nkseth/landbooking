@@ -20,6 +20,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { viewdetailsprivate, viewdetailspublic,reviews } from "../../redux/slices/popularlisting";
 import {withRouter} from 'react-router-dom'
 import { booking } from "../../redux/slices/reservations";
+import { useLocation } from "react-router-dom";
 
 
 const ViewDetail = ({history}) => {
@@ -28,6 +29,15 @@ const data =useSelector((state) => state.popularlisting)
 const user =useSelector((state) => state.user)
 const {notification}=useSelector((state) => state.reservartions)
 const [edata,setedata]=React.useState(null)
+function useQuery() {
+  const { search } = useLocation();
+
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+}
+let query = useQuery();
+const reservationid=query.get("reservationid");
+
+
 const {id}=useParams()
   console.log(id)
 
@@ -93,7 +103,7 @@ const resetdata=()=>{
               <Rating
                 name="half-rating m-1"
                value={data.listingdetails?.rating}
-                precision={1}
+                precision={0.5}
             
                readOnly
                 style={{
@@ -165,7 +175,8 @@ const resetdata=()=>{
             <Reviews data={data.reviews} />
           </Grid>
           <Grid item xs={11} md={3}>
-            <Reservation data={data.listingdetails} id={id}  resetdata={resetdata}/>
+            {user?.user?.user?.uuid!==data.listingdetails?.host?.userId &&
+            <Reservation data={data.listingdetails} id={id}  resetdata={resetdata} reservationid={reservationid}/>}
             <Gallery data={data.listingdetails?.images} />
             <Location  data={data.listingdetails?.address}/>
           </Grid>

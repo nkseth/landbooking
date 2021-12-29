@@ -169,4 +169,22 @@ else  dispatch(opensnackbar("error","No result found"))
           }
           }
     
+          export const givereviews=(id,data)=>{
+            return async (dispatch)=>{
+              return await axios({
+              method: 'post',
+              url: `/api/v1/review/${id}/create`,
+             data:data
+              
+            }).then(async (res)=>{
+           
+              dispatch(opensnackbar("success","Thanks fro your feedback"))
+            dispatch(slice.actions.reviews(res.data.data))
+            
+                  }).catch((err)=>{
+                    dispatch(opensnackbar("error",err?.response?.data.message))
+                  })
+            }
+            }
+      
 

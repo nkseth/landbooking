@@ -38,7 +38,7 @@ const Info = ({data,reviewno}) => {
           style={{ color: "#334E6F", fontSize: "14px" }}
         >
           <div>
-            <Rating name="half-rating"  readOnly value={data?.rating} precision={1} />
+            <Rating name="half-rating"  readOnly value={data?.rating} precision={0.5} />
           </div>
           <div className="mx-3">
             <Typography>{reviewno?.length >0? reviewno.length:0 } Reviews</Typography>

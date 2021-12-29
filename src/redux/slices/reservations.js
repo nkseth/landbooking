@@ -47,7 +47,7 @@ return async (dispatch)=>{
  dispatch(slice.actions.reservations(data))
  dispatch(opensnackbar("success","Booking request submitted successfully")) 
       }).catch((err)=>{
-       dispatch(opensnackbar("error",err?.response?.data?.details)) 
+       dispatch(opensnackbar("error",err?.response?.data?.message)) 
       })
 }
 }
@@ -84,7 +84,7 @@ export const confirmreservation=(token,rid,vid)=>{
    dispatch(opensnackbar("success","Booking Confirmed")) 
         }).catch((err)=>{
           dispatch(slice.actions.booking("goterror"))
-         dispatch(opensnackbar("error",err?.response?.data?.details)) 
+         dispatch(opensnackbar("error",err?.response?.data?.message)) 
         })
   }
 }
@@ -95,3 +95,21 @@ export const confirmreservation=(token,rid,vid)=>{
     }
     
   }
+
+  export const reschedulereservation=(data,reservationid)=>{
+    return async (dispatch)=>{
+      return await axios({
+      method: 'put',
+      url: `api/v1/reservation/reschedule/${reservationid}`,
+      headers: {'Content-Type': 'application/json'},
+      data:JSON.stringify(data)
+    }).then(async (res)=>{
+     console.log("dasdasdasd",res)
+     dispatch(slice.actions.reservations(data))
+     dispatch(opensnackbar("success","Reschedule request submitted successfully")) 
+          }).catch((err)=>{
+           dispatch(opensnackbar("error",err?.response?.data?.message)) 
+          })
+    }
+    }
+    

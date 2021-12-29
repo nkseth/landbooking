@@ -232,7 +232,7 @@ React.useEffect(()=>{
           <div className="row mrg-r-10 mrg-l-10">
             <div className="col-sm-12">
               <label>Description</label>
-              <textarea className="h-500 form-control" defaultValue={""} 
+              <textarea className="h-500 form-control" defaultValue={""} rows={4}
               onChange={(e)=>{setdata({...data, discription: e.target.value})}}
 
               />

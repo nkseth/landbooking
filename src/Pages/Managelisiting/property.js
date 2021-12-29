@@ -3,10 +3,15 @@ import { Link } from "react-router-dom";
 import { baseurl } from "../../config";
 import {FaCalendarAlt, FaPencilAlt} from 'react-icons/fa'
 import { IconButton, Tooltip } from "@mui/material";
-
+import Slotmanger from '../../Components/Modal/slotmanager/slotmanage'
 const Property=({item})=>{
+  const [show,setshow]=React.useState(false)
+const close=()=>{
+  setshow(false)
+}
     return(
     <div className="add-listing-box edit-info verticleilist listing-shot">
+      <Slotmanger id={item.uuid} show={show} close={close}/>
     <a className="listing-item" href="#">
       <div className="listing-shot-img">
         <img src={`${baseurl}${item.images[0]}`} className="img-responsive" alt="" />
@@ -15,12 +20,12 @@ const Property=({item})=>{
     </a>
     <div className="verticle-listing-caption">
    
-      <Link to={`/editlisting/${item.uuid}`}>
+      
      
-     <div className="editlisting">  
+     <div className="editlisting" onClick={()=>setshow(true)}>  
         <FaCalendarAlt style={{fontSize:32,margin:10}} />
        
- </div></Link>
+ </div>
 
  <Link to={`/editlisting/${item.uuid}`}>
      

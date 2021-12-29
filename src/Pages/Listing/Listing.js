@@ -248,7 +248,7 @@ const searchclicked=(data)=>{
       <div className="cards-container d-flex justify-content-center flex-wrap  " style={{marginTop:'230px'}}>
         {data?.listing?.map((item, index) => {
            if(user.user){
-             debugger
+          
             if(item.host.userId!==user.user.user.uuid){
           return (
             <div key={index}>

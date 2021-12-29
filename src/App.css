@@ -4972,7 +4972,7 @@ p#invoice-info {
     margin-top: 8px;
 }
 .small-list-img {
-    max-width: 80px;
+    max-width: 100px;
     padding: 5px;
     float: left;
     margin-right: 15px;
@@ -6702,14 +6702,14 @@ a.cl-box {
 	}
 	/*---Manage Listing-----*/
 	.small-list-img {
-		max-width: 80px;
+		max-width: 100px;
 		padding: 5px;
 		float: none;
 		margin-right: 0;
 		margin: 10px auto;
 	}
 	.small-list-img img {
-		border-radius: 50%;
+		border-radius:20%;
 	}
 	.small-list-detail {
 		display: block;

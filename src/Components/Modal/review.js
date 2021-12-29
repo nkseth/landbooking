@@ -6,21 +6,27 @@ import { baseurl } from "../../config";
 
 import {confirmreservation} from '../../redux/slices/reservations'
 import StripeCheckout from "react-stripe-checkout";
-const LBModal = (props) => {
+import { Rating } from "@mui/material";
+import { opensnackbar } from "../../redux/slices/user";
+import { givereviews } from "../../redux/slices/popularlisting";
+const Reviewmodal = (props) => {
 const [data,setdata]=React.useState(null)
 const user=useSelector((state) => state.user)
 const dispatch = useDispatch()
-
-const processcheckout=token=>{
- 
- dispatch(confirmreservation(token,props.data.reservationId,props.id))
+const [rating,setrating]=React.useState(0)
+const [comment,setcomment]=React.useState("")
+const submitrating=()=>{
+ if(rating<1 && comment===""){
+     dispatch(opensnackbar("error","please Enter all details to give a feedback"))
+ } 
+ else dispatch(givereviews(props.data.venue.uuid,{remarks:comment,rating:rating}))
 
  
  
  props.close()
 }
 
-console.log(data)
+
   return (
     <>
   {console.log(props.data)}
@@ -39,36 +45,32 @@ console.log(data)
             id="example-custom-modal-styling-title"
             style={{ fontWeight: 400 }}
           >
-         {props.noti?.notification?.title}
+       Add A Review
        
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-      <div>
-           {props.noti?.notification?.body}
+  <div className="text-center">
+      <div className="mt-3 mb-3">
+      <Rating
+      precision={0.5}
+       value={rating}
+       onChange={(event, newValue) => {
+         setrating(newValue);
+       }}
+      />
       </div>
-      <h6>
-        {console.log(props.type)}
-     {props.eventtype==="payment"?"Please Proceed with the payment":props.eventtype==="failed"? "Your request could not be processed please try again":'Please Wait we are processing your request....'} 
-     </h6>
-     <h6>
-        {console.log(props.type)}
-     {props.eventtype==="payment"?`total Amount:${props.data.amount}`:""} 
-     </h6>
-     {props.eventtype==="payment" &&
-     <StripeCheckout
-     stripeKey="pk_test_51JxTaBHneeV50Qz279YeijjaIAMx5QaKg1vPxdFtVqZuY6lfr9HJXLrGWvkkA8xDrP6IXVO0ZkeJC2fdxXsEOPsh00rBgZxSZm"
-     token={processcheckout}
-     name="hello"
-     >
-         <Button style={{marginTop:50}} >
-             Proceeed With Payment</Button>
-          </StripeCheckout>
-}
+      <div>
+      <textarea className="h-500 form-control" defaultValue={""} 
+          onChange={(e)=>{setcomment(e.target.value)}}
+/>
+      </div>
+      <Button onClick={submitrating}>Submit Rerview</Button>
+  </div>
         </Modal.Body>
       </Modal>
     </>
   );
 };
 
-export default withRouter(LBModal);
+export default withRouter(Reviewmodal);
