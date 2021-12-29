@@ -1,4 +1,6 @@
+import { EventSourcePolyfill } from "event-source-polyfill";
 import firebase from "firebase"
+import { baseurl } from "./config";
 
 const firebaseConfig = {
     apiKey:"AIzaSyD0FZVbfQpoG-uIJknq0AkAtauyKs5and8",
@@ -13,3 +15,5 @@ const firebaseConfig = {
   firebase.initializeApp(firebaseConfig)
 
 export  const message=firebase.messaging()
+
+
