@@ -5,15 +5,22 @@ import { Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {  DeleteTwoTone,  } from "@mui/icons-material";
 import AddAlarmIcon from '@mui/icons-material/AddAlarm';
-import { opensnackbar } from "../../../redux/slices/user";
-
+import { opensnackbar } from "../../redux/slices/user";
+import {getcurrentslotdetials, updatecurrentslotdetials} from '../../redux/slices/slotmanagement'
 const LBModal = (props) => {
 
   const dispatch=useDispatch()
 
+ React.useEffect(()=>{
+ if(props.show){
+
+  dispatch(getcurrentslotdetials(props.id))
+ }
+  
+},[props.show])
 
 const user=useSelector((state) => state.user)
-const data=useSelector((state)=>state.user)
+const data=useSelector((state)=>state.slotmanagement)
 
 const [to,setto]=React.useState([])
 const [from,setfrom]=React.useState([])
@@ -32,7 +39,7 @@ const onToselect=(ei,toi)=>{
       const hello=[...to]
       hello[ei]=toi
       setto([...hello])
-      debugger
+     
 }
 const onFromselect=(ei,fromi)=>{
   const hello=[...from]
@@ -51,7 +58,7 @@ const addinteval=(index)=>{
       oldinteval.push({to:toi,from:fromi})
       olddata[index]={...olddata[index],intervals:oldinteval}
     setaddonce([...olddata])
-    debugger
+
     }
   }
   else dispatch(opensnackbar("error","please select a valid interval"))
@@ -98,7 +105,7 @@ const Once=({index})=>{
  
 
   
- <div className="col-md-3 p-2">
+ <div className="col-md-3 ">
                 <label>To</label>
                 <select data-placeholder="Choose Category"  className="form-control chosen-select"
                    value={to[index]} 
@@ -148,7 +155,7 @@ const Once=({index})=>{
   </div>
    </div>
    
- <div className="col-md-12 p-1 d-flex justify-content-start align-items-center">
+ <div className="col-12 p-1 d-flex justify-content-start align-items-center">
    <div >
      <p style={{marginBottom:0}}>Added Intervals :-</p>
      <div className="p-2 text-center d-flex m-1 flex-wrap" >
@@ -187,17 +194,31 @@ const addday=(index,day)=>{
   
 }
 
+const setunit=(index,unit)=>{
+  const temp=[...addonce]
+  const l={...temp[index]}
+  l.unit=unit
+  temp[index]=l
+  setaddonce([...temp])
+}
+const setfrequency=(index,frequency)=>{
+  const temp=[...addonce]
+  const l={...temp[index]}
+  l.frequency=frequency
+  temp[index]=l
+  setaddonce([...temp])
+}
 
 const Weeklyrepeat=({index})=>{
   return(
     <div className="d-flex mt-2 p-2 flex-wrap justify-content-center align-items-center" style={{border:'1px solid gray',borderRadius:'10px'}}>
              
-    <div className="col-md-12 p-1 d-flex justify-content-around">
+    <div className="col-md-12 p-1 d-flex justify-content-around flex-wrap">
    
    {days.map((item,index2)=>{
       return <div style={{padding:8,border:'1px solid #1effac',borderRadius:'10px',cursor:'pointer',
       backgroundColor:addonce[index].date.includes(item.value)?"#1effac":'white',
-      color:addonce[index].date.includes(item.value)?"white":'gray',
+      color:addonce[index].date.includes(item.value)?"white":'gray',margin:2
       }}
       onClick={()=>{addday(index,item.value)}}
       >
@@ -208,7 +229,7 @@ const Weeklyrepeat=({index})=>{
  
 
   
- <div className="col-md-3 p-2">
+ <div className="col-md-3 ">
                 <label>To</label>
                 <select data-placeholder="Choose Category"  className="form-control chosen-select"
                    value={to[index]} 
@@ -258,7 +279,7 @@ const Weeklyrepeat=({index})=>{
   </div>
    </div>
    
- <div className="col-md-12 p-1 d-flex justify-content-start align-items-center">
+ <div className="col-12 p-1 d-flex justify-content-start align-items-center">
    <div >
      <p style={{marginBottom:0}}>Added Intervals :-</p>
      <div className="p-2 text-center d-flex m-1 flex-wrap" >
@@ -280,27 +301,45 @@ const Weeklyrepeat=({index})=>{
   )
 }
 
-const customrepeat=({index})=>{
+const Customrepeat=({index})=>{
   return(
     <div className="d-flex mt-2 p-2 flex-wrap justify-content-center align-items-center" style={{border:'1px solid gray',borderRadius:'10px'}}>
              
-    <div className="col-md-12 p-1 d-flex justify-content-around">
-   
-   {days.map((item,index2)=>{
-      return <div style={{padding:8,border:'1px solid #1effac',borderRadius:'10px',cursor:'pointer',
-      backgroundColor:addonce[index].date.includes(item.value)?"#1effac":'white',
-      color:addonce[index].date.includes(item.value)?"white":'gray',
-      }}
-      onClick={()=>{addday(index,item.value)}}
-      >
-        {item.name}
-      </div>
-   })}
+    <div className="col-md-6 p-1">
+   <label>Date</label>
+   <input type="date" className="form-control" 
+   value={addonce[index].date} 
+    onChange={(e)=>{addate(index,e.target.value)}}
+   />
  </div>
  
 
-  
- <div className="col-md-3 p-2">
+ 
+              <div className="col-md-3 p-2">
+                <label>Unit</label>
+                <select data-placeholder="Choose Category"  className="form-control chosen-select"
+                  value={addonce[index].unit} 
+                  onChange={(e)=>{setunit(index,e.target.value)}}
+                >
+                   <option  value={""}>Select Time</option>
+                 {
+                 ["DAYS","WEEKS","MONTHS","YEARS"].map((item,ind)=>{
+                 return <option key={item} value={ind+1}>{item}</option>
+                })
+                }
+                  
+                </select>
+              </div>
+              <div className="col-md-3 ">
+              <label>Frequency</label>
+                <input type="number" className="form-control"  min={1}
+                onChange={(e)=>{setfrequency(index,e.target.value)}}
+                value={addonce[index].frequency} 
+                />
+                  
+              </div>
+ 
+              <div className="col-md-3 ">
                 <label>To</label>
                 <select data-placeholder="Choose Category"  className="form-control chosen-select"
                    value={to[index]} 
@@ -334,6 +373,7 @@ const customrepeat=({index})=>{
                   
                 </select>
               </div>
+
               <div className="col-md-2 p-1 d-flex justify-content-center align-items-center">
               <div style={{borderRadius:'10px',marginTop:'10px',
    color:'black',display:'flex',justifyContent: 'center',flexDirection:'column',alignItems:'center',cursor:'pointer'}}
@@ -350,7 +390,7 @@ const customrepeat=({index})=>{
   </div>
    </div>
    
- <div className="col-md-12 p-1 d-flex justify-content-start align-items-center">
+ <div className="col-12 p-1 d-flex justify-content-start align-items-center">
    <div >
      <p style={{marginBottom:0}}>Added Intervals :-</p>
      <div className="p-2 text-center d-flex m-1 flex-wrap" >
@@ -390,16 +430,42 @@ const additem=(type)=>{
       break;
       case 2:
         setaddonce([...addonce,{
-          "uuid": "",
+          "uuid": props.id,
           "date": [],
           "intervals": [],
           "type": 2
         }])
         break;
+     case 3:
+      setaddonce([...addonce, {
+        "uuid": props.id,
+        "date": "",
+        "intervals": [],
+        "type": 3,
+        "unit": 1,
+        "frequency": 2
+      }])
       default: 
      
   }
 }
+React.useEffect(()=>{
+  if(data.currentdetails){
+    
+   setaddonce([...data.currentdetails])
+   console.log(data.currentdetails)
+  }
+  },[data.currentdetails])
+
+ const [Sch,setsch]=React.useState(60) 
+ const [slot,setslot]=React.useState(props.slots)
+ const [alterr,setalter]=React.useState(false)
+
+const submit=()=>{
+  dispatch(updatecurrentslotdetials(props.id,addonce,Sch,slot,alterr))
+}
+
+
   return (
     <>
   
@@ -408,7 +474,7 @@ const additem=(type)=>{
         size="lg"
         show={props.show}
         onHide={() => {props.close()}}
-        static
+      
         dialogClassName="modal-100w"
         aria-labelledby="example-custom-modal-styling-title"
       >
@@ -424,10 +490,45 @@ const additem=(type)=>{
 
        <div>
            <div className="d-flex">
-               <Button className="m-2 h-100" onClick={()=>{additem(1)}}>ADD ONCE</Button>
-               <Button className="m-2 h-100" onClick={()=>{additem(2)}}>WEEKLY REPEAT</Button>
-               <Button className="m-2 h-100">CUSTOM REPEAT</Button>
+               <Button className="m-2 h-100" style={{fontSize: "14px" }} onClick={()=>{additem(1)}}>ADD ONCE</Button>
+               <Button className="m-2 h-100" style={{fontSize: "14px" }} onClick={()=>{additem(2)}}>WEEKLY REPEAT</Button>
+               <Button className="m-2 h-100"  style={{fontSize: "14px" }} onClick={()=>{additem(3)}}>CUSTOM REPEAT</Button>
+               
            </div>
+           <div className="d-flex">
+           <div className="col-md-3 ">
+                <label>Alter Reservations</label>
+                <select data-placeholder="Choose Category"  className="form-control chosen-select"
+                 value={alterr} 
+                   onChange={(e)=>{setalter(e.target.value)}}
+                  
+                >
+                
+                  <option  value={false}>False</option>
+                  <option  value={true}>True</option>
+                  
+                </select>
+              </div>
+              <div className="col-md-3 px-1">
+   {slot===null?null:
+   <> 
+   <label>Edit slots</label>
+   <input type="number" className="form-control" 
+   value={slot} 
+    onChange={(e)=>{setslot(e.target.value)}}
+   />
+   </>}
+ </div> 
+ <div className="col-md-3 px-1">
+   <label>Scheduling Period</label>
+   <input type="number" className="form-control" 
+    value={Sch} 
+    onChange={(e)=>{setsch(e.target.value)}}
+   />
+ </div>
+           </div>
+ 
+
                 {addonce.map((item,index)=>{
                   if(item.type===1){
                       return <Once index={index}/>
@@ -435,9 +536,13 @@ const additem=(type)=>{
                   if(item.type===2){
                     return <Weeklyrepeat index={index}/>
                 }
+                if(item.type===3){
+                  return <Customrepeat index={index}/>
+                }
                 })}
               
            {props.id}</div>
+          {addonce.length>0? <Button onClick={submit}>Submit</Button>:null}
         </Modal.Body>
       </Modal>
     </>

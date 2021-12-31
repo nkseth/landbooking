@@ -6766,12 +6766,16 @@ a.cl-box {
 }
 
 .editlisting{
-    position: absolute;
-    top: 15px;
-    right: 20px;
+  
+  
     color:#1effac; 
-    border-radius:100%;
+    border-radius:20%;
+    padding:4px;
    z-index: 100;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
    transition:'0.2s ease-in-out'
     
 }
@@ -6789,4 +6793,11 @@ a.cl-box {
 }
 .slotsactive{
     background-color:#1effac
+}
+
+.link{
+    font-weight:lighter;
+    margin-top:5px;
+    margin-bottom:5px;
+    
 }

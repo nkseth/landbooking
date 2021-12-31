@@ -11,7 +11,10 @@ import {
 import "./Card.css";
 import { Link } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import { addfavour } from "../../redux/slices/popularlisting";
+import { useDispatch } from "react-redux";
 const Cards = ({ title, subTitle, amount, imageSrc,rating,id }) => {
+  const dispatch=useDispatch()
   return (
     <div className="card mx-lg-3 my-3 px-2" style={{ border: "none" }}>
       <Card
@@ -28,7 +31,7 @@ const Cards = ({ title, subTitle, amount, imageSrc,rating,id }) => {
             image={imageSrc}
             alt="green iguana"
           />
-          <div
+          <div 
             className="d-flex justify-content-center align-items-center"
             style={{
               backgroundColor: "#1EFFAC",
@@ -38,7 +41,9 @@ const Cards = ({ title, subTitle, amount, imageSrc,rating,id }) => {
               position: "absolute",
               bottom: "-1.5rem",
               right: "1rem",
+              cursor: "pointer"
             }}
+            onClick={()=>{dispatch(addfavour(id))}}
           >
             <FavoriteBorderOutlinedIcon style={{ color: "white" }} />
           </div>
@@ -64,7 +69,7 @@ const Cards = ({ title, subTitle, amount, imageSrc,rating,id }) => {
           <Typography variant="body2">{subTitle}</Typography>
         </CardContent>
         <CardActions className="d-flex justify-content-between border-top p-1 mt-2">
-          <Rating name="half-rating" value={rating} readOnly   precision={1} />
+          <Rating name="half-rating" value={rating} readOnly   precision={0.5} />
           <Button size="small">
             <Link
               to={`./view-detail/${id}`}

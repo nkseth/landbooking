@@ -8,13 +8,14 @@ import { useSelector } from "react-redux";
 
 const Header = (props) => {
   const data = useSelector((state) => state.user);
-
+const [expanded,setexpaned]=React.useState(false)
   return (
     <>
       <Navbar
         bg="white"
         fixed="top"
         expand="lg"
+        expanded={expanded}
         className="m-0 p-0"
         style={{ boxShadow: "0 0 8px 0 rgb(0 0 0 / 12%)" ,}}
       >
@@ -22,9 +23,10 @@ const Header = (props) => {
           aria-controls="basic-navbar-nav"
           className="m-0 p-0"
           style={{ boxShadow: "none", border: "none"}}
+          onClick={()=>setexpaned(!expanded)}
         />
-        <Navbar.Collapse id="basic-navbar-nav" className="m-0 p-0 " style={{justifyContent: "space-between"}}>
-          <Nav style={{width:'75%',justifyContent: "center",marginLeft:'100px'}}>
+        <Navbar.Collapse id="basic-navbar-nav" className="m-0 p-0 " >
+          <Nav style={{width:'100%'}}  onClick={()=>{setexpaned(false)}}>
             <Link to="/" className="link">
               <Nav.Link
                 className=" link"
@@ -35,6 +37,7 @@ const Header = (props) => {
                   marginLeft: "2rem",
                   paddingLeft: "2rem",
                 }}
+               
               >
                 Home
               </Nav.Link>
@@ -53,33 +56,36 @@ const Header = (props) => {
                 Listing
               </Nav.Link>
             </Link>
-
-            <Nav.Link
-              className=""
-              href="#work"
-              style={{
-                color: "#798791",
-                fontSize: "14px",
-                marginLeft: "2rem",
-                paddingLeft: "2rem",
-              }}
-            >
-              How We Work
-            </Nav.Link>
-            <Nav.Link
-              className=""
-              href="#why-us"
-              style={{
-                color: "#798791",
-                fontSize: "14px",
-                marginLeft: "2rem",
-                paddingLeft: "2rem",
-              }}
-            >
-              Why Us?
-            </Nav.Link>
+            <Link to="/" className="link">
+              <Nav.Link
+                className=" link"
+                href="/listing"
+                style={{
+                  color: "#798791",
+                  fontSize: "14px",
+                  marginLeft: "2rem",
+                  paddingLeft: "2rem",
+                }}
+              >
+                How we Work?
+              </Nav.Link>
+            </Link>
+            <Link to="/" className="link">
+              <Nav.Link
+                className=" link"
+                href="/listing"
+                style={{
+                  color: "#798791",
+                  fontSize: "14px",
+                  marginLeft: "2rem",
+                  paddingLeft: "2rem",
+                }}
+              >
+                Why Us?
+              </Nav.Link>
+            </Link>
           </Nav>   
-          <div style={{backgroundColor:'red'}}>
+          <div  onClick={()=>{setexpaned(false)}} >
             {data?.user?<Logout/>:<Modal />}
           </div>
         </Navbar.Collapse>

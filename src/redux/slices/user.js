@@ -97,7 +97,7 @@ return async (dispatch)=>{
   console.log(res)
 dispatch(slice.actions.userdetails(res.data.data))
 dispatch(slice.actions.opensnackbar({type:"success",message:"Login successful"})) 
-debugger
+
 let paper={}
 if(Object.keys(res.data.data.user.verifications).length>0) {
   
@@ -107,7 +107,7 @@ if(Object.keys(res.data.data.user.verifications).length>0) {
   if(Object.keys(res.data.data.user.verifications).includes("phone"))
   paper["phoneVerificationId"]=res.data.data.user.verifications.phone.uuid
 }
-debugger
+
 dispatch(setverificationstate(paper))
 }).catch((err)=>{
   console.error(err.message)

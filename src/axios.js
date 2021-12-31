@@ -42,15 +42,16 @@ axiosInstance.interceptors.request.use(async (config) => {
   console.log("wwwwwwwwwww",state.user)
   
 if(state.user!==null){
-   if(moment(state.user?.tokens?.refresh?.expiresAt).diff(moment(),'seconds')>10){
-console.log("adfdsfsdfsd")
-    if(moment(state.user?.tokens?.access?.expiresAt).diff(moment(),'seconds')<10)
+   if(moment(state.user?.tokens?.refresh?.expiresAt).diff(moment(),'seconds')>0){
+   
+    if(moment(state.user?.tokens?.access?.expiresAt).diff(moment(),'seconds')<0)
     {
+      alert(moment(state.user?.tokens?.access?.expiresAt).diff(moment(),'seconds'))
      console.log("new1")
-     debugger
+   
       await renewtokencall(state.fcmtoken,state.user.tokens.refresh.value).then((res)=>{
         console.log(res)
-        debugger
+ 
       store.dispatch(renewtoken(res.data.data))
       config.headers.authorization = `Bearer ${res.data.data.tokens.access.value}`
       return config
@@ -59,23 +60,26 @@ console.log("adfdsfsdfsd")
    else{ 
     
      config.headers.authorization = `Bearer ${state.user.tokens.access.value}`
-    
+     return config
   }
-   } else store.dispatch(nulluser())
+   } else {store.dispatch(opensnackbar("error","Session Expired Please ReLogin")); store.dispatch(nulluser())}
   }
-  return config
+  else{
+    return config
+  }
+
 })
 
 axiosInstance.interceptors.response.use(config => {
   store.dispatch(loading(false))
-
-  
   return config
+
 },(error)=>{
   store.dispatch(loading(false))
-  console.log("asdsadasd",error.response.status)
-  if(error.response.status===403){
-   console.log(error.response?.data?.data)
+  debugger
+  console.log("asdsadasd",error.response)
+  debugger
+  if(error.response?.status===403){
    if(error.response?.data?.data.status!==1){
     store.dispatch(logout())
     store.dispatch(opensnackbar("error","Your account has been blocked please contact admin"))
@@ -84,7 +88,8 @@ axiosInstance.interceptors.response.use(config => {
     store.dispatch(opensnackbar("error","Please verify your Phone No to continue using the Application"))
    }
    if(error.response?.data?.data.fcmTokenStatus!==1){
-    store.dispatch(fcmupdate())
+     store.dispatch(logout())
+    store.dispatch(nulluser())
    }
   }
   console.log("sdsdsadsadasd",error.response.data.message)

@@ -36,6 +36,7 @@ const onclose=()=>{
           boxShadow: "none",
           fontSize: "14px",
           borderRadius: 0,
+          display:'flex'
         }}
         onClick={() => setShow(true)}
       >

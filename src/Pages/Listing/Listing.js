@@ -265,7 +265,7 @@ const searchclicked=(data)=>{
             }
           }
           else{
-            <div key={index}>
+           return <div key={index}>
               <Card
                  title={item.title}
                  subTitle={item.address}

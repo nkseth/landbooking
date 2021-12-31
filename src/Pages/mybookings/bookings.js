@@ -25,7 +25,7 @@ const Booking=({data,history})=>{
                       </div>
                       <div className="small-list-action light d-flex flex-wrap justify-content-center" >
                       <div  onClick={()=>{setrshow(true)}} className="light-gray-btn btn-square" style={{width:'150px'}} data-placement="top" data-toggle="tooltip" title="Add a Review"><i className="ti-pencil" />
-                          Add Review
+                          Add/View Review
                           </div>
                           <div style={{marginRight:'10px'}}>
                               <p style={{marginBottom:0}}>status</p>

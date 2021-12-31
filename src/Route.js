@@ -2,7 +2,9 @@ import React from "react";
 import { Route } from "react-router-dom";
 
 import { Home, Listing, ViewDetail, BookNow, ThankYou ,EditProfile,Addlisting,Managelisting,Editlisting,Signup
-,Mybookings
+,Mybookings,
+Favourites,
+Reservations
 } from "./Pages";
 import PrivateRoute from "./privateroute";
 import Geaustroute from './guestroute'
@@ -22,6 +24,9 @@ const Routes = () => {
       <PrivateRoute><Route exact path="/editlisting/:id" component={Editlisting} /></PrivateRoute>
       <PrivateRoute><Route exact path="/managelistings" component={Managelisting} /></PrivateRoute>
       <PrivateRoute><Route exact path="/mybookings" component={Mybookings} /></PrivateRoute>
+      <PrivateRoute><Route exact path="/myfavourite" component={Favourites} /></PrivateRoute>
+      <PrivateRoute><Route exact path="/view-reservations/:id" component={Reservations} /></PrivateRoute>
+      
     </>
   );
 };

@@ -9,3 +9,5 @@ export {default as Managelisting} from "./Managelisiting"
 export {default as Editlisting} from "./editlisitng"
 export {default as Signup} from "./Signup"
 export {default as Mybookings} from './mybookings'
+export {default as Favourites} from './favourates'
+export {default as Reservations} from './reservations'

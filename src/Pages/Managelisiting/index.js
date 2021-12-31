@@ -5,7 +5,8 @@ import {viewhostedlisting} from '../../redux/slices/popularlisting'
 import {baseurl} from '../../config'
 import { Avatar } from "@mui/material";
 import { withRouter } from "react-router-dom";
-
+import { ArrowRightAltRounded } from "@mui/icons-material";
+import Bannerbg from "../../assets/title-bg.jpg";
 
 const ManageListing = ({history}) => {
 
@@ -25,7 +26,19 @@ React.useEffect(()=>{
   },[])
 
   return (
-  <div style={{marginTop:150}}>
+  <div style={{marginTop:50}}>
+    <section className="title-transparent page-title" style={{ backgroundImage: `url(${Bannerbg})`,}}>
+        <div className="container">
+          <div className="title-content">
+            <h1>Manage Listing</h1>
+            <div className="breadcrumbs">
+              <a href="#">Home</a>
+              <ArrowRightAltRounded/>
+              <span className="current">Manage Lisitng </span>
+            </div>
+          </div>
+        </div>
+      </section>
    <section className="padd-0" >
           <div className="container">
 

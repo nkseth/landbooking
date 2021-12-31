@@ -33,15 +33,48 @@ export default slice.reducer;
 
 
 
-export const getcurrentslotdetials=(rid)=>{
+export const updatecurrentslotdetials=(rid,data,sch,slot,alter)=>{
+      const finaldata= data.map((item)=>{
+            if( typeof item.date==="string"){
+                const newitem={...item}
+                newitem.date= JSON.stringify(item.date)
+                return newitem 
+            }
+            else return item
+        })
+
+    const newdata={"schedules":finaldata,"schedulingPeriod":sch,"alterReservations": alter}
+    if(slot){
+        newdata["slots"]=slot
+    }
   return async (dispatch)=>{
     return await axios({
-    method: 'get',
-    url: `api/v1/venue/${rid}/schedule/raw/view`,
+    method: 'put',
+    url: `api/v1/venue/${rid}/schedule/raw/update`,
     headers: {'Content-Type': 'application/json'},
+    data:newdata
+  }).then(async (res)=>{
+   console.log("dasdasdasd",res)
+   
+   dispatch(opensnackbar("success","Updated succesfully")) 
+        }).catch((err)=>{
+        
+         dispatch(opensnackbar("error",err?.response?.data?.message)) 
+        })
+  }
+}
+
+
+export const getcurrentslotdetials=(rid,data)=>{
+
+return async (dispatch)=>{
+    return await axios({
+    method: 'GET',
+    url: `api/v1/venue/${rid}/schedule/raw/view`,
     
   }).then(async (res)=>{
    console.log("dasdasdasd",res)
+   
    dispatch(slice.actions.setslots(res.data.data))
  
         }).catch((err)=>{

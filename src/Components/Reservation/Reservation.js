@@ -252,6 +252,10 @@ React.useEffect(useCallback(
       seteventtype("payment")
       eventSource.close()
     }
+    eventSource.onerror = (e) => {
+      eventSource2.close();
+      console.log("An error occurred while attempting to connect.");
+    };
 
   let eventSource2 = new EventSourcePolyfill(`${baseurl}api/v1/event/restricted/subscribe/reservation_failed`
       ,{headers: {'Authorization': 'Bearer ' + user.user.tokens.access.value},heartbeatTimeout: 300000})
@@ -260,7 +264,10 @@ React.useEffect(useCallback(
         seteventtype("failed")
         eventSource2.close();
       }
-       
+      eventSource2.onerror = (e) => {
+        eventSource2.close();
+        console.log("An error occurred while attempting to connect.");
+      };
       
       }
   },[user.user]), [user.user])

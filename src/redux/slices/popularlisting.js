@@ -8,7 +8,8 @@ const initialState = {
  listingdetails:null,
  hostedlisting:null,
  reviews:null,
- listingcount:null
+ listingcount:null,
+ favourite:null
 };
 
 const slice = createSlice({
@@ -34,6 +35,10 @@ const slice = createSlice({
     reviews(state, action) {
      
       state.reviews = action.payload;
+    },
+    favourite(state, action) {
+     
+      state.favourite = action.payload;
     },
   },
 });
@@ -186,5 +191,109 @@ else  dispatch(opensnackbar("error","No result found"))
                   })
             }
             }
-      
 
+         
+            export const deletereviews=(vid,rid)=>{
+              return async (dispatch)=>{
+                return await axios({
+                method: 'delete',
+                url: `api/v1/review/${vid}/delete/${rid}`,
+              
+                
+              }).then(async (res)=>{
+             
+                dispatch(opensnackbar("success","Review Deleted Successfully"))
+             
+              
+                    }).catch((err)=>{
+                      dispatch(opensnackbar("error",err?.response?.data.message))
+                    })
+              }
+              }
+  
+              export const updatereviews=(vid,rid,data)=>{
+                return async (dispatch)=>{
+                  return await axios({
+                  method: 'put',
+                  url: `api/v1/review/${vid}/update/${rid}`,
+                data:data
+                  
+                }).then(async (res)=>{
+               
+                  dispatch(opensnackbar("success","Review Updated Successfully"))
+               
+                
+                      }).catch((err)=>{
+                        dispatch(opensnackbar("error",err?.response?.data.message))
+                      })
+                }
+                }
+         
+            export const addfavour=(id)=>{
+              return async (dispatch)=>{
+                return await axios({
+                method: 'post',
+                url: `/api/v1/venue/favourite/add/${id}`,
+              }).then(async (res)=>{
+             
+                dispatch(opensnackbar("success","Addes ot your Favourites"))
+            
+              
+                    }).catch((err)=>{
+                      dispatch(opensnackbar("error",err?.response?.data.message))
+                    })
+              }
+              }
+              
+              export const viewFavourites=()=>{
+                return async (dispatch)=>{
+                  return await axios({
+                  method: 'get',
+                  url: `/api/v1/venue/favourite/viewall`
+                  
+                }).then(async (res)=>{
+               
+                
+                dispatch(slice.actions.favourite(res.data.data))
+                
+                      }).catch((err)=>{
+                        dispatch(opensnackbar("error",err?.response?.data.message))
+                      })
+                }
+                }
+          
+                export const removeFavourites=(id)=>{
+                  return async (dispatch)=>{
+                    return await axios({
+                    method: 'delete',
+                    url: `/api/v1/venue/favourite/remove/${id}`
+                    
+                  }).then(async (res)=>{
+                 
+                    dispatch(opensnackbar("success","Deleted Successfully"));
+                 
+                  
+                        }).catch((err)=>{
+                          dispatch(opensnackbar("error",err?.response?.data.message))
+                        })
+                  }
+                  }
+            
+                
+
+                  export const Deletelisting=(id)=>{
+                    return async (dispatch)=>{
+                      return await axios({
+                      method: 'delete',
+                      url: `/api/v1/venue/${id}/delete  `
+                      
+                    }).then(async (res)=>{
+                   
+                      dispatch(opensnackbar("success","Deleted Successfully"));
+                   
+                    
+                          }).catch((err)=>{
+                            dispatch(opensnackbar("error",err?.response?.data.message))
+                          })
+                    }
+                    }

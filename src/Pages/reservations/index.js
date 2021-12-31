@@ -7,16 +7,24 @@ import { getbookings } from '../../redux/slices/mybookings'
 import Booking from './bookings'
 import Bannerbg from "../../assets/title-bg.jpg";
 import { ArrowRightAltRounded } from '@mui/icons-material'
+import { viewdetailsprivate } from '../../redux/slices/popularlisting'
+import { useParams } from 'react-router-dom'
 const Mybookings=({history})=>{
 
-    const data = useSelector((state)=>state.mybookings)
-const user = useSelector((state)=>state.user)
+  const data =useSelector((state) => state.popularlisting)
+  const user =useSelector((state) => state.user)
 const dispatch = useDispatch()
+const {id}=useParams()
 React.useEffect(()=>{
   if(user.user){
     if(!user.user.user.emailVerified || !user.user.user.phoneVerified) history.push('/editprofile')
     else dispatch(getbookings())
   }
+},[user.user])
+
+React.useEffect(()=>{
+  if(user.user) {dispatch(viewdetailsprivate(id));}
+
 },[user.user])
 
 return(
@@ -25,11 +33,11 @@ return(
     <section className="title-transparent page-title" style={{ backgroundImage: `url(${Bannerbg})`,}}>
         <div className="container">
           <div className="title-content">
-            <h1>Booking</h1>
+            <h1>Reservations</h1>
             <div className="breadcrumbs">
               <a href="#">Home</a>
               <ArrowRightAltRounded/>
-              <span className="current">Booking </span>
+              <span className="current">Reservations </span>
             </div>
           </div>
         </div>
@@ -45,7 +53,7 @@ return(
                 <span className="avater-status status-pulse online" />
               </div>
               <h3 className="mt-1">{user.user?.user.displayName}</h3>
-              <p>{data?.mybooking?.length?data?.mybooking?.length:0} Listing</p>
+              <p>{data?.listingdetails?.reservations?.length?data?.listingdetails?.reservations?.length:0} Reservations</p>
             </div>
           </div>
          
@@ -54,17 +62,17 @@ return(
     </section>
     <section className="manage-listing padd-top-0">
       <div className="container">
-          <h5 className="mb-5">My Bookings</h5>
+          <h5 className="mb-5"> Reservations</h5>
         <div className="col-md-12 col-sm-12">
           {/* Start All Listing List */}
           <div className="row">
             <div className="col-md-12">
               <div className="small-list-wrapper">
                 <ul>
-              {data?.mybooking?.length>0?
-                  data.mybooking?.map((item)=>{
-                       return <Booking data={item}/>
-                  }):<h5>No bookings yet</h5>
+              {data?.listingdetails?.reservations?.length>0?
+                  data?.listingdetails?.reservations?.map((item)=>{
+                      return <Booking data={item} venuedata={data.listingdetails}/>
+                  }):<h5>No Reservations yet</h5>
               }   
               
                  

@@ -57,7 +57,7 @@ const BookCard = ({data}) => {
   
  </div> 
  </div>
-            {data.schedules.map((item)=>{
+            {data.schedules?.map((item)=>{
  return <div className="p-2  d-flex">
  <div className="d-flex justify-content-between mb-1 w-50 ">
    
@@ -82,14 +82,14 @@ const BookCard = ({data}) => {
             <div className="p-2">
               <div className="d-flex justify-content-between mb-4">
                 <Typography variant="body2">Slots</Typography>
-                <Typography variant="body2">{data.slots.map((item)=>`${item} `)}</Typography>
+                <Typography variant="body2">{data?.slots.map((item)=>`${item} `)}</Typography>
               </div>
               <div className="d-flex justify-content-center mb-4 flex-column">
                 <Typography variant="body2 text-center mb-2">Guest List</Typography>
                <div className="d-flex justify-content-around">
-               <Typography variant="body2">adults:{data.guestList.adults}</Typography>
-               <Typography variant="body2">Infants:{data.guestList.infants}</Typography>
-               <Typography variant="body2">Children:{data.guestList.children}</Typography>
+               <Typography variant="body2">adults:{data?.guestList.adults}</Typography>
+               <Typography variant="body2">Infants:{data?.guestList.infants}</Typography>
+               <Typography variant="body2">Children:{data?.guestList.children}</Typography>
                </div>
               </div>
               <div className="d-flex justify-content-between mb-4">

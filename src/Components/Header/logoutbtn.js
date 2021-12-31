@@ -4,7 +4,7 @@ import {logout} from '../../redux/slices/user'
 import {useDispatch,useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Avatar } from '@mui/material'
-import './log.css'
+
 import { baseurl } from '../../config'
 
 const Logout=()=>{
@@ -17,16 +17,16 @@ const Logout=()=>{
         setopen(false)
     })
 
-    window.addEventListener('mousedown', (event)=>{
+    // window.addEventListener('mousedown', (event)=>{
     
-      if(event.target.id!=="sol" || event.target.id!=="main")
-      setopen(false)
-    })
+    //   if(event.target.id!=="sol" || event.target.id!=="main")
+    //   setopen(false)
+    // })
 
 
     return ()=>{
         window.removeEventListener("scroll",()=>{})
-        window.removeEventListener("mousedown",()=>{})
+      
     }
   },[])
 
@@ -34,7 +34,7 @@ const dispatch=useDispatch()
     return(
         <div  style={{ backgroundColor: "#1effac"}} >
            <Button className="btn"
-           
+           onCLick={()=>{setopen(!open)}}
            onMouseEnter={()=>{setopen(true)}}  onMouseLeave={()=>{setopen(false)}}
         variant="btn"
         style={{
@@ -58,33 +58,47 @@ const dispatch=useDispatch()
        <Avatar style={{marginRight:'5px'}} src={`${baseurl}${state.user?.user?.displayImage?.path}`}/> {state?.user?.user?.displayName}
        <div id="sol"
      
-      className="ggi" style={{width:'250px',height:open?'300px':0,backgroundColor:'white',overflow:'hidden',
+      className="ggi" style={{width:'250px',height:open?'auto':0,backgroundColor:'white',overflow:'hidden',
       
       position:'absolute',top:open?'55px':'20px',transition:'.5s ease-out',
       opacity:open?'1':'0',borderRadius:'10px 0px 0px 10px',
-      zIndex:open?'1000':'-1000',right:0,
+      zIndex:open?'1000':'-1000',right:0, boxShadow:'5px 0px 10px lightgray '
       
       }}>
-        {console.log(open)}
-        <div style={{padding:'10px 15px',display:'flex',justifyContent: "center",alignItems:'flex-start',flexDirection:'column'}}>
+       
+        <div style={{padding:'10px 15px',display:'flex',
+        justifyContent: "center",alignItems:'center',flexDirection:'column',borderRadius:'5px',
+       
+        }}>
       
         {state.user.user.host?
-          <Link  className="link"
-        style={{padding:'10px',width:'100%',borderBottom:'1px solid lightgray',fontWeight:'bold',color:'gray'}}
+          <Link  
+        style={{padding:'10px',width:'100%',borderBottom:'1px solid #eeeeee',fontWeight:'bold'
+        ,color:'gray',textAlign:'left'}}
         to='/addlisting'>Add Listing</Link>:null}
         {state.user.user.host?
         <Link  className="link"
-        style={{padding:'10px',width:'100%',borderBottom:'1px solid gray',fontWeight:'bold',color:'gray'}}
+        style={{padding:'10px',width:'100%',borderBottom:'1px solid #eeeeee',fontWeight:'bold',color:'gray'
+        ,textAlign:'left'
+      }}
         to='/managelistings'>Manage Listing</Link>:null}
         <Link  className="link"
-        style={{padding:'10px',width:'100%',borderBottom:'1px solid gray',fontWeight:'bold',color:'gray'}}
+        style={{padding:'10px',width:'100%',borderBottom:'1px solid #eeeeee',fontWeight:'bold',color:'gray'
+        ,textAlign:'left'
+      }}
         to='/mybookings'>My Bookings</Link>
+         <Link  className="link"
+        style={{padding:'10px',width:'100%',borderBottom:'1px solid #eeeeee',fontWeight:'bold',color:'gray'
+        ,textAlign:'left'
+      }}
+        to='/myfavourite'>My Favourites</Link>
         <Link  className="link"
-        style={{padding:'10px',width:'100%',borderBottom:'1px solid gray',fontWeight:'bold', color:'gray'}}
+        style={{padding:'10px',width:'100%',fontWeight:'bold', color:'gray',textAlign:'left',borderBottom:'1px solid #eeeeee'}}
         to='/editprofile'>Profile Edit</Link>
+       
         <div  className="link"
           onClick={()=>{dispatch(logout(state.user.tokens.access))}}
-        style={{padding:'10px',width:'100%',borderBottom:'1px solid #BFD1E5',fontWeight:'bold', 
+        style={{padding:'10px',width:'100%',fontWeight:'bold', textAlign:'left',
         color:'gray',cursor:'pointer'}}
         to='/addlisting'>Logout</div>
 
