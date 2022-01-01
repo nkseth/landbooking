@@ -1,6 +1,7 @@
 .app {
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
+  z-index: -999
 }
 /*-----------------------------------------
 * Theme Name: Listing Hub
@@ -1788,6 +1789,7 @@ form.form-verticle {
 .form-box {
     position: relative;
     min-height: 52px;
+    display: flex;
 }
 .pulse-tag {
     width: 100%;
@@ -4970,7 +4972,7 @@ p#invoice-info {
     margin-top: 8px;
 }
 .small-list-img {
-    max-width: 80px;
+    max-width: 100px;
     padding: 5px;
     float: left;
     margin-right: 15px;
@@ -6700,14 +6702,14 @@ a.cl-box {
 	}
 	/*---Manage Listing-----*/
 	.small-list-img {
-		max-width: 80px;
+		max-width: 100px;
 		padding: 5px;
 		float: none;
 		margin-right: 0;
 		margin: 10px auto;
 	}
 	.small-list-img img {
-		border-radius: 50%;
+		border-radius:20%;
 	}
 	.small-list-detail {
 		display: block;
@@ -6761,4 +6763,41 @@ a.cl-box {
   .img-circle {
     border-radius:100%
   }
+}
+
+.editlisting{
+  
+  
+    color:#1effac; 
+    border-radius:20%;
+    padding:4px;
+   z-index: 100;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   transition:'0.2s ease-in-out'
+    
+}
+
+.editlisting:hover{
+    color:white; 
+    background-color:#1effac
+}
+
+.slots{
+    
+}
+.slots:hover{
+    background-color:#1effac
+}
+.slotsactive{
+    background-color:#1effac
+}
+
+.link{
+    font-weight:lighter;
+    margin-top:5px;
+    margin-bottom:5px;
+    
 }

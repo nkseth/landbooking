@@ -6,19 +6,26 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import {login} from '../../redux/slices/user'
+import {Link} from 'react-router-dom'
+import Forgototp from './forgotpass'
 const LBModal = () => {
   const [show, setShow] = useState(false);
+  const [forshow, setforShow] = useState(false);
   const dispatch=useDispatch()
  const [logininfo,setlogininfo]=useState({un:'',pass:""})
 
-
 const onLogin=()=>{
+  
   dispatch(login(logininfo.un,logininfo.pass))
+
 }
 const userdata=useSelector((state)=>state.data)
-
+const onclose=()=>{
+  setforShow(false)
+}
   return (
     <>
+   <Forgototp show={forshow} close={onclose}   />
       <Button
         variant="btn"
         style={{
@@ -29,6 +36,7 @@ const userdata=useSelector((state)=>state.data)
           boxShadow: "none",
           fontSize: "14px",
           borderRadius: 0,
+          display:'flex'
         }}
         onClick={() => setShow(true)}
       >
@@ -88,12 +96,8 @@ const userdata=useSelector((state)=>state.data)
               />
             </div>
             <div className="my-3">
-              <FormControlLabel
-                control={
-                  <Checkbox defaultChecked style={{ color: "#1EFFAC" }} />
-                }
-                label="Keep me Signed in"
-              />
+             
+              <h6 style={{fontSize:15,fontWeight:300,cursor:'pointer'}}  onClick={()=>{setforShow(true);setShow(false)}}>Forgot Password?</h6>
             </div>
             <div className="mt-5 d-flex justify-content-center mb-2">
               <Button
@@ -114,8 +118,24 @@ const userdata=useSelector((state)=>state.data)
             </div>
             <div className="text-center ">
               <p className="m-0">Don't have an account</p>
-              <Signup />
+            <Link to="/signup">
+              <div
+        variant="btn"
+        style={{
+          height: "100%",
+          color: "#1EFFAC",
+          boxShadow: "none",
+          fontSize: "14px",
+          borderRadius: 0,
+          cursor:'pointer'
+        }}
+        onClick={() => setShow(false)}
+      >
+        Create an Account
+      </div>
+      </Link>
             </div>
+          
           </div>
         </Modal.Body>
       </Modal>

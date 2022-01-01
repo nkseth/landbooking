@@ -1,61 +1,104 @@
 import React from "react";
 import { Cards as Card } from "../../Components";
 import { Form, Button } from "react-bootstrap";
-import Bannerbg from "../../assets/title-bg.jpg";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import Pagination from "@mui/material/Pagination";
-import PaginationItem from "@mui/material/PaginationItem";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { useSelector,useDispatch } from "react-redux";
+import {getcategory} from '../../redux/slices/categories'
+import {amenity} from '../../redux/slices/amenity'
+import {locationfind,locationnull,locationfindll,locationlltz} from '../../redux/slices/location'
+import {addlisting} from '../../redux/slices/managelisitings'
+import Addgallery from './Addgalary'
+import { withRouter } from "react-router-dom";
+const Listing = ({history}) => {
+const dispatch = useDispatch()
+React.useEffect(() => {
+  dispatch(getcategory())
+  dispatch(amenity())
+  
+}, [])
+const [selectedamenity,setselectedeminity]=React.useState([])
+const [gImages,setgimages]=React.useState([])
+const categories=useSelector((state) => state.categories)
+const user=useSelector((state) => state.user)
+const amenities=useSelector((state) => state.amenity)
+const location =useSelector((state) => state.location)
+const [selectedcategory,setselectedcategory]=React.useState({})
+const [locationstring,setlocationstring]=React.useState("")
+const [displayauto,setdisplayauto]=React.useState(true)
 
 
-const Listing = () => {
-  const ListingData = [
-    {
-      title: "Yard Can in NewYork",
-      imageSrc:
-        "https://st.hzcdn.com/simgs/pictures/patios/keir-residence-true-north-architects-img~f5c174fe00f33ac2_8-4265-1-1305ad9.jpg",
-      location: "Bishop Avenue, Newyork",
-      amount: "140$",
-    },
-    {
-      title: "Tennis Court",
-      imageSrc:
-        "https://tigerturf.com/in/wp-content/uploads/2019/11/How-to-build-a-tennis-court.jpg",
-      location: "Bishop Avenue, Newyork",
-      amount: "140$",
-    },
-    {
-      title: "Basket Ball Court",
-      imageSrc:
-        "https://www.versacourt.com/cmss_files/photogallery/structure/Residential_Basketball_Courts/image57726.jpg",
-      location: "Bishop Avenue, Newyork",
-      amount: "140$",
-    },
-    {
-      title: "Yard Can in NewYork",
-      imageSrc:
-        "https://st.hzcdn.com/simgs/pictures/patios/keir-residence-true-north-architects-img~f5c174fe00f33ac2_8-4265-1-1305ad9.jpg",
-      location: "Bishop Avenue, Newyork",
-      amount: "140$",
-    },
-    {
-      title: "Tennis Court",
-      imageSrc:
-        "https://tigerturf.com/in/wp-content/uploads/2019/11/How-to-build-a-tennis-court.jpg",
-      location: "Bishop Avenue, Newyork",
-      amount: "140$",
-    },
-    {
-      title: "Basket Ball Court",
-      imageSrc:
-        "https://www.versacourt.com/cmss_files/photogallery/structure/Residential_Basketball_Courts/image57726.jpg",
-      location: "Bishop Avenue, Newyork",
-      amount: "140$",
-    },
-  ];
+const [data,setdata]=React.useState({
+  title:'',
+  discription:'',
+  status:1,
+  rent:'',
+  slots:0,
+  guestLimit:{infants:'',adults:'',children:''},
+  zipcode:""
+})
+
+
+const deleteimage=(index)=>{
+  let newimage=gImages
+  newimage.splice(index,1)
+  setgimages([...newimage])
+}
+
+const addamenity=(item)=>{
+  const newam=[...selectedamenity]
+if(!selectedamenity.includes(item))
+{
+  newam.push(item)
+  setselectedeminity(newam)
+}
+}
+
+React.useEffect(()=>{
+  if(user.user){
+    if(!user.user.user.emailVerified || !user.user.user.phoneVerified) history.push('/editprofile')
+  }
+},[user.user])
+
+const delamenity=(item)=>{
+  const newam=[...selectedamenity]
+  
+  newam.splice(newam.indexOf(item),1)
+  setselectedeminity(newam)
+}
+
+const createlisting=()=>{
+  const formdata= new FormData()
+  formdata.append('title',data.title)
+  formdata.append('description',data.discription)
+  formdata.append('status',data.status)
+  formdata.append('rent',data.rent)
+ if(data.slots>0) formdata.append('slots',data.slots)
+  formdata.append('categoryId',selectedcategory.uuid)
+  formdata.append('amenityIds',JSON.stringify(selectedamenity))
+  gImages.map((item)=> formdata.append('images',item))
+  formdata.append('latitude',location?.latitude)
+  formdata.append('longitude',location?.longitude)
+  formdata.append('zipcode',location?.zipcode)
+  formdata.append('address',locationstring)
+  formdata.append('guestLimit',JSON.stringify(data.guestLimit))
+  formdata.append('timezone',location?.timezone?.id)
+
+  dispatch(addlisting(formdata))
+}
+React.useEffect(()=>{
+  if(location.zipcode)
+  setdata({...data,zipcode:location.zipcode})
+  else setdata({...data,zipcode:""})
+  
+},[location.zipcode])
+
+React.useEffect(()=>{
+  if(locationstring!=="") dispatch(locationfind(locationstring))
+  if(locationstring==="") dispatch(locationnull())
+},[locationstring])
+
   return (
     <section>
+      {console.log("thisdjijwaidjqwd",data)}
     <div className="container d-flex flex-direction-column align-items-center justify-content-center">
       <div className="col-md-10 col-sm-12 col-md-offset-1 mob-padd-0">
         {/* General Information */}
@@ -69,41 +112,111 @@ const Listing = () => {
             <div className="row mrg-r-10 mrg-l-10">
               <div className="col-sm-6">
                 <label>Listing Title</label>
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" onChange={(e)=>{setdata({...data, title:e.target.value})}} />
               </div>
               <div className="col-sm-6">
                 <label>Category</label>
-                <select data-placeholder="Choose Category" className="form-control chosen-select" tabIndex={2}>	<option>Select</option>
-                  <option>yard</option>
-                  <option>Swimming pool</option>
-                  <option>yard</option>
-                  <option>Parking spaces</option>
-                  <option>Agricultural land</option>
+                <select data-placeholder="Choose Category" 
+                onChange={(e)=>{
+                  setselectedcategory(
+                    categories?.categories?.find((item,index)=>{if(e.target.value===item.uuid) return true}))
+            }
+            }
+                className="form-control chosen-select" tabIndex={2}>	<option value={0} >Select</option>
+                {
+                  categories?.categories?.map((item)=>{
+                      return <option value={item.uuid}> {item.name}</option>
+                  })
+                }
+                  
                 </select>
               </div>
-              <div className="col-sm-6">
+              <div className="col-sm-6" style={{position:'relative'}}>
                 <label>Address</label>
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" value={locationstring}
+                 onChange={(e)=>{setlocationstring(e.target.value)}}
+                onKeyDown={(e)=>{if(e.key==="Backspace"){setdisplayauto(true);dispatch(locationlltz())}}}
+                />
+                  {
+                   (locationstring!=="" && displayauto) &&  
+                <div style={{width:"90%",minHeight:'50px',position:'absolute',zIndex:'100',backgroundColor:'white',
+              borderRadius:'10px',boxShadow:'0px 0px 15px lightgray',padding:'10px',display:'flex',justifyContent:'center',
+              alignItems:'center'
+              }}>
+             
+               
+<div style={{padding:'5px',width:'100%'}}>
+
+  {  location?.locationstring?
+  location?.locationstring?.map((item)=>{
+      return <div style={{padding:'5px',borderBottom:'0.5px solid lightgray',width:'100%',
+      margin:'5px',cursor:'pointer'}} 
+      onClick={()=>{
+        setlocationstring(item);
+        setdisplayauto(false);
+        dispatch(locationfindll(item))
+      }} 
+      >
+      <label style={{cursor:'pointer'}}>{item}</label>
+      </div>
+  })
+:'loading'
+}
+</div>
+
+                </div>
+}
               </div>
               <div className="col-sm-6">
                 <label>Amount per hour</label>
-                <input type="text" className="form-control" />
+                <input type="number" className="form-control" 
+                value={data.rent}
+                onChange={(e)=>{setdata({...data, rent: e.target.value})}}/>
               </div>
+             
               <div className="col-sm-6">
                 <label>Slots</label>
-                <input type="text" className="form-control" />
+                <input disabled={!selectedcategory?.slots} type="number" className="form-control"
+                onChange={(e)=>{setdata({...data, slots: e.target.value})}}
+                value={data.slots>0 && data.slots}
+                placeholder={!selectedcategory?.slots && "Slots not available for this category"}/>
               </div>
+
               <div className="col-sm-6">
                 <label>Adults</label>
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" 
+                onChange={(e)=>{setdata({...data, guestLimit: {...data.guestLimit,adults:e.target.value}})}}
+                value={data.guestLimit.adults} />
               </div>
               <div className="col-sm-6">
                 <label>Children</label>
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" 
+                   onChange={(e)=>{setdata({...data, guestLimit: {...data.guestLimit,children:e.target.value}})}}
+                value={data.guestLimit.children} />
               </div>
               <div className="col-sm-6">
                 <label>Infants</label>
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control"
+                   onChange={(e)=>{setdata({...data, guestLimit: {...data.guestLimit,infants:e.target.value}})}}
+                value={data.guestLimit.infants}  />
+              </div>
+              <div className="col-sm-6">
+                <label>Default Status</label>
+                <select data-placeholder="Choose Category" 
+             onChange={(e)=>{setdata({...data, status: e.target.value})}}
+                  value={data.status}
+                className="form-control chosen-select" tabIndex={2}  >	
+                <option value={1} >ACTIVE</option>
+                <option value={2} >INACTIVE</option>
+                  
+                </select>
+              </div>
+              <div className="col-sm-6">
+                <label>Zipcode</label>
+                <input type="text" className="form-control"  value={data.zipcode}
+                 onChange={(e)=>{setdata({...data, zipcode: e.target.value})}}
+
+                />
               </div>
             </div>
           </form>
@@ -119,25 +232,17 @@ const Listing = () => {
           <div className="row mrg-r-10 mrg-l-10">
             <div className="col-sm-12">
               <label>Description</label>
-              <textarea className="h-500 form-control" defaultValue={""} />
+              <textarea className="h-500 form-control" defaultValue={""} rows={4}
+              onChange={(e)=>{setdata({...data, discription: e.target.value})}}
+
+              />
             </div>
           </div>
         </div>
         {/* End Full Information */}
         {/* Add Gallery Information */}
-        <div className="add-listing-box full-detail mrg-bot-25 padd-bot-30 padd-top-25">
-          <div className="listing-box-header">
-            <i className="ti-gallery theme-cl" />
-            <h3>Add Gallery</h3>
-            <p>Write full detail information about listing Owner</p>
-          </div>
-          <form action="https://codeminifier.com/upload-target" className="dropzone dz-clickable primary-dropzone">
-            <div className="dz-default dz-message">
-              <i className="ti-gallery" />
-              <span>Drag &amp; Drop To Change Logo</span>
-            </div>
-          </form>
-        </div>
+   <Addgallery gImages={gImages} setgimages={setgimages} deleteimage={deleteimage}/>
+   {console.log(gImages)}
         {/* End Add Gallery Information */}
         {/* Amenities Information */}
         <div className="add-listing-box amenities mrg-bot-25 padd-bot-30 padd-top-25">
@@ -148,48 +253,30 @@ const Listing = () => {
           </div>
           <form>
             <div className="row mrg-r-10 mrg-l-10">
-              <div className="col-sm-4">
+             {amenities?.amenity?.map((item,index)=>{
+                return   <div className="col-sm-4">
+               
                 <span className="custom-checkbox d-block">
-                  <input type="checkbox" id="select1" />
-                  <label htmlFor="select1" />
-                  Grill Machine
-                </span>
-                <span className="custom-checkbox d-block">
-                  <input type="checkbox" id="select2" />
+                  <input type="checkbox" id="select2"  style={{backgroundColor:'red'}}
+                   checked={selectedamenity.includes(item.uuid)} 
+                  onChange={(e)=>{
+                    e.target.checked?addamenity(item.uuid):delamenity(item.uuid)
+                    // e.target.checked?setselectedeminity(item.uuid):setselectedeminity(null)
+                     }}/>
                   <label htmlFor="select2" />
-                  Swimming Pool
+                  {item.name}
                 </span>
               </div>
-              <div className="col-sm-4">
-                <span className="custom-checkbox d-block">
-                  <input type="checkbox" id="select8" />
-                  <label htmlFor="select8" />
-                  Street parking  
-                </span>
-                <span className="custom-checkbox d-block">
-                  <input type="checkbox" id="select10" />
-                  <label htmlFor="select10" />
-                  Attached garage
-                </span>
-              </div>
-              <div className="col-sm-4">
-                <span className="custom-checkbox d-block">
-                  <input type="checkbox" id="select15" />
-                  <label htmlFor="select15" />
-                  Electricity   
-                </span>
-                <span className="custom-checkbox d-block">
-                  <input type="checkbox" id="select5" />
-                  <label htmlFor="select5" />
-                  Security cameras  
-                </span>
-              </div>
+            
+             })}
+            
+            
             </div>
           </form>
         </div>
         {/* End Amenities Information */}
         <div className="text-center">
-          <a href="#" className="btn theme-btn" title="Submit Listing">Submit Listing</a>
+          <Button  className="btn theme-btn" title="Submit Listing" onClick={createlisting}>Submit Listing</Button>
         </div>
       </div>
     </div>
@@ -197,4 +284,4 @@ const Listing = () => {
   );
 };
 
-export default Listing;
+export default withRouter(Listing);

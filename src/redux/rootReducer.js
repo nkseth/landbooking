@@ -4,8 +4,13 @@ import storage from "redux-persist/lib/storage";
 import user from "./slices/user";
 import popularlisting from "./slices/popularlisting";
 // import productReducer from "./slices/product";
-
-
+import categories from "./slices/categories";
+import amenity from "./slices/amenity"
+import location from './slices/location'
+import reservartions from './slices/reservations'
+import profile from './slices/profile'
+import mybookings from './slices/mybookings'
+import slotmanagement from './slices/slotmanagement'
 // ----------------------------------------------------------------------
 
 const rootPersistConfig = {
@@ -18,7 +23,14 @@ const rootPersistConfig = {
 
 const rootReducer = combineReducers({
  user,
- popularlisting
+ popularlisting,
+ categories,
+ amenity,
+ location,
+ reservartions,
+ profile,
+ mybookings,
+ slotmanagement
 });
 
 export { rootPersistConfig, rootReducer };

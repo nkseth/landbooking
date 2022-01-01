@@ -3,24 +3,8 @@ import Checkbox from "@mui/material/Checkbox";
 import { Typography } from "@mui/material";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-const Amenities = () => {
-  const AmenitiesData = [
-    {
-      title: "Grill Machine",
-    },
-    {
-      title: "Swimming Pool",
-    },
-    {
-      title: "Security cameras",
-    },
-    {
-      title: "Street parking",
-    },
-    {
-      title: "Attached garage",
-    },
-  ];
+const Amenities = ({data}) => {
+ 
   return (
     <div
       className="overview-container my-4"
@@ -33,7 +17,7 @@ const Amenities = () => {
         <h5>Amenities</h5>
       </div>
       <div className="d-flex justify-content-start align-items-center flex-wrap">
-        {AmenitiesData.map((item, index) => {
+        {data?.map((item, index) => {
           return (
             <div
               className="overview p-1 p-md-3 d-flex justify-content-center align-items-center mx-2 mx-md-4"
@@ -43,9 +27,9 @@ const Amenities = () => {
               <Checkbox
                 style={{ color: "#1EFFAC" }}
                 {...label}
-                defaultChecked
+               checked={item.status===1}
               />
-              <Typography>{item.title}</Typography>
+              <Typography>{item.name}</Typography>
             </div>
           );
         })}

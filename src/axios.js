@@ -1,8 +1,9 @@
 import axios from 'axios';
-import {nulluser} from './redux/slices/user'
+import {nulluser,renewtoken,loading, logout, fcmupdate, opensnackbar} from './redux/slices/user'
 import moment from 'moment';
+import {baseurl} from './config'
 // ----------------------------------------------------------------------
-const baseurl = 'https://yardcan.riolabz.com/';
+
 
 // const axiosInstance = axios.create();
 // axiosInstance.interceptors.response.use(
@@ -16,21 +17,83 @@ const axiosInstance=axios.create({
 })
 
 let store
-
 export const injectStore = _store => {
   store = _store
 }
 
-axiosInstance.interceptors.request.use(config => {
-    
-    const state=store.getState().user
-    console.log(state)
-    if(state.user!==null){
-     config.headers.authorization = state.user.tokens.access
-    }
+const renewtokencall=async(token,refresh)=>{
+   return await axios({
+    method: 'put',
+    url: `${baseurl}api/v1/auth/token/access/renew`,
+   headers:{Authorization: `Bearer ${refresh}`},
+  data:{
+   fcmToken:token,
+  }
+  })
+  }
+  
+
+
+axiosInstance.interceptors.request.use(async (config) => {
+  
+  store.dispatch(loading(true))
+
+  const state=store.getState().user
+  console.log("wwwwwwwwwww",state.user)
+  
+if(state.user!==null){
+   if(moment(state.user?.tokens?.refresh?.expiresAt).diff(moment(),'seconds')>0){
+   
+    if(moment(state.user?.tokens?.access?.expiresAt).diff(moment(),'seconds')<0)
+    {
+      alert(moment(state.user?.tokens?.access?.expiresAt).diff(moment(),'seconds'))
+     console.log("new1")
+   
+      await renewtokencall(state.fcmtoken,state.user.tokens.refresh.value).then((res)=>{
+        console.log(res)
  
- // store.dispatch(nulluser())
-  return config
+      store.dispatch(renewtoken(res.data.data))
+      config.headers.authorization = `Bearer ${res.data.data.tokens.access.value}`
+      return config
+      })
+    }
+   else{ 
+    
+     config.headers.authorization = `Bearer ${state.user.tokens.access.value}`
+     return config
+  }
+   } else {store.dispatch(opensnackbar("error","Session Expired Please ReLogin")); store.dispatch(nulluser())}
+  }
+  else{
+    return config
+  }
+
 })
 
+axiosInstance.interceptors.response.use(config => {
+  store.dispatch(loading(false))
+  return config
+
+},(error)=>{
+  store.dispatch(loading(false))
+  debugger
+  console.log("asdsadasd",error.response)
+  debugger
+  if(error.response?.status===403){
+   if(error.response?.data?.data.status!==1){
+    store.dispatch(logout())
+    store.dispatch(opensnackbar("error","Your account has been blocked please contact admin"))
+   }
+   if(!error.response?.data?.data.emailVerified && !error.response?.data?.data.phoneVerified){
+    store.dispatch(opensnackbar("error","Please verify your Phone No to continue using the Application"))
+   }
+   if(error.response?.data?.data.fcmTokenStatus!==1){
+     store.dispatch(logout())
+    store.dispatch(nulluser())
+   }
+  }
+
+ return Promise.reject(error)
+
+})
 export default axiosInstance;

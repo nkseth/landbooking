@@ -4,6 +4,7 @@ import "./ViewDetail.css";
 import { Rating, Grid, Typography } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import StarIcon from '@mui/icons-material/Star';
 import {
   Location,
   Info,
@@ -14,9 +15,54 @@ import {
   Reservation,
 } from "../../Components";
 
-const ViewDetail = () => {
+import { useParams } from 'react-router-dom';
+import { useSelector,useDispatch } from "react-redux";
+import { viewdetailsprivate, viewdetailspublic,reviews } from "../../redux/slices/popularlisting";
+import {withRouter} from 'react-router-dom'
+import { booking } from "../../redux/slices/reservations";
+import { useLocation } from "react-router-dom";
+
+
+const ViewDetail = ({history}) => {
+const dispatch=useDispatch()
+const data =useSelector((state) => state.popularlisting)
+const user =useSelector((state) => state.user)
+const {notification}=useSelector((state) => state.reservartions)
+const [edata,setedata]=React.useState(null)
+function useQuery() {
+  const { search } = useLocation();
+
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+}
+let query = useQuery();
+const reservationid=query.get("reservationid");
+
+
+const {id}=useParams()
+  console.log(id)
+
+  const booked=useSelector((state) => state.reservartions)
+ React.useEffect(()=>{
+  if(booked.booked==="done"){
+    dispatch(booking(null))
+    history.push('/thankyou')
+  }
+  },[booked.booked])
+  
+
+   React.useEffect(()=>{
+     if(user.user) {dispatch(viewdetailsprivate(id));dispatch(reviews(id))}
+    else dispatch(viewdetailspublic(id))
+   
+   },[user.user])
+
+const resetdata=()=>{
+  dispatch(viewdetailsprivate(id));dispatch(reviews(id))
+}
+   console.log("thisdidid",data.listingdetails)
   return (
     <div id="listing" className="listing my-md-5 my-3">
+    
       <div
         className="banner-container"
         style={{
@@ -31,6 +77,7 @@ const ViewDetail = () => {
           marginBottom: "3rem",
         }}
       >
+      
         <div
           className="content-container d-flex justify-content-start justify-content-md-end align-items-md-end align-items-end p-2"
           style={{
@@ -47,21 +94,25 @@ const ViewDetail = () => {
                 color: "white",
               }}
             >
-              <p>
+              <p style={{maxWidth:"300px"}}>
                 <LocationOnIcon />
-                #2852, SCO 20 Newyork
+                {data.listingdetails?.address}
               </p>
             </div>
             <div className="rating-container d-flex justify-content-md-center justify-content-end align-items-center mx-2">
               <Rating
                 name="half-rating m-1"
-                defaultValue={5}
-                precision={1}
+               value={data.listingdetails?.rating}
+                precision={0.5}
+            
+               readOnly
                 style={{
                   color: "white",
                   padding: "0.8rem 1.4rem",
-                  backgroundColor: "#1EFFAC",
+                   backgroundColor: "#1EFFAC",
                 }}
+
+                emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
               />
               <button className="short-list-btn d-flex justify-content-center m-1">
                 <FavoriteBorderOutlinedIcon />
@@ -97,10 +148,11 @@ const ViewDetail = () => {
             </div>
             <div
               className="name-container  mx-3"
-              style={{ lineHeight: 0, color: "#334E6F" }}
+              style={{ lineHeight: 0, color: "#334E6F",display: "flex",
+              justifyContent: "center",alignItems: "center",flexDirection: "column"}}
             >
-              <h4>Sujith K</h4>
-              <p style={{ color: "#1EFFAC" }}>Business Man</p>
+              <h4 style={{lineHeight: '15px',marginTop:'15px'}}>{data.listingdetails?.host?.name}</h4>
+              <p style={{ color: "#1EFFAC",lineHeight: '10px' }}>Business Man</p>
             </div>
           </div>
         </div>
@@ -117,15 +169,16 @@ const ViewDetail = () => {
           sx={{ display: "flex", justifyContent: "center" }}
         >
           <Grid item xs={11} md={6} classname="px-5">
-            <Info />
-            <Overview />
-            <Amenities />
-            <Reviews />
+            <Info data={data.listingdetails} reviewno={data.reviews}/>
+            <Overview data={data.listingdetails?.description}/>
+            <Amenities data={data.listingdetails?.amenities} />
+            <Reviews data={data.reviews} />
           </Grid>
           <Grid item xs={11} md={3}>
-            <Reservation />
-            <Gallery />
-            <Location />
+            {user?.user?.user?.uuid!==data.listingdetails?.host?.userId &&
+            <Reservation data={data.listingdetails} id={id}  resetdata={resetdata} reservationid={reservationid}/>}
+            <Gallery data={data.listingdetails?.images} />
+            <Location  data={data.listingdetails?.address}/>
           </Grid>
         </Grid>
       </div>
@@ -133,4 +186,4 @@ const ViewDetail = () => {
   );
 };
 
-export default ViewDetail;
+export default withRouter(ViewDetail);

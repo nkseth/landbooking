@@ -11,12 +11,16 @@ import {
 import "./Card.css";
 import { Link } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-const Cards = ({ title, subTitle, amount, imageSrc }) => {
+import { addfavour } from "../../redux/slices/popularlisting";
+import { useDispatch } from "react-redux";
+const Cards = ({ title, subTitle, amount, imageSrc,rating,id }) => {
+  const dispatch=useDispatch()
   return (
     <div className="card mx-lg-3 my-3 px-2" style={{ border: "none" }}>
       <Card
         sx={{
           boxShadow: " 0px 0px 10px 1px rgb(71 85 95 / 8%)",
+          border:'1px solid lightgray',
         }}
         className="card-container"
       >
@@ -27,7 +31,7 @@ const Cards = ({ title, subTitle, amount, imageSrc }) => {
             image={imageSrc}
             alt="green iguana"
           />
-          <div
+          <div 
             className="d-flex justify-content-center align-items-center"
             style={{
               backgroundColor: "#1EFFAC",
@@ -37,7 +41,9 @@ const Cards = ({ title, subTitle, amount, imageSrc }) => {
               position: "absolute",
               bottom: "-1.5rem",
               right: "1rem",
+              cursor: "pointer"
             }}
+            onClick={()=>{dispatch(addfavour(id))}}
           >
             <FavoriteBorderOutlinedIcon style={{ color: "white" }} />
           </div>
@@ -62,11 +68,11 @@ const Cards = ({ title, subTitle, amount, imageSrc }) => {
           </Typography>
           <Typography variant="body2">{subTitle}</Typography>
         </CardContent>
-        <CardActions className="d-flex justify-content-between border-top p-1">
-          <Rating name="half-rating" defaultValue={3} precision={1} />
+        <CardActions className="d-flex justify-content-between border-top p-1 mt-2">
+          <Rating name="half-rating" value={rating} readOnly   precision={0.5} />
           <Button size="small">
             <Link
-              to="./view-detail"
+              to={`./view-detail/${id}`}
               style={{ color: "#1EFFAC", textDecoration: "none" }}
             >
               View Details

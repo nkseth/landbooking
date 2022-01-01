@@ -28,7 +28,7 @@ const ThankYou = () => {
           }}
         >
           <div className="text-container text-white text-center p-3">
-            <h1 style={{ fontSize: "3rem" }}>ThankYou</h1>
+            <h1 style={{ fontSize: "3rem" ,color:'white'}}>ThankYou</h1>
             <p>
               <span style={{ color: "#1EFFAC" }}>HOME</span>{" "}
               <ArrowForwardIosIcon sx={{ fontSize: "15px" }} />
