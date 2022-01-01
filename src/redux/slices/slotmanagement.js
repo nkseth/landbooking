@@ -4,7 +4,7 @@ import {opensnackbar} from './user'
 const initialState = {
  
  currentdetails:null,
- 
+ blocks:null
 };
 
 const slice = createSlice({
@@ -19,6 +19,10 @@ const slice = createSlice({
       state.currentdetails = action.payload;
     },
 
+    setbolcks(state, action) {
+     
+        state.blocks = action.payload;
+      },
   
   },
 });
@@ -84,3 +88,79 @@ return async (dispatch)=>{
   }
 }
 
+ 
+
+export const createblock=(id,data)=>{
+
+    return async (dispatch)=>{
+        return await axios({
+        method: 'POST',
+        url: `/api/v1/venue/${id}/calendar/block/create`,
+        data:data
+      }).then(async (res)=>{
+       console.log("dasdasdasd",res)
+       dispatch(opensnackbar("success","Block Created successfully")) 
+     
+            }).catch((err)=>{
+            
+             dispatch(opensnackbar("error",err?.response?.data?.message)) 
+            })
+      }
+    }
+
+    
+export const viewblock=(id,to,from)=>{
+const url=`/api/v1/venue/${id}/calendar/block/viewall?fromDate=${from}&toDate=${to}`
+    return async (dispatch)=>{
+        return await axios({
+        method: 'GET',
+        url: to?url:`/api/v1/venue/${id}/calendar/block/viewall`,
+        
+      }).then(async (res)=>{
+       console.log("dasdasdasd",res)
+       if(res.data.data?.length>0)
+       dispatch(slice.actions.setbolcks(res.data.data)) 
+        else  dispatch(opensnackbar("error","No result found"))
+            }).catch((err)=>{
+            
+             dispatch(opensnackbar("error",err?.response?.data?.message)) 
+            })
+      }
+    }
+
+        
+export const Deleteblock=(vid,bid)=>{
+    
+        return async (dispatch)=>{
+            return await axios({
+            method: 'DELETE',
+            url: `/api/v1/venue/${vid}/calendar/block/${bid}/delete`,
+            
+          }).then(async (res)=>{
+            dispatch(opensnackbar("success","Deleted Successfully")); 
+         
+            
+                }).catch((err)=>{
+                
+                 dispatch(opensnackbar("error",err?.response?.data?.message)) 
+                })
+          }
+        }
+
+        export const Updateblock=(vid,bid,data)=>{
+    
+            return async (dispatch)=>{
+                return await axios({
+                method: 'PUT',
+                url: `/api/v1/venue/${vid}/calendar/block/${bid}/update`,
+                data:data
+              }).then(async (res)=>{
+                dispatch(opensnackbar("success","updated Successfully")); 
+             
+                
+                    }).catch((err)=>{
+                    
+                     dispatch(opensnackbar("error",err?.response?.data?.message)) 
+                    })
+              }
+            }       

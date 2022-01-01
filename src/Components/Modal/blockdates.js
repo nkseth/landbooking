@@ -3,86 +3,89 @@ import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
-import {  DeleteTwoTone,  } from "@mui/icons-material";
-import AddAlarmIcon from '@mui/icons-material/AddAlarm';
-import { opensnackbar } from "../../redux/slices/user";
-import {getcurrentslotdetials, updatecurrentslotdetials} from '../../redux/slices/slotmanagement'
+import { createblock, Updateblock, viewblock } from "../../redux/slices/slotmanagement";
+
 const LBModal = (props) => {
-
+const [finalobject,setfinalobject]=useState(
+    {
+        from: {
+          date: "",
+          time: ""
+        },
+        to: {
+          date: "",
+          time: ""
+        },
+        
+        alterReservations:false
+      })
   const dispatch=useDispatch()
-
+  const[slotss,setslotss]=useState([]) 
  React.useEffect(()=>{
  if(props.show){
 
-  dispatch(getcurrentslotdetials(props.id))
+ // dispatch(getcurrentslotdetials(props.id))
  }
   
 },[props.show])
-
-const user=useSelector((state) => state.user)
-const data=useSelector((state)=>state.slotmanagement)
-
-const [to,setto]=React.useState([])
-const [from,setfrom]=React.useState([])
-const days=[{name:'Monday',value:1},
-{name:'Tuesday',value:2},
-{name:'Wednesday',value:3},
-{name:'Thuesday',value:4},
-{name:'Friday',value:5},
-{name:'Saturday',value:6},
-{name:'Sunday',value:7}
-]
-
-const [addonce,setaddonce]=React.useState([])
-
-const onToselect=(ei,toi)=>{
-      const hello=[...to]
-      hello[ei]=toi
-      setto([...hello])
-     
-}
-const onFromselect=(ei,fromi)=>{
-  const hello=[...from]
-  hello[ei]=fromi
-  setfrom([...hello])
-}
-
-const addinteval=(index)=>{
-  
-  const toi=to[index]
-  const fromi=from[index]
-  if(parseInt(toi[0]+toi[1])<parseInt(fromi[0]+fromi[1]) ||(parseInt(toi[0]+toi[1])===23 && parseInt(fromi[0]+fromi[1])===0) ){
-    if(toi && fromi){
-      const olddata=[...addonce]
-      let oldinteval= [...olddata[index].intervals]
-      oldinteval.push({to:toi,from:fromi})
-      olddata[index]={...olddata[index],intervals:oldinteval}
-    setaddonce([...olddata])
-
+const [slot,setslot]=React.useState([])
+React.useEffect(()=>{
+    if(props.edit){
+     setfinalobject(
+        {
+            from: {
+              date: props.from.split(" ")[0],
+              time: props.from.split(" ")[1]
+            },
+            to: {
+              date:props.to.split(" ")[0],
+              time:props.to.split(" ")[1] 
+            },
+            
+            alterReservations:false
+          })
+     if(props.editslots){
+         setslot(props.editslots)
+     }   
     }
-  }
-  else dispatch(opensnackbar("error","please select a valid interval"))
 
-   
+},[props.edit])
+
+const onchangedate=(type,date)=>{
+    if(type===1){
+        const oldobj={...finalobject}
+        const oldobj2={...oldobj.from}
+        oldobj2["date"]=date
+        oldobj.from=oldobj2
+        setfinalobject({...oldobj})
+      
+    }
+    if(type===2){
+        const oldobj={...finalobject}
+        const oldobj2={...oldobj.to}
+        oldobj2["date"]=date
+        oldobj.to=oldobj2
+        setfinalobject({...oldobj})
+      
+    }
 }
-
-const addate=(index,date)=>{
-  const olddata=[...addonce]
-  olddata[index]={...olddata[index],date:date}
-setaddonce([...olddata])
-}
-
-const intervaldel=(index,index2)=>{
-  
-  const olddata=[...addonce]
-      let oldinteval= [...olddata[index].intervals]
-      oldinteval.splice(index2,1)
-      olddata[index]={...olddata[index],intervals:oldinteval}
-    setaddonce([...olddata])
-
-
-
+const onchangetime=(type,time)=>{
+    if(type===1){
+        const oldobj={...finalobject}
+        const oldobj2={...oldobj.from}
+        oldobj2["time"]=time
+        oldobj.from=oldobj2
+        setfinalobject({...oldobj})
+      
+    }
+    if(type===2){
+        const oldobj={...finalobject}
+        const oldobj2={...oldobj.to}
+        oldobj2["time"]=time
+        oldobj.to=oldobj2
+        setfinalobject({...oldobj})
    
+    }
 }
 
 const datearray=["00:00","01:00","02:00","03:00","04:00","05:00","06:00",
@@ -91,380 +94,66 @@ const datearray=["00:00","01:00","02:00","03:00","04:00","05:00","06:00",
 ]
 
 
-const Once=({index})=>{
-  return(
-    <div className="d-flex mt-2 p-2 flex-wrap justify-content-center align-items-center" style={{border:'1px solid gray',borderRadius:'10px'}}>
-             
-    <div className="col-md-3 p-1">
-   <label>Date</label>
-   <input type="date" className="form-control" 
-   value={addonce[index].date} 
-    onChange={(e)=>{addate(index,e.target.value)}}
-   />
- </div>
- 
-
-  
- <div className="col-md-3 ">
-                <label>To</label>
-                <select data-placeholder="Choose Category"  className="form-control chosen-select"
-                   value={to[index]} 
-                  onChange={(e)=>{onToselect(index,e.target.value)}}
-                  
-                >
-                  <option  value={""}>Select Time</option>
-                {
-                  
-                datearray.map((item)=>{
-                 return <option key={item} value={item}>{item}</option>
-                })
-                }
-                  
-                 
-                  
-                </select>
-              </div>
-              <div className="col-md-3 p-2">
-                <label>From</label>
-                <select data-placeholder="Choose Category"  className="form-control chosen-select"
-                  value={from[index]} 
-                  onChange={(e)=>{onFromselect(index,e.target.value)}}
-                >
-                   <option  value={""}>Select Time</option>
-                 {
-                datearray.map((item)=>{
-                 return <option key={item} value={item}>{item}</option>
-                })
-                }
-                  
-                </select>
-              </div>
-              <div className="col-md-2 p-1 d-flex justify-content-center align-items-center">
-              <div style={{borderRadius:'10px',marginTop:'10px',
-   color:'black',display:'flex',justifyContent: 'center',flexDirection:'column',alignItems:'center',cursor:'pointer'}}
-   onClick={()=>{addinteval(index)}}
-   >
-   <AddAlarmIcon/>
-   <p style={{fontSize:8,marginBottom:0}}>Add Interval</p>
-   </div>
-   <div  style={{borderRadius:'10px',marginLeft:'5px',
-   color:'black',cursor:'pointer',display:'flex',justifyContent: 'center',
-   flexDirection:'column',alignItems:'center'}} onClick={()=>{removeitem(index)}}>
-  <DeleteTwoTone/>
-  
-  </div>
-   </div>
-   
- <div className="col-12 p-1 d-flex justify-content-start align-items-center">
-   <div >
-     <p style={{marginBottom:0}}>Added Intervals :-</p>
-     <div className="p-2 text-center d-flex m-1 flex-wrap" >
-      { console.log(addonce[index])}
-        {addonce[index]?.intervals.map((item,index2)=>{
-              return <div className="p-2 text-center d-flex m-1" style={{border:'1px solid pink',borderRadius:'10px'}}>
-                
-                 {item.to}-{item.from}
-                 <div onClick={()=>{intervaldel(index,index2)}} style={{cursor:'pointer'}}>
-                 <DeleteTwoTone />
-              </div>
-              </div>
-        })}
-     </div>
-   </div>
- </div>
-
-  </div>
-  )
-}
-
-const addday=(index,day)=>{
-  const all=[...addonce]
-  const sper={...all[index]}
-  if(sper.date.includes(day)){  
-    const nor=[...sper.date]
-    nor.splice(nor.indexOf(day),1)
-    sper.date=nor
-  }else{
-    const nor=[...sper.date]
-    nor.push(day)
-    sper.date=nor
-  }
-  all[index]=sper
-  setaddonce([...all])
-  
-}
-
-const setunit=(index,unit)=>{
-  const temp=[...addonce]
-  const l={...temp[index]}
-  l.unit=unit
-  temp[index]=l
-  setaddonce([...temp])
-}
-const setfrequency=(index,frequency)=>{
-  const temp=[...addonce]
-  const l={...temp[index]}
-  l.frequency=frequency
-  temp[index]=l
-  setaddonce([...temp])
-}
-
-const Weeklyrepeat=({index})=>{
-  return(
-    <div className="d-flex mt-2 p-2 flex-wrap justify-content-center align-items-center" style={{border:'1px solid gray',borderRadius:'10px'}}>
-             
-    <div className="col-md-12 p-1 d-flex justify-content-around flex-wrap">
-   
-   {days.map((item,index2)=>{
-      return <div style={{padding:8,border:'1px solid #1effac',borderRadius:'10px',cursor:'pointer',
-      backgroundColor:addonce[index].date.includes(item.value)?"#1effac":'white',
-      color:addonce[index].date.includes(item.value)?"white":'gray',margin:2
-      }}
-      onClick={()=>{addday(index,item.value)}}
-      >
-        {item.name}
-      </div>
-   })}
- </div>
- 
-
-  
- <div className="col-md-3 ">
-                <label>To</label>
-                <select data-placeholder="Choose Category"  className="form-control chosen-select"
-                   value={to[index]} 
-                  onChange={(e)=>{onToselect(index,e.target.value)}}
-                  
-                >
-                  <option  value={""}>Select Time</option>
-                {
-                  
-                datearray.map((item)=>{
-                 return <option key={item} value={item}>{item}</option>
-                })
-                }
-                  
-                 
-                  
-                </select>
-              </div>
-              <div className="col-md-3 p-2">
-                <label>From</label>
-                <select data-placeholder="Choose Category"  className="form-control chosen-select"
-                  value={from[index]} 
-                  onChange={(e)=>{onFromselect(index,e.target.value)}}
-                >
-                   <option  value={""}>Select Time</option>
-                 {
-                datearray.map((item)=>{
-                 return <option key={item} value={item}>{item}</option>
-                })
-                }
-                  
-                </select>
-              </div>
-              <div className="col-md-2 p-1 d-flex justify-content-center align-items-center">
-              <div style={{borderRadius:'10px',marginTop:'10px',
-   color:'black',display:'flex',justifyContent: 'center',flexDirection:'column',alignItems:'center',cursor:'pointer'}}
-   onClick={()=>{addinteval(index)}}
-   >
-   <AddAlarmIcon/>
-   <p style={{fontSize:8,marginBottom:0}}>Add Interval</p>
-   </div>
-   <div  style={{borderRadius:'10px',marginLeft:'5px',
-   color:'black',cursor:'pointer',display:'flex',justifyContent: 'center',
-   flexDirection:'column',alignItems:'center'}} onClick={()=>{removeitem(index)}}>
-  <DeleteTwoTone/>
-  
-  </div>
-   </div>
-   
- <div className="col-12 p-1 d-flex justify-content-start align-items-center">
-   <div >
-     <p style={{marginBottom:0}}>Added Intervals :-</p>
-     <div className="p-2 text-center d-flex m-1 flex-wrap" >
-      { console.log(addonce[index])}
-        {addonce[index]?.intervals.map((item,index2)=>{
-              return <div className="p-2 text-center d-flex m-1" style={{border:'1px solid pink',borderRadius:'10px'}}>
-                
-                 {item.to}-{item.from}
-                 <div onClick={()=>{intervaldel(index,index2)}} style={{cursor:'pointer'}}>
-                 <DeleteTwoTone />
-              </div>
-              </div>
-        })}
-     </div>
-   </div>
- </div>
-
-  </div>
-  )
-}
-
-const Customrepeat=({index})=>{
-  return(
-    <div className="d-flex mt-2 p-2 flex-wrap justify-content-center align-items-center" style={{border:'1px solid gray',borderRadius:'10px'}}>
-             
-    <div className="col-md-6 p-1">
-   <label>Date</label>
-   <input type="date" className="form-control" 
-   value={addonce[index].date} 
-    onChange={(e)=>{addate(index,e.target.value)}}
-   />
- </div>
- 
-
- 
-              <div className="col-md-3 p-2">
-                <label>Unit</label>
-                <select data-placeholder="Choose Category"  className="form-control chosen-select"
-                  value={addonce[index].unit} 
-                  onChange={(e)=>{setunit(index,e.target.value)}}
-                >
-                   <option  value={""}>Select Time</option>
-                 {
-                 ["DAYS","WEEKS","MONTHS","YEARS"].map((item,ind)=>{
-                 return <option key={item} value={ind+1}>{item}</option>
-                })
-                }
-                  
-                </select>
-              </div>
-              <div className="col-md-3 ">
-              <label>Frequency</label>
-                <input type="number" className="form-control"  min={1}
-                onChange={(e)=>{setfrequency(index,e.target.value)}}
-                value={addonce[index].frequency} 
-                />
-                  
-              </div>
- 
-              <div className="col-md-3 ">
-                <label>To</label>
-                <select data-placeholder="Choose Category"  className="form-control chosen-select"
-                   value={to[index]} 
-                  onChange={(e)=>{onToselect(index,e.target.value)}}
-                  
-                >
-                  <option  value={""}>Select Time</option>
-                {
-                  
-                datearray.map((item)=>{
-                 return <option key={item} value={item}>{item}</option>
-                })
-                }
-                  
-                 
-                  
-                </select>
-              </div>
-              <div className="col-md-3 p-2">
-                <label>From</label>
-                <select data-placeholder="Choose Category"  className="form-control chosen-select"
-                  value={from[index]} 
-                  onChange={(e)=>{onFromselect(index,e.target.value)}}
-                >
-                   <option  value={""}>Select Time</option>
-                 {
-                datearray.map((item)=>{
-                 return <option key={item} value={item}>{item}</option>
-                })
-                }
-                  
-                </select>
-              </div>
-
-              <div className="col-md-2 p-1 d-flex justify-content-center align-items-center">
-              <div style={{borderRadius:'10px',marginTop:'10px',
-   color:'black',display:'flex',justifyContent: 'center',flexDirection:'column',alignItems:'center',cursor:'pointer'}}
-   onClick={()=>{addinteval(index)}}
-   >
-   <AddAlarmIcon/>
-   <p style={{fontSize:8,marginBottom:0}}>Add Interval</p>
-   </div>
-   <div  style={{borderRadius:'10px',marginLeft:'5px',
-   color:'black',cursor:'pointer',display:'flex',justifyContent: 'center',
-   flexDirection:'column',alignItems:'center'}} onClick={()=>{removeitem(index)}}>
-  <DeleteTwoTone/>
-  
-  </div>
-   </div>
-   
- <div className="col-12 p-1 d-flex justify-content-start align-items-center">
-   <div >
-     <p style={{marginBottom:0}}>Added Intervals :-</p>
-     <div className="p-2 text-center d-flex m-1 flex-wrap" >
-      { console.log(addonce[index])}
-        {addonce[index]?.intervals.map((item,index2)=>{
-              return <div className="p-2 text-center d-flex m-1" style={{border:'1px solid pink',borderRadius:'10px'}}>
-                
-                 {item.to}-{item.from}
-                 <div onClick={()=>{intervaldel(index,index2)}} style={{cursor:'pointer'}}>
-                 <DeleteTwoTone />
-              </div>
-              </div>
-        })}
-     </div>
-   </div>
- </div>
-
-  </div>
-  )
-}
 
 
-
-const removeitem=(i)=>{
-const newobb=[...addonce]
-newobb.splice(i,1)
-setaddonce([...newobb])
-}
-const additem=(type)=>{
-  switch(type){
-    case 1:
-      setaddonce([...addonce,{
-        "date": "",
-        "intervals": [],
-        "type": 1
-      }])
-      break;
-      case 2:
-        setaddonce([...addonce,{
-          "uuid": props.id,
-          "date": [],
-          "intervals": [],
-          "type": 2
-        }])
-        break;
-     case 3:
-      setaddonce([...addonce, {
-        "uuid": props.id,
-        "date": "",
-        "intervals": [],
-        "type": 3,
-        "unit": 1,
-        "frequency": 2
-      }])
-      default: 
-     
-  }
-}
-React.useEffect(()=>{
-  if(data.currentdetails){
-    
-   setaddonce([...data.currentdetails])
-   console.log(data.currentdetails)
-  }
-  },[data.currentdetails])
-
- const [Sch,setsch]=React.useState(60) 
- const [slot,setslot]=React.useState(props.slots)
- const [alterr,setalter]=React.useState(false)
 
 const submit=()=>{
-  dispatch(updatecurrentslotdetials(props.id,addonce,Sch,slot,alterr))
+if(slot?.length>0){
+    let final={...finalobject,slots:slot}
+    if(props.edit) dispatch(Updateblock(props.id,props.bid,final)) 
+   else dispatch(createblock(props.id,final))
+   
+}else {
+    if(props.edit) {dispatch(Updateblock(props.id,finalobject))}
+    else dispatch(createblock(props.id,props.bid,finalobject))
+}
+setTimeout(()=>{
+    dispatch(viewblock(props.id))
+},1000)
+
+     setfinalobject( {
+    from: {
+      date: "",
+      time: ""
+    },
+    to: {
+      date: "",
+      time: ""
+    },
+    
+    alterReservations:false
+  })
+props.close()
 }
 
+const addoremovesolt=(slott)=>{
+    const p=[...slot]
+    if(p.includes(slott)){
+    p.splice(p.indexOf(slott), 1)
+    }else{
+        p.push(slott)
+    }
+
+    setslot([...p])
+}
+
+
+
+React.useEffect(()=>{
+    const papi=[]
+if(props.slot){
+    for(let i=1;i<=4;i++){
+        papi.push(i)
+    }
+setslotss([...papi])
+}
+},[props.slot])
+
+const avitchange=(value)=>{
+    let local={...finalobject}
+    local["alterReservations"]=value
+    setfinalobject({...local})
+}
 
   return (
     <>
@@ -483,24 +172,20 @@ const submit=()=>{
             id="example-custom-modal-styling-title"
             style={{ fontWeight: 400 }}
           >
-          Manage schedule
+          {props.edit?"Edit Bock":"Add a block"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
 
        <div>
-           <div className="d-flex">
-               <Button className="m-2 h-100" style={{fontSize: "14px" }} onClick={()=>{additem(1)}}>ADD ONCE</Button>
-               <Button className="m-2 h-100" style={{fontSize: "14px" }} onClick={()=>{additem(2)}}>WEEKLY REPEAT</Button>
-               <Button className="m-2 h-100"  style={{fontSize: "14px" }} onClick={()=>{additem(3)}}>CUSTOM REPEAT</Button>
-               
-           </div>
-           <div className="d-flex">
-           <div className="col-md-3 ">
+           
+           <div className="d-flex flex-wrap">
+         
+           <div className="col-md-6 ">
                 <label>Alter Reservations</label>
                 <select data-placeholder="Choose Category"  className="form-control chosen-select"
-                 value={alterr} 
-                   onChange={(e)=>{setalter(e.target.value)}}
+                 value={finalobject.alterReservations} 
+                   onChange={(e)=>{avitchange(e.target.value)}}
                   
                 >
                 
@@ -509,40 +194,91 @@ const submit=()=>{
                   
                 </select>
               </div>
-              <div className="col-md-3 px-1">
-   {slot===null?null:
-   <> 
-   <label>Edit slots</label>
-   <input type="number" className="form-control" 
-   value={slot} 
-    onChange={(e)=>{setslot(e.target.value)}}
-   />
-   </>}
- </div> 
- <div className="col-md-3 px-1">
-   <label>Scheduling Period</label>
-   <input type="number" className="form-control" 
-    value={Sch} 
-    onChange={(e)=>{setsch(e.target.value)}}
+              <div className="col-md-6 px-1 d-flex justify-content-center align-items-center "> 
+              {props.slot===null?null:
+            <div className=" d-flex justify-content-center align-items-center p-2">
+             <p style={{marginBottom:0}}>Slots to block</p>
+                {slotss.map((item)=>{
+                        return <div style={{padding:'5px',borderRadius:'10px',border:'1px solid #1effac',margin:'5px'
+                        ,maxHeight:'fit-content',display:'flex',justifyContent: 'center',alignItems:'center',width:'30px',height:'30px'
+                        ,cursor:'pointer',background:slot.includes(item)?"#1effac":"none",userSelect:'none',
+                        color:slot.includes(item)?"white":"grey"
+                        }} onClick={()=>{addoremovesolt(item)}}>
+                            {item}
+                        </div>
+                })}
+                </div>}
+              </div>
+             <div className="col-12 p-1 d-flex flex-wrap">
+             <div className="col-md-2 p-1 d-flex justify-content-center align-items-center">
+   <h6>FROM</h6>
+ </div>
+
+                <div className="col-md-5 p-1">
+   <label>Date</label>
+   <input type="date" className="form-control" 
+          value={finalobject?.from.date} 
+         onChange={(e)=>{onchangedate(1,e.target.value)}}
    />
  </div>
-           </div>
+ {console.log(finalobject?.from?.time)}
+ <div className="col-md-5 p-1">
+                <label>Time</label>
+                <select data-placeholder="Choose Category"  className="form-control chosen-select"
+              value={finalobject?.from?.time} 
+               onChange={(e)=>{onchangetime(1,e.target.value)}}
+                  
+                >
+                  <option  value={""}>Select Time</option>
+                {
+                  
+                datearray.map((item)=>{
+                 return <option key={item} value={item}>{item}</option>
+                })
+                }
+                  
+                 
+                  
+                </select>
+              </div>
+              <div className="col-md-2 p-1 d-flex justify-content-center align-items-center">
+   <h6>TO</h6>
+ </div>
+              <div className="col-md-5 p-1">
+   <label>Date</label>
+   <input type="date" className="form-control" 
+ value={finalobject?.to?.date} 
+ onChange={(e)=>{onchangedate(2,e.target.value)}}
+    
+   />
+ </div>
  
+ <div className="col-md-5 p-1 ">
+                <label>Time</label>
+                <select data-placeholder="Choose Category"  className="form-control chosen-select"
+                value={finalobject?.to?.time} 
+                onChange={(e)=>{onchangetime(2,e.target.value)}}
+                   
+                  
+                >
+                  <option  value={""}>Select Time</option>
+                {
+                  
+                datearray.map((item)=>{
+                 return <option key={item} value={item}>{item}</option>
+                })
+                }
+                  
+                 
+                  
+                </select>
+              </div>
+ </div>
+ 
+           </div>
 
-                {addonce.map((item,index)=>{
-                  if(item.type===1){
-                      return <Once index={index}/>
-                  }
-                  if(item.type===2){
-                    return <Weeklyrepeat index={index}/>
-                }
-                if(item.type===3){
-                  return <Customrepeat index={index}/>
-                }
-                })}
-              
-           {props.id}</div>
-          {addonce.length>0? <Button onClick={submit}>Submit</Button>:null}
+</div>
+      <Button onClick={submit}>Submit</Button>
         </Modal.Body>
       </Modal>
     </>

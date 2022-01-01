@@ -51,7 +51,7 @@ const addinteval=(index)=>{
   
   const toi=to[index]
   const fromi=from[index]
-  if(parseInt(toi[0]+toi[1])<parseInt(fromi[0]+fromi[1]) ||(parseInt(toi[0]+toi[1])===23 && parseInt(fromi[0]+fromi[1])===0) ){
+  if(parseInt(toi[0]+toi[1])>parseInt(fromi[0]+fromi[1]) ||(parseInt(toi[0]+toi[1])===23 && parseInt(fromi[0]+fromi[1])===0) ){
     if(toi && fromi){
       const olddata=[...addonce]
       let oldinteval= [...olddata[index].intervals]
@@ -103,7 +103,21 @@ const Once=({index})=>{
    />
  </div>
  
-
+ <div className="col-md-3 p-2">
+                <label>From</label>
+                <select data-placeholder="Choose Category"  className="form-control chosen-select"
+                  value={from[index]} 
+                  onChange={(e)=>{onFromselect(index,e.target.value)}}
+                >
+                   <option  value={""}>Select Time</option>
+                 {
+                datearray.map((item)=>{
+                 return <option key={item} value={item}>{item}</option>
+                })
+                }
+                  
+                </select>
+              </div>
   
  <div className="col-md-3 ">
                 <label>To</label>
@@ -124,21 +138,7 @@ const Once=({index})=>{
                   
                 </select>
               </div>
-              <div className="col-md-3 p-2">
-                <label>From</label>
-                <select data-placeholder="Choose Category"  className="form-control chosen-select"
-                  value={from[index]} 
-                  onChange={(e)=>{onFromselect(index,e.target.value)}}
-                >
-                   <option  value={""}>Select Time</option>
-                 {
-                datearray.map((item)=>{
-                 return <option key={item} value={item}>{item}</option>
-                })
-                }
-                  
-                </select>
-              </div>
+          
               <div className="col-md-2 p-1 d-flex justify-content-center align-items-center">
               <div style={{borderRadius:'10px',marginTop:'10px',
    color:'black',display:'flex',justifyContent: 'center',flexDirection:'column',alignItems:'center',cursor:'pointer'}}
@@ -163,7 +163,7 @@ const Once=({index})=>{
         {addonce[index]?.intervals.map((item,index2)=>{
               return <div className="p-2 text-center d-flex m-1" style={{border:'1px solid pink',borderRadius:'10px'}}>
                 
-                 {item.to}-{item.from}
+                {item.from}-{item.to}
                  <div onClick={()=>{intervaldel(index,index2)}} style={{cursor:'pointer'}}>
                  <DeleteTwoTone />
               </div>
@@ -228,7 +228,21 @@ const Weeklyrepeat=({index})=>{
  </div>
  
 
-  
+ <div className="col-md-3 p-2">
+                <label>From</label>
+                <select data-placeholder="Choose Category"  className="form-control chosen-select"
+                  value={from[index]} 
+                  onChange={(e)=>{onFromselect(index,e.target.value)}}
+                >
+                   <option  value={""}>Select Time</option>
+                 {
+                datearray.map((item)=>{
+                 return <option key={item} value={item}>{item}</option>
+                })
+                }
+                  
+                </select>
+              </div>
  <div className="col-md-3 ">
                 <label>To</label>
                 <select data-placeholder="Choose Category"  className="form-control chosen-select"
@@ -248,21 +262,7 @@ const Weeklyrepeat=({index})=>{
                   
                 </select>
               </div>
-              <div className="col-md-3 p-2">
-                <label>From</label>
-                <select data-placeholder="Choose Category"  className="form-control chosen-select"
-                  value={from[index]} 
-                  onChange={(e)=>{onFromselect(index,e.target.value)}}
-                >
-                   <option  value={""}>Select Time</option>
-                 {
-                datearray.map((item)=>{
-                 return <option key={item} value={item}>{item}</option>
-                })
-                }
-                  
-                </select>
-              </div>
+            
               <div className="col-md-2 p-1 d-flex justify-content-center align-items-center">
               <div style={{borderRadius:'10px',marginTop:'10px',
    color:'black',display:'flex',justifyContent: 'center',flexDirection:'column',alignItems:'center',cursor:'pointer'}}
@@ -287,7 +287,7 @@ const Weeklyrepeat=({index})=>{
         {addonce[index]?.intervals.map((item,index2)=>{
               return <div className="p-2 text-center d-flex m-1" style={{border:'1px solid pink',borderRadius:'10px'}}>
                 
-                 {item.to}-{item.from}
+                {item.from}-{item.to}
                  <div onClick={()=>{intervaldel(index,index2)}} style={{cursor:'pointer'}}>
                  <DeleteTwoTone />
               </div>
@@ -338,7 +338,22 @@ const Customrepeat=({index})=>{
                 />
                   
               </div>
- 
+  <div className="col-md-3 p-2">
+                <label>From</label>
+                <select data-placeholder="Choose Category"  className="form-control chosen-select"
+                  value={from[index]} 
+                  onChange={(e)=>{onFromselect(index,e.target.value)}}
+                >
+                   <option  value={""}>Select Time</option>
+                 {
+                datearray.map((item)=>{
+                 return <option key={item} value={item}>{item}</option>
+                })
+                }
+                  
+                </select>
+              </div>
+
               <div className="col-md-3 ">
                 <label>To</label>
                 <select data-placeholder="Choose Category"  className="form-control chosen-select"
@@ -358,22 +373,7 @@ const Customrepeat=({index})=>{
                   
                 </select>
               </div>
-              <div className="col-md-3 p-2">
-                <label>From</label>
-                <select data-placeholder="Choose Category"  className="form-control chosen-select"
-                  value={from[index]} 
-                  onChange={(e)=>{onFromselect(index,e.target.value)}}
-                >
-                   <option  value={""}>Select Time</option>
-                 {
-                datearray.map((item)=>{
-                 return <option key={item} value={item}>{item}</option>
-                })
-                }
-                  
-                </select>
-              </div>
-
+             
               <div className="col-md-2 p-1 d-flex justify-content-center align-items-center">
               <div style={{borderRadius:'10px',marginTop:'10px',
    color:'black',display:'flex',justifyContent: 'center',flexDirection:'column',alignItems:'center',cursor:'pointer'}}
@@ -398,7 +398,7 @@ const Customrepeat=({index})=>{
         {addonce[index]?.intervals.map((item,index2)=>{
               return <div className="p-2 text-center d-flex m-1" style={{border:'1px solid pink',borderRadius:'10px'}}>
                 
-                 {item.to}-{item.from}
+                 {item.from}-{item.to}
                  <div onClick={()=>{intervaldel(index,index2)}} style={{cursor:'pointer'}}>
                  <DeleteTwoTone />
               </div>

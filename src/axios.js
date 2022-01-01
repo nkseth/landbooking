@@ -92,7 +92,7 @@ axiosInstance.interceptors.response.use(config => {
     store.dispatch(nulluser())
    }
   }
-  console.log("sdsdsadsadasd",error.response.data.message)
+
  return Promise.reject(error)
 
 })

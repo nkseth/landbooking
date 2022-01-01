@@ -29,9 +29,12 @@ const dispatch =useDispatch()
     <Stack spacing={2} sx={{ width: '100%' }}>
      
       <Snackbar open={user.snackbar!==null} autoHideDuration={2000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={user.snackbar?.type} sx={{ width: '100%' }}>
-        {user.snackbar?.message}
-        </Alert>
+      {user.snackbar?.type &&
+       <Alert onClose={handleClose} severity={user.snackbar?.type} sx={{ width: '100%' }}>
+       {user.snackbar?.message}
+       </Alert>
+      }
+       
       </Snackbar>
       {}
       

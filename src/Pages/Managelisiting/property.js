@@ -33,10 +33,22 @@ const delclose=()=>{
     <div className="verticle-listing-caption " >
    
       <div style={{position:'absolute',display:'flex',top:10,right:10}}>
-      <div className="editlisting"  onClick={()=>{setblock(true)}}>  
+      
+      
+      {/* <Link  to={`/blockedDates/${item.uuid}`>
+      <div className="editlisting" >  
             <BlockRounded style={{fontSize:20,}} />
            <p style={{fontSize:'10px',marginBottom:0}}> Block dates</p>
      </div>
+   </Link> */}
+
+<Link to={`/blockedDates/${item.uuid}`}>
+     
+     <div className="editlisting">  
+     <BlockRounded style={{fontSize:20,}} />
+           <p style={{fontSize:'10px',marginBottom:0}}> Block dates</p>
+     </div></Link>
+
      <div className="editlisting" onClick={()=>setshow(true)}>  
         <FaCalendarAlt style={{fontSize:20,}} />
         <p style={{fontSize:'10px',marginBottom:0}}>Schedule</p>
