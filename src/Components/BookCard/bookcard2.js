@@ -4,18 +4,15 @@ import "./BookCard.css";
 
 const BookCard = ({data}) => {
   return (
-    <div className="card  " style={{ border: "none" }}>
+    <div className="card  " style={{ border: "none",background: "red",width:'100%'}}>
         {console.log(data)}
       <Card
         sx={{
-          boxShadow: " 0px 0px 10px 1px rgb(71 85 95 / 8%)",width: "100%",
+          boxShadow: " 0px 0px 10px 1px rgb(71 85 95 / 8%)",width: "100%"
         }}
-        className="card-container"
+        className=""
       >
-        <div className="p-0 position-relative">
-        
-     
-        </div>
+       
         <CardContent sx={{ color: "#334E6F", padding: 1 }}>
           <Typography gutterBottom variant="h6" component="div">
             {data.title}
@@ -72,7 +69,7 @@ const BookCard = ({data}) => {
               className="mb-2"
               style={{ fontWeight: "bold" }}
             >
-              Your Stay
+              Details
             </Typography>
             <div className="p-2">
               <div className="d-flex justify-content-between mb-4">

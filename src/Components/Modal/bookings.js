@@ -47,7 +47,7 @@ justifyContent='center'
         <Grid  container  justifyContent="center">
       
         <Grid item xs={11}  container  justifyContent="center" >
-          <Box >
+          <Box style={{width:'100%'}}>
           {CardData.map((item, index) => {
             return (
                 <>
