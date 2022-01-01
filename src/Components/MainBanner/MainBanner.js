@@ -1,11 +1,12 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import { Form, Button } from "react-bootstrap";
 import Bannerbg from "../../assets/title-bg.jpg";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import FilterNoneOutlinedIcon from "@mui/icons-material/FilterNoneOutlined";
+
 import "./MainBanner.css";
 import { useDispatch, useSelector } from "react-redux";
-import {login} from '../../redux/slices/user'
+
 import Locationstring from "../locationstring/location";
 import { withRouter } from "react-router-dom";
 import { getcategory, getcategorypublic } from "../../redux/slices/categories";
@@ -20,7 +21,7 @@ const MainBanner = ({history}) => {
   },[])
   
   
-  const location=useSelector((state) => state.location);
+
  
  
  
@@ -85,7 +86,7 @@ const MainBanner = ({history}) => {
               letterSpacing: 1.3,
               wordSpacing: 3,
               color: 'white',
-              marginTop:'20px',
+            
               marginTop:'-100px'
             }}
           >

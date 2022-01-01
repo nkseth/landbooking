@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import Signup from "./Signup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+
 import { useDispatch, useSelector } from "react-redux";
 import {phoneandemailv, validate} from '../../redux/slices/user'
 import OtpInput from "react-otp-input";

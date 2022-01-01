@@ -1,5 +1,6 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable no-sparse-arrays */
-import React, { useState } from "react";
+import React from "react";
 import { Button, Modal } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +20,6 @@ const LBModal = (props) => {
   
 },[props.show])
 
-const user=useSelector((state) => state.user)
 const data=useSelector((state)=>state.slotmanagement)
 
 const [to,setto]=React.useState([])
