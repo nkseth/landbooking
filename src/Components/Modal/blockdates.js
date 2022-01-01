@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-sparse-arrays */
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createblock, Updateblock, viewblock } from "../../redux/slices/slotmanagement";
 
 const LBModal = (props) => {

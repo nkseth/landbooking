@@ -1,19 +1,11 @@
-import React, { useState } from "react";
-import { Button, Modal, Form } from "react-bootstrap";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import Signup from "./Signup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import { useDispatch, useSelector } from "react-redux";
-import {login} from '../../redux/slices/user'
-import {Link} from 'react-router-dom'
-import Forgototp from './forgotpass'
+import React from "react";
+import {Modal} from "react-bootstrap";
+
 import { Grid,Box } from "@mui/material";
-import { BookCard, PaymentForm } from "..";
+import { BookCard } from "..";
+import BookCard2 from '../BookCard/bookcard2'
 const LBModal = (props) => {
-  
-   const dispatch=useDispatch()
-const userdata=useSelector((state)=>state.data)
+ 
 const CardData = [
     {
       title: "Yardcan",
@@ -58,13 +50,22 @@ justifyContent='center'
           <Box >
           {CardData.map((item, index) => {
             return (
+                <>
+                {
+                   ! props.reservations?
               <BookCard
                 title={item.title}
                 subTitle={item.location}
                 amount={item.amount}
                 imageSrc={item.imageSrc}
                 data={props.data}
-              />
+              />:<BookCard2
+             
+              data={props.data}
+            />
+                }
+              </>
+              
             );
           })}
           </Box>

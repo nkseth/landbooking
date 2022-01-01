@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { Button, Modal, Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { Button, Modal } from "react-bootstrap";
+import { useDispatch, } from "react-redux";
 import {withRouter} from 'react-router-dom'
-import { baseurl } from "../../config";
+
 import { Deletelisting } from "../../redux/slices/popularlisting";
 
 
 
 const LBModal = (props) => {
 const [data,setdata]=React.useState(null)
-const user=useSelector((state) => state.user)
+
 const dispatch = useDispatch()
 
 const deletes=()=>{

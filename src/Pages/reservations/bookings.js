@@ -14,7 +14,7 @@ const Booking=({data,history,venuedata})=>{
 }
 
    return( <li>
-       <Bookingmodal show={show} close={close}  sheduledata={data.schedules} guestlist={data.guestList}
+       <Bookingmodal show={show} close={close} data={data} reservations={true}
        amount={data.payment.amount}
        />
        

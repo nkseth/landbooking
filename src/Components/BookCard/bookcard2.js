@@ -5,6 +5,7 @@ import "./BookCard.css";
 const BookCard = ({data}) => {
   return (
     <div className="card  " style={{ border: "none" }}>
+        {console.log(data)}
       <Card
         sx={{
           boxShadow: " 0px 0px 10px 1px rgb(71 85 95 / 8%)",width: "100%",
@@ -12,19 +13,14 @@ const BookCard = ({data}) => {
         className="card-container"
       >
         <div className="p-0 position-relative">
-          <CardMedia
-            component="img"
-            sx={{ width: "100%", height: "30vh", objectFit: "cover" }}
-            image={data.venue.images.length>0 && data.venue.images.length[0]}
-            alt="green iguana"
-          />
+        
      
         </div>
         <CardContent sx={{ color: "#334E6F", padding: 1 }}>
           <Typography gutterBottom variant="h6" component="div">
-            {data.venue.title}
+            {data.title}
           </Typography>
-          <Typography variant="body2">{data.venue.address}</Typography>
+          <Typography variant="body2">{data.address}</Typography>
         </CardContent>
 
         <CardContent sx={{ color: "#334E6F", padding: 2 }}>
@@ -42,7 +38,7 @@ const BookCard = ({data}) => {
               className="mb-2"
               style={{ fontWeight: "bold" }}
             >
-              Your Dates
+               Dates
             </Typography>
             <div className="p-2 d-flex">
              
@@ -81,7 +77,7 @@ const BookCard = ({data}) => {
             <div className="p-2">
               <div className="d-flex justify-content-between mb-4">
                 <Typography variant="body2">Slots</Typography>
-                <Typography variant="body2">{data?.slots.map((item)=>`${item} `)}</Typography>
+                <Typography variant="body2">{data?.slots?.map((item)=>`${item} `)}</Typography>
               </div>
               <div className="d-flex justify-content-center mb-4 flex-column">
                 <Typography variant="body2 text-center mb-2">Guest List</Typography>

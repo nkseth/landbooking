@@ -1,11 +1,10 @@
 import React, { useState,useEffect } from "react";
-import { Button, Modal, Form } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {withRouter} from 'react-router-dom'
-import { baseurl } from "../../config";
 
-import {confirmreservation} from '../../redux/slices/reservations'
-import StripeCheckout from "react-stripe-checkout";
+
+
 import { Rating } from "@mui/material";
 import { opensnackbar } from "../../redux/slices/user";
 import { deletereviews, givereviews, reviews, updatereviews } from "../../redux/slices/popularlisting";
@@ -13,7 +12,7 @@ import { DeleteTwoTone } from "@mui/icons-material";
 
 const Reviewmodal = (props) => {
 const [data,setdata]=React.useState([])
-const user=useSelector((state) => state.user)
+
 const dispatch = useDispatch()
 const [rating,setrating]=React.useState(0)
 const [comment,setcomment]=React.useState("")
