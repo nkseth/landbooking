@@ -5,10 +5,11 @@ import { Home, Listing, ViewDetail, BookNow, ThankYou ,EditProfile,Addlisting,Ma
 ,Mybookings,
 Favourites,
 Reservations,
-Blockdates
+Blockdates,Mytransactions
 } from "./Pages";
 import PrivateRoute from "./privateroute";
-import Geaustroute from './guestroute'
+
+
 
 const Routes = () => {
 
@@ -28,6 +29,7 @@ const Routes = () => {
       <PrivateRoute><Route exact path="/myfavourite" component={Favourites} /></PrivateRoute>
       <PrivateRoute><Route exact path="/view-reservations/:id" component={Reservations} /></PrivateRoute>
       <PrivateRoute><Route exact path="/blockedDates/:id" component={Blockdates} /></PrivateRoute>
+      <PrivateRoute><Route exact path="/mytransactions" component={Mytransactions} /></PrivateRoute>
     </>
   );
 };

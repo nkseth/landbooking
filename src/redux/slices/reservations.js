@@ -5,7 +5,8 @@ const initialState = {
  
  notification:null,
  reservationdetails:null,
- booked:null
+ booked:null,
+ transaction:null
 };
 
 const slice = createSlice({
@@ -26,6 +27,10 @@ const slice = createSlice({
       booking(state, action) {
       
         state.booked = action.payload;
+      },
+      transaction(state, action) {
+      
+        state.transaction = action.payload;
       },
   
   },
@@ -113,3 +118,22 @@ export const confirmreservation=(token,rid,vid)=>{
     }
     }
     
+
+  
+
+    export const gettransaction=(data)=>{
+      return async (dispatch)=>{
+        return await axios({
+        method: 'get',
+        url: `/api/v1/payment/transaction/viewall`,
+      
+        
+      }).then(async (res)=>{
+       console.log("dasdasdasd",res)
+       dispatch(slice.actions.transaction(res.data.data))
+       
+            }).catch((err)=>{
+            
+            })
+      }
+    }

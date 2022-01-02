@@ -17,7 +17,7 @@ import {
 
 import { useParams } from 'react-router-dom';
 import { useSelector,useDispatch } from "react-redux";
-import { viewdetailsprivate, viewdetailspublic,reviews } from "../../redux/slices/popularlisting";
+import { viewdetailsprivate, viewdetailspublic,reviews, addfavour } from "../../redux/slices/popularlisting";
 import {withRouter} from 'react-router-dom'
 import { booking } from "../../redux/slices/reservations";
 import { useLocation } from "react-router-dom";
@@ -114,7 +114,7 @@ const resetdata=()=>{
 
                 emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
               />
-              <button className="short-list-btn d-flex justify-content-center m-1">
+              <button className="short-list-btn d-flex justify-content-center m-1" onClick={()=>{dispatch(addfavour(id))}}>
                 <FavoriteBorderOutlinedIcon />
                 <Typography className="short-list"> Short List</Typography>
               </button>

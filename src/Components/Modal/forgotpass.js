@@ -88,7 +88,7 @@ props.close()
          <div className="text-center">
          <Button style={{marginTop:20,maxWidth:'240px',fontSize:'15px',backgroundColor:'#1effac',
          color:'white',border:'none'}} onClick={()=>{ 
-           if(enterusername!=="" && newpassword!==""){
+           if(enterusername!=="" && (newpassword!=="" && newpassword.length>6)){
             dispatch(phoneandemailv(3,enterusername));
             setotp("");setresendotp(true)
            }else{
@@ -96,7 +96,7 @@ props.close()
            }
       
         
-        }}>{resendopt?"Resend Otp":"Send Otp to  verify username"}</Button>  
+        }}>{resendopt?"Resend Otp":"Send Otp to verify username"}</Button>  
         </div>
         </Modal.Body>
       </Modal>

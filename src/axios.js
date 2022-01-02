@@ -76,18 +76,21 @@ axiosInstance.interceptors.response.use(config => {
 
 },(error)=>{
   store.dispatch(loading(false))
-  debugger
+
   console.log("asdsadasd",error.response)
-  debugger
+  if(typeof error.response?.data?.details==="string"){
+    store.dispatch(opensnackbar("error",error.response?.data?.details))
+  } else  store.dispatch(opensnackbar("error",error.response?.data?.message))
+
   if(error.response?.status===403){
-   if(error.response?.data?.data.status!==1){
+   if(error.response?.data?.data?.status!==1){
     store.dispatch(logout())
     store.dispatch(opensnackbar("error","Your account has been blocked please contact admin"))
    }
-   if(!error.response?.data?.data.emailVerified && !error.response?.data?.data.phoneVerified){
+   if(!error.response?.data?.data?.emailVerified && !error.response?.data?.data?.phoneVerified){
     store.dispatch(opensnackbar("error","Please verify your Phone No to continue using the Application"))
    }
-   if(error.response?.data?.data.fcmTokenStatus!==1){
+   if(error.response?.data?.data?.fcmTokenStatus!==1){
      store.dispatch(logout())
     store.dispatch(nulluser())
    }

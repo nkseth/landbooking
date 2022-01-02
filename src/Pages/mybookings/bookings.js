@@ -17,7 +17,7 @@ const Booking=({data,history})=>{
        <Reviewmodal show={rshow} close={rclose} data={data} />
                     <div className="small-listing-box light-gray">
                       <div className="small-list-img d-flex align-items-center "  style={{width:100}}>
-                        <img src="https://tigerturf.com/in/wp-content/uploads/2019/11/How-to-build-a-tennis-court.jpg" className="w-100" alt="" />
+                        <img src={data.venue.images.length>0?data.venue.images:""} className="w-100" alt="" />
                       </div>
                       <div className="small-list-detail">
                         <h4>{data.venue.title}</h4>

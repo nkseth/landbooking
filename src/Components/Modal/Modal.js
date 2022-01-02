@@ -11,10 +11,18 @@ const LBModal = () => {
   const [forshow, setforShow] = useState(false);
   const dispatch=useDispatch()
  const [logininfo,setlogininfo]=useState({un:'',pass:""})
-
+const [error,seterror]=useState("")
 const onLogin=()=>{
-  
-  dispatch(login(logininfo.un,logininfo.pass))
+  if(logininfo.un==="" || (logininfo.pass.length<6 || logininfo.pass===""))
+      {seterror("please enter the right Username Or Password")
+    setTimeout(()=>{
+      seterror("")
+    },2000)
+    }else {
+      dispatch(login(logininfo.un,logininfo.pass))
+      setShow(false)
+    }
+ 
 
 }
 
@@ -109,7 +117,7 @@ const onclose=()=>{
                   borderRadius: "1.9rem",
                   
                 }}
-                onClick={()=>{onLogin();setShow(false)}}
+                onClick={()=>{onLogin();}}
               >
                 Login
               </Button>
@@ -133,7 +141,7 @@ const onclose=()=>{
       </div>
       </Link>
             </div>
-          
+          <div><p style={{color:'red'}}>{error}</p></div>
           </div>
         </Modal.Body>
       </Modal>

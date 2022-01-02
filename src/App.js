@@ -12,6 +12,7 @@ function App() {
   injectStore(store);
   message.onMessage((payload) => {
     console.log('Message received. ', payload);
+  
     store.dispatch(notification(payload));
   });
   return (

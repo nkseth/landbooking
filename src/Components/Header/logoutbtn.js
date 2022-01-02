@@ -87,6 +87,11 @@ const dispatch=useDispatch()
         ,textAlign:'left'
       }}
         to='/mybookings'>My Bookings</Link>
+          <Link  className="link"
+        style={{padding:'10px',width:'100%',borderBottom:'1px solid #eeeeee',fontWeight:'bold',color:'gray'
+        ,textAlign:'left'
+      }}
+        to='/mytransactions'>My Transactions</Link>
          <Link  className="link"
         style={{padding:'10px',width:'100%',borderBottom:'1px solid #eeeeee',fontWeight:'bold',color:'gray'
         ,textAlign:'left'

@@ -206,7 +206,7 @@ else  dispatch(opensnackbar("error","No result found"))
              
               
                     }).catch((err)=>{
-                      dispatch(opensnackbar("error",err?.response?.data.message))
+                      // dispatch(opensnackbar("error",err?.response?.data.message))
                     })
               }
               }
@@ -240,7 +240,7 @@ else  dispatch(opensnackbar("error","No result found"))
             
               
                     }).catch((err)=>{
-                      dispatch(opensnackbar("error",err?.response?.data.message))
+                      // dispatch(opensnackbar("error",err?.response?.data.message))
                     })
               }
               }

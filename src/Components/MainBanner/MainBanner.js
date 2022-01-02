@@ -128,7 +128,7 @@ const MainBanner = ({history}) => {
             <div className="d-flex justify-content-center align-items-center bg-white  w-100 py-0  p-0">
            
             <select data-placeholder="Choose Category" 
-            style={{marginBottom:0}}
+            style={{marginBottom:0,border:'none'}}
                 onChange={(e)=>{
                   setselectedcategory(
                     categories?.categories?.find((item,index)=>{if(e.target.value===item.uuid) return true}))

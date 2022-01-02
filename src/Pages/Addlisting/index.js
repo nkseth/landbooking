@@ -8,6 +8,7 @@ import {locationfind,locationnull,locationfindll,locationlltz} from '../../redux
 import {addlisting} from '../../redux/slices/managelisitings'
 import Addgallery from './Addgalary'
 import { withRouter } from "react-router-dom";
+import { opensnackbar } from "../../redux/slices/user";
 const Listing = ({history}) => {
 const dispatch = useDispatch()
 React.useEffect(() => {
@@ -81,8 +82,19 @@ const createlisting=()=>{
   formdata.append('address',locationstring)
   formdata.append('guestLimit',JSON.stringify(data.guestLimit))
   formdata.append('timezone',location?.timezone?.id)
-
-  dispatch(addlisting(formdata))
+ let ifnotallinfo=true
+  Object.values(data).map((i)=>{
+    if(typeof i==="object"){
+      Object.values(data.guestLimit).map((i2)=>{
+          if(i2==="") ifnotallinfo=false
+          console.log(i2)
+      })
+    } else if(i==="") ifnotallinfo=false
+  })
+  if(!selectedcategory.uuid) ifnotallinfo=false
+  if(!selectedamenity)  ifnotallinfo=false
+ if(ifnotallinfo) dispatch(addlisting(formdata))
+ else dispatch(opensnackbar("error","Please Provide All the Details"))
 }
 React.useEffect(()=>{
   if(location.zipcode)
@@ -184,19 +196,19 @@ React.useEffect(()=>{
 
               <div className="col-sm-6">
                 <label>Adults</label>
-                <input type="text" className="form-control" 
+                <input type="number" className="form-control" 
                 onChange={(e)=>{setdata({...data, guestLimit: {...data.guestLimit,adults:e.target.value}})}}
                 value={data.guestLimit.adults} />
               </div>
               <div className="col-sm-6">
                 <label>Children</label>
-                <input type="text" className="form-control" 
+                <input type="number" className="form-control" 
                    onChange={(e)=>{setdata({...data, guestLimit: {...data.guestLimit,children:e.target.value}})}}
                 value={data.guestLimit.children} />
               </div>
               <div className="col-sm-6">
                 <label>Infants</label>
-                <input type="text" className="form-control"
+                <input type="number" className="form-control"
                    onChange={(e)=>{setdata({...data, guestLimit: {...data.guestLimit,infants:e.target.value}})}}
                 value={data.guestLimit.infants}  />
               </div>

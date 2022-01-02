@@ -101,7 +101,7 @@ await toBase64(e.target.files[0]).then((result)=>{
    
 }
 const updateprivacysettingslocal=()=>{
-
+if(profiledetails.password===""|| profiledetails.password===profiledetails.cpassword){
   const formdata= new FormData()
   formdata.append('displayName',profiledetails.name)
   debugger
@@ -119,7 +119,7 @@ const updateprivacysettingslocal=()=>{
   }
 
   setprofiledetails({...profiledetails,image:null})
-  history.push('/')
+} else dispatch(opensnackbar('error',"Password and Confirm Password is not Same"))
 } 
 
 const updategeneralsettingslocal=()=>{
@@ -136,7 +136,7 @@ const updategeneralsettingslocal=()=>{
 
  
   dispatch( updategeneralsettings(finalobject))
-  history.push('/')
+ 
 }
  
 const [show,setshow]=React.useState(false)
