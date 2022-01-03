@@ -54,8 +54,9 @@ const dispatch=useDispatch()
         }}
       
       >
-        
-       <Avatar style={{marginRight:'5px'}} src={`${baseurl}${state.user?.user?.displayImage?.path}`}/> {state?.user?.user?.displayName}
+      
+       <Avatar style={{marginRight:'5px',border:'4px solid white'}} src={`${baseurl}${state.user?.user?.displayImage?.path}`}/> {state?.user?.user?.displayName}
+     
        <div id="sol"
      
       className="ggi" style={{width:'250px',height:open?'auto':0,backgroundColor:'white',overflow:'hidden',
