@@ -140,6 +140,17 @@ const searchclicked=(data)=>{
   if(user.user && (user.user.user.emailVerified && user.user.user.phoneVerified)) dispatch(getlistingprivate(data))
   else dispatch(getlistingpublic(data))
 }
+const [supercount,setsupercount]=React.useState()
+React.useEffect(()=>{
+  let datai=0
+  data?.listing?.map((item, index)=>{
+    if(item.host.userId!==user.user.user.uuid){
+        datai=datai+1
+  } })
+  setsupercount(datai)
+  debugger
+},[data.listing])
+
   return (
     <div id="listing" className="listing my-md-5 my-3">
       <div
@@ -280,7 +291,7 @@ const searchclicked=(data)=>{
       <div className="d-flex justify-content-center">
        
         <Pagination
-          count={Math.ceil(data?.listingcount/queryperams.limit)}
+          count={Math.ceil(supercount/queryperams.limit)}
           variant="outlined" color="primary"
           page={queryperams.page} onChange={handleChange}
           renderItem={(item) => (
