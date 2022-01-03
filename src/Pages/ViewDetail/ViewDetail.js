@@ -102,9 +102,9 @@ const resetdata=()=>{
             <div className="rating-container d-flex justify-content-md-center justify-content-end align-items-center mx-2">
               <Rating
                 name="half-rating m-1"
-               value={data.listingdetails?.rating}
-                precision={0.5}
-            
+             
+                
+                value={parseFloat(data.listingdetails?.rating).toFixed(1)} precision={0.5}
                readOnly
                 style={{
                   color: "white",

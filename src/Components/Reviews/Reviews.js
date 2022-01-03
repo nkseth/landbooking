@@ -27,7 +27,7 @@ const Reviews = ({data}) => {
                 style={{ color: "#334E6F" }}
               >
                 <Typography variant="h6">{item.postedBy.name}</Typography>
-                <Rating name="half-rating" value={item.rating}  precision={0.5} />
+                <Rating name="half-rating" readOnly value={item.rating}  precision={0.5} />
                 <Typography varient="caption" style={{ fontSize: "14px" }}>
                   {item.remark}
                 </Typography>
