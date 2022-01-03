@@ -19,7 +19,7 @@ const Counter = ({guestchange,state,name}) => {
         }}
         onClick={()=>{guestchange("-",name)}}
       >
-        <b>-</b>
+         <div>-</div>
       </Button>
       <Typography style={{ color: "#53616D", marginRight: "10px" }}>
         {name==="adults"?state.adults:name==="children"?state.children:state.infants}
@@ -39,7 +39,7 @@ const Counter = ({guestchange,state,name}) => {
         }}
         onClick={()=>{guestchange("+",name)}}
       >
-        +
+        <div>+</div>
       </Button>
     </div>
   );

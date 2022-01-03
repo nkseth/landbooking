@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { Cards as Card } from "../../Components";
@@ -179,7 +180,7 @@ const searchclicked=(data)=>{
             <Form.Control
                 size="lg"
                 type="dropdown"
-                placeholder="Search By Name/Email/Phone"
+                placeholder="Search By Name"
                 className="w-90 p-3 form-control"
                 id="form-input"
                 style={{ marginBottom:'10px'}}
@@ -188,7 +189,7 @@ const searchclicked=(data)=>{
             <Form className="d-flex justify-content-center align-items-center flex-md-row flex-column">
            
             
-              <Locationstring label="none" size="col-sm-5" 
+              <Locationstring label="none" size="col-12 col-md-5" 
               onaddresschanging={updateaddress}
               getaddress={true} 
               />
@@ -204,7 +205,7 @@ const searchclicked=(data)=>{
               />
             
              
-                <div className="col-sm-3">
+                <div className="col-12 col-md-3">
                 
                 <select data-placeholder="Choose Category" 
                value={queryperams.categoryId}
@@ -222,13 +223,19 @@ const searchclicked=(data)=>{
                   
                 </select>
               </div>
-              <Button
+              <Button onClick={undofilter} style={{marginTop:'-10px'}} >
+              Undo Filter
+            </Button>
+              
+            </Form>
+            <Button
                 variant="btn "
                 className=" button"
                 style={{
                   padding: "14px 50px",
                   backgroundColor: "#1EFFAC",
                   color: "white",
+                  width: "100%",
                   borderRadius: "0",
                   boxShadow: "none",
                   marginBottom:'10px'
@@ -237,22 +244,16 @@ const searchclicked=(data)=>{
               >
                 Search
               </Button>
-            </Form>
-            <Button onClick={undofilter} >
-              Undo Filter
-            </Button>
           </div>
         </div>
       </div>
 
-      <div className="cards-container d-flex justify-content-center flex-wrap  " style={{marginTop:'230px'}}>
+      <div className="row d-flex justify-content-center flex-row p-2" style={{marginTop:'230px'}}>
         {data?.listing?.map((item, index) => {
            if(user.user){
           
             if(item.host.userId!==user.user.user.uuid){
-          return (
-            <div key={index}>
-              <Card
+          return <Card
                  title={item.title}
                  subTitle={item.address}
                  imageSrc={`${baseurl}${item.images[0]}`}
@@ -260,13 +261,11 @@ const searchclicked=(data)=>{
                  rating={item.rating}
                  id={item.uuid}
               />
-            </div>
-          );
+         
             }
           }
           else{
-           return <div key={index}>
-              <Card
+           return <Card
                  title={item.title}
                  subTitle={item.address}
                  imageSrc={`${baseurl}${item.images[0]}`}
@@ -274,7 +273,7 @@ const searchclicked=(data)=>{
                  rating={item.rating}
                  id={item.uuid}
               />
-            </div> 
+            
           }
         })}
       </div>

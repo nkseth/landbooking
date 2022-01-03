@@ -91,7 +91,7 @@ return async (dispatch)=>{
  
 
 export const createblock=(id,data)=>{
-
+    debugger
     return async (dispatch)=>{
         return await axios({
         method: 'POST',

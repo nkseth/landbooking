@@ -40,12 +40,12 @@ const PopularListing = () => {
         </h1>
         <p>Check our most Popular Listing</p>
       </div>
-      <div className="cards-container d-flex justify-content-center flex-wrap">
+      <div className="row d-flex justify-content-center flex-row p-2">
         {data?.listing?.map((item, index) => {
           if(user.user){
               if(item.host.userId!==user.user.user.uuid){
                 return (
-                  <div key={index}>
+               
                     <Card
                       title={item.title}
                       subTitle={item.address}
@@ -54,13 +54,13 @@ const PopularListing = () => {
                       rating={item.rating}
                       id={item.uuid}
                     />
-                  </div>
+               
                 );
               }
           } 
           else{
             return (
-              <div key={index}>
+             
                 <Card
                   title={item.title}
                   subTitle={item.address}
@@ -69,7 +69,7 @@ const PopularListing = () => {
                   rating={item.rating}
                   id={item.uuid}
                 />
-              </div>
+         
             );
           }
          

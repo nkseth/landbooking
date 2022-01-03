@@ -101,13 +101,17 @@ const datearray=["00:00","01:00","02:00","03:00","04:00","05:00","06:00",
 const submit=()=>{
 if(slot?.length>0){
     let final={...finalobject,slots:slot}
+    debugger
     if(props.edit) dispatch(Updateblock(props.id,props.bid,final)) 
    else dispatch(createblock(props.id,final))
    
 }else {
-    if(props.edit) {dispatch(Updateblock(props.id,finalobject))}
-    else dispatch(createblock(props.id,props.bid,finalobject))
+    if(props.edit) {dispatch(Updateblock(props.id,props.bid,finalobject))}
+    else { 
+        dispatch(createblock(props.id,finalobject))
+    }
 }
+
 setTimeout(()=>{
     dispatch(viewblock(props.id))
 },1000)
@@ -163,7 +167,20 @@ const avitchange=(value)=>{
       <Modal
         size="lg"
         show={props.show}
-        onHide={() => {props.close()}}
+        onHide={() => {props.close();
+            setfinalobject( {
+                from: {
+                  date: "",
+                  time: ""
+                },
+                to: {
+                  date: "",
+                  time: ""
+                },
+                
+                alterReservations:false
+              })
+        }}
       
         dialogClassName="modal-100w"
         aria-labelledby="example-custom-modal-styling-title"

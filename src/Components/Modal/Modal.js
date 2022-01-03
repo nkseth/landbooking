@@ -51,7 +51,7 @@ const onclose=()=>{
       </Button>
 
       <Modal
-        size="lg"
+        size="md"
         show={show}
         onHide={() => {setShow(false)}}
         dialogClassName="modal-150w"

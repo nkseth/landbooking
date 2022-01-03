@@ -48,11 +48,11 @@ console.log(data)
            {props.noti?.notification?.body}
       </div>
       <h6>
-        {console.log(props.type)}
+     
      {props.eventtype==="payment"?"Please Proceed with the payment":props.eventtype==="failed"? "Your request could not be processed please try again":'Please Wait we are processing your request....'} 
      </h6>
      <h6>
-        {console.log(props.type)}
+     
      {props.eventtype==="payment"?`total Amount:${props.data.amount}`:""} 
      </h6>
      {props.eventtype==="payment" &&

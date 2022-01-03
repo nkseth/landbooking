@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Link } from "react-router-dom";
 import { baseurl } from "../../config";
@@ -25,7 +26,7 @@ const delclose=()=>{
       <Bolkmanager id={item.uuid} show={blockd} close={closeblock}  slots={item.slots}/>
       <Deletenotiy id={item.uuid} show={del} close={delclose}/>
     <a className="listing-item" href="#">
-      <div className="listing-shot-img">
+      <div className="listing-shot-img p-2">
         <img src={`${baseurl}${item.images[0]}`} className="img-responsive" alt="" />
         <span className="listing-price">${item.rent}</span>
       </div>
@@ -45,28 +46,28 @@ const delclose=()=>{
 <Link to={`/blockedDates/${item.uuid}`}>
      
      <div className="editlisting">  
-     <BlockRounded style={{fontSize:20,}} />
+     <BlockRounded style={{fontSize:25,}} />
            <p style={{fontSize:'10px',marginBottom:0}}> Block dates</p>
      </div></Link>
 
      <div className="editlisting" onClick={()=>setshow(true)}>  
-        <FaCalendarAlt style={{fontSize:20,}} />
+        <FaCalendarAlt style={{fontSize:25,}} />
         <p style={{fontSize:'10px',marginBottom:0}}>Schedule</p>
  </div>
 
  <Link to={`/editlisting/${item.uuid}`}>
      
  <div className="editlisting">  
-        <FaPencilAlt style={{fontSize:20,}} />
+        <FaPencilAlt style={{fontSize:25,}} />
        <p style={{fontSize:'10px',marginBottom:0}}>edit Listing</p>
  </div></Link>
  <div className="editlisting"  onClick={()=>{setdel(true)}}>  
-            <DeleteTwoTone style={{fontSize:20,}} />
+            <DeleteTwoTone style={{fontSize:25,}} />
            <p style={{fontSize:'10px',marginBottom:0}}> Delete</p>
      </div>
      </div>
        
-      <div className="listing-shot-caption " style={{maxWidth:'75%',minHeight:"80%"}} >
+      <div className="listing-shot-caption " style={{maxWidth:'75%',minHeight:"75%"}} >
         <h4>{item.title}</h4>
         <p className="listing-description" >{item.description}</p>
       </div>
@@ -74,8 +75,11 @@ const delclose=()=>{
         <div className="row extra d-flex justify-content-end">
         
           <div className="col-md-12  col-xs-6 pull-right">
-            <Link  to={`./view-detail/${item.uuid}`} className="detail-link">View  Preview</Link>
-            <Link  to={`./view-reservations/${item.uuid}`} className="detail-link " style={{marginRight:'10px'}}>View Reservations</Link>
+            <Link  to={`./view-detail/${item.uuid}`} style={{ borderRadius:'10px',backgroundColor:'#1effac',
+            color:'white',fontWeight:'bold',padding:'7px 12px'}}
+            className="detail-link">View  Preview</Link>
+            <Link  to={`./view-reservations/${item.uuid}`} className="detail-link " style={{marginRight:'10px',
+            borderRadius:'10px',backgroundColor:'#ff3a72',color:'white',fontWeight:'bold',padding:'7px 12px'}}>View Reservations</Link>
           </div>
        
         </div>
