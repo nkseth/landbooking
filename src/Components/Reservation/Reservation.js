@@ -14,11 +14,11 @@ import { withRouter } from "react-router-dom";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import { baseurl } from "../../config";
 import {opensnackbar} from '../../redux/slices/user'
+
 const Reservation = ({data,id,history,setmo,resetdata,reservationid}) => {
 const [avaliabletime,setavaliabletime]=React.useState([])
 const [selectedate,setselecteddate]=React.useState([])
 const [selectedatec,setselecteddatec]=React.useState([])
-
 const [selecttime,setselectitme]=React.useState([])
 const [avv,setavv]= React.useState(true)
 const [allslotarry,setallslotarry]=React.useState([])
@@ -97,6 +97,10 @@ React.useEffect(()=>{
   if(selecteddate.length!==selectedatec.length) setavv(false) 
   else setavv(true)
 console.log("first step",selecteddate)
+setallslotarry([])
+setfinalslot([])
+setselectitme([])
+
   },[selectedatec])
 
 const [eventtype,seteventtype]=React.useState(null)
@@ -208,6 +212,7 @@ if(eventtype!==null){
 const dispatch=useDispatch()
 
 const Booknow=()=>{
+  let ifnoterror= true
 console.log(selecttime)
 console.log(finalslot)
  const schedules= selecttime
@@ -215,12 +220,30 @@ console.log(finalslot)
    const slots=data.slots &&finalslot
    const guestList=guestlimit
    const venueId=id
-   if(!reservationid){
+
+console.log(schedules)
+console.log(selectedatec)
+if(schedules.length!==selectedatec.length) 
+{dispatch(opensnackbar("error","Please Select time for every date selected "))
+ifnoterror=false
+}
+if((data?.slots && slots.length<1) && ifnoterror) 
+{dispatch(opensnackbar("error","Please Select Slot "))
+ifnoterror=false
+}
+
+
+if(!guestList["adults"]>0 && ifnoterror){
+  dispatch(opensnackbar("error","One Adult Guest is mandatory "))
+ifnoterror=false
+}
+
+   if(!reservationid && ifnoterror) {
     if(slots){
       dispatch(requestreservation({schedules,slots,guestList,venueId}))
     }else dispatch(requestreservation({schedules,guestList,venueId}))
      
-   }else if(reservationid){
+   }else if(reservationid && ifnoterror){
     if(slots){
       dispatch(reschedulereservation({schedules,slots,guestList,venueId},reservationid))
     }else dispatch(reschedulereservation({schedules,guestList,venueId},reservationid))
@@ -242,41 +265,15 @@ const onclose=()=>{
   setselectitme([])
 }
 
-React.useEffect(useCallback(
-  () => {
-  if(user.user){
-    let eventSource = new EventSourcePolyfill(`${baseurl}api/v1/event/restricted/subscribe/payment_required`
-    ,{headers: {'Authorization': 'Bearer ' + user.user.tokens.access.value},heartbeatTimeout: 300000})
-  
-    eventSource.onmessage = e => {setedata(JSON.parse(e.data)); 
-      seteventtype("payment")
-      eventSource.close()
-    }
-    eventSource.onerror = (e) => {
-      eventSource2.close();
-      console.log("An error occurred while attempting to connect.");
-    };
 
-  let eventSource2 = new EventSourcePolyfill(`${baseurl}api/v1/event/restricted/subscribe/reservation_failed`
-      ,{headers: {'Authorization': 'Bearer ' + user.user.tokens.access.value},heartbeatTimeout: 300000})
-    
-      eventSource2.onmessage = e => {setedata(JSON.parse(e.data)); 
-        seteventtype("failed")
-        eventSource2.close();
-      }
-      eventSource2.onerror = (e) => {
-        eventSource2.close();
-        console.log("An error occurred while attempting to connect.");
-      };
-      
-      }
-  },[user.user]), [user.user])
 
  React.useEffect(()=>{
   if(reservation.reservationdetails){
     setmodal(true)
   }
   },[reservation.reservationdetails])
+  
+  
   return (
     <div
       className="Reservation-container p-3 py-4 my-4"
@@ -369,10 +366,10 @@ React.useEffect(useCallback(
 
      <div className="d-flex justify-content-center align-items-center flex-wrap"> 
      {!avv && <p className="d-flex w-100 align-items-center justify-content-center">No Slot avalable for these dates Please Change Dates to get Slots</p>}
-     { avv && allslotarry?.length>0 && <p className="d-flex w-100 align-items-center justify-content-center">Please Select slots</p>}
+     { (avv && data?.slots) && allslotarry?.length>0 && <p className="d-flex w-100 align-items-center justify-content-center">Please Select slots</p>}
    
-   
-     {avv && allslotarry?.map((item,index)=>{
+ 
+     {(avv && data?.slots) && allslotarry?.map((item,index)=>{
     
       return <div key={index}
         className=" d-flex align-items-center flex-column justify-content-center"

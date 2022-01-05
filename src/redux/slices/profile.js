@@ -5,6 +5,7 @@ const initialState = {
  
  profile:null,
  verificationstate:null
+ 
 
 };
 

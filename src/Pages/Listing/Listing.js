@@ -152,7 +152,7 @@ React.useEffect(()=>{
 },[data.listing])
 
   return (
-    <div id="listing" className="listing my-md-5 my-3">
+    <div id="listing" className="listing my-md-5 my-3  d-flex justify-content-center align-items-center flex-column">
       <div
         className="banner-container"
         style={{
@@ -259,7 +259,7 @@ React.useEffect(()=>{
         </div>
       </div>
 
-      <div className="row d-flex justify-content-center flex-row p-2" style={{marginTop:'230px'}}>
+      <div className="row d-flex justify-content-center flex-row  maxwidth" style={{marginTop:'130px'}}>
         {data?.listing?.map((item, index) => {
            if(user.user){
           

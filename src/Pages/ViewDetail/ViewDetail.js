@@ -21,6 +21,7 @@ import { viewdetailsprivate, viewdetailspublic,reviews, addfavour } from "../../
 import {withRouter} from 'react-router-dom'
 import { booking } from "../../redux/slices/reservations";
 import { useLocation } from "react-router-dom";
+import { baseurl } from "../../config";
 
 
 const ViewDetail = ({history}) => {
@@ -59,14 +60,14 @@ const {id}=useParams()
 const resetdata=()=>{
   dispatch(viewdetailsprivate(id));dispatch(reviews(id))
 }
-   console.log("thisdidid",data.listingdetails)
+   console.log("thisdidid",baseurl+data.listingdetails?.images[0])
   return (
     <div id="listing" className="listing my-md-5 my-3">
     
       <div
         className="banner-container"
         style={{
-          backgroundImage: `url(${Bannerbg})`,
+          backgroundImage: `url("${baseurl+data.listingdetails?.images[0]}")`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",

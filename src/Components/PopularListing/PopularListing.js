@@ -40,7 +40,7 @@ const PopularListing = () => {
         </h1>
         <p>Check our most Popular Listing</p>
       </div>
-      <div className="row d-flex justify-content-center flex-row p-2">
+      <div className="row d-flex justify-content-center flex-row p-2 mx-md-5 px-md-5">
         {data?.listing?.map((item, index) => {
           if(user.user){
               if(item.host.userId!==user.user.user.uuid){

@@ -180,7 +180,7 @@ React.useEffect(()=>{
 }
               </div>
               <div className="col-sm-6">
-                <label>Amount per hour</label>
+                <label>Amount per hour(in $)</label>
                 <input type="number" className="form-control" 
                 value={data.rent}
                 onChange={(e)=>{setdata({...data, rent: e.target.value})}}/>
@@ -195,25 +195,25 @@ React.useEffect(()=>{
               </div>
 
               <div className="col-sm-6">
-                <label>Adults</label>
+                <label>Maximum Adult allowed</label>
                 <input type="number" className="form-control" 
                 onChange={(e)=>{setdata({...data, guestLimit: {...data.guestLimit,adults:e.target.value}})}}
                 value={data.guestLimit.adults} />
               </div>
               <div className="col-sm-6">
-                <label>Children</label>
+                <label>Maximum Children allowed</label>
                 <input type="number" className="form-control" 
                    onChange={(e)=>{setdata({...data, guestLimit: {...data.guestLimit,children:e.target.value}})}}
                 value={data.guestLimit.children} />
               </div>
               <div className="col-sm-6">
-                <label>Infants</label>
+                <label>Maximum Children allowed</label>
                 <input type="number" className="form-control"
                    onChange={(e)=>{setdata({...data, guestLimit: {...data.guestLimit,infants:e.target.value}})}}
                 value={data.guestLimit.infants}  />
               </div>
               <div className="col-sm-6">
-                <label>Default Status</label>
+                <label>Status</label>
                 <select data-placeholder="Choose Category" 
              onChange={(e)=>{setdata({...data, status: e.target.value})}}
                   value={data.status}
@@ -239,12 +239,12 @@ React.useEffect(()=>{
           <div className="listing-box-header">
             <i className="ti-write theme-cl" />
             <h3>Full Details</h3>
-            <p>Write full detail information about listing Owner</p>
+            <p>Write Full Detail Information About Listing Place</p>
           </div>
           <div className="row mrg-r-10 mrg-l-10">
-            <div className="col-sm-12">
+            <div className="col-sm-12 " >
               <label>Description</label>
-              <textarea className="h-500 form-control" defaultValue={""} rows={4}
+              <textarea className="h-500 form-control" defaultValue={""} style={{minHeight:'100px'}}
               onChange={(e)=>{setdata({...data, discription: e.target.value})}}
 
               />

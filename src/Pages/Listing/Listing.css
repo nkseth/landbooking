@@ -30,3 +30,13 @@
     padding: "12px 50px";
   }
 }
+
+.maxwidth{
+  width:75vw
+} 
+
+@media (max-width: 900px){
+  .maxwidth{
+    width:95vw
+  } 
+}
