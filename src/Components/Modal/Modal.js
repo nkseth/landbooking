@@ -32,6 +32,16 @@ const onclose=()=>{
   
 }
 
+const [noti,setnoti]=useState(true)
+
+React.useEffect(()=>{
+ let permission= Notification.permission;
+  console.log(permission)
+  debugger
+  setnoti(permission)
+},[])
+
+
   return (
     <>
    <Forgototp show={forshow} close={onclose}   />
@@ -69,6 +79,7 @@ const onclose=()=>{
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+         {noti==="granted" || noti==="default"?<>
           <div
             className="heading-container text-center"
             style={{ color: "#334E6F" }}
@@ -146,6 +157,10 @@ const onclose=()=>{
             </div>
           <div><p style={{color:'red'}}>{error}</p></div>
           </div>
+          </>:<h5>Please Allow Notification Form your Browser Settings To continue Using the Application.
+            Once done Please Reload the Application
+
+          </h5>}
         </Modal.Body>
       </Modal>
     </>
