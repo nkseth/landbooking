@@ -4,8 +4,8 @@ import {opensnackbar, updateverificationsettings} from './user'
 const initialState = {
  
  profile:null,
- verificationstate:null
- 
+ verificationstate:null,
+authmodalopen:false 
 
 };
 
@@ -23,6 +23,10 @@ const slice = createSlice({
     verificationstate(state, action) {
      
       state.verificationstate = action.payload;
+    },
+    authmodal(state, action) {
+     
+      state.authmodalopen = action.payload;
     },
   
   },
@@ -88,3 +92,8 @@ export const updateprivacysettings=(data)=>{
       
 
 
+export const authmodalopen=(value)=>{
+  return (dispatch)=>{
+    dispatch(slice.actions.authmodal(value))
+  }
+}

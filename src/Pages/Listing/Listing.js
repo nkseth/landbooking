@@ -144,7 +144,7 @@ const [supercount,setsupercount]=React.useState()
 React.useEffect(()=>{
   let datai=0
   data?.listing?.map((item, index)=>{
-    if(item.host.userId!==user.user.user.uuid){
+    if(item?.host?.userId!==user?.user?.user?.uuid){
         datai=datai+1
   } })
   setsupercount(datai)
@@ -263,7 +263,7 @@ React.useEffect(()=>{
         {data?.listing?.map((item, index) => {
            if(user.user){
           
-            if(item.host.userId!==user.user.user.uuid){
+            if(item?.host?.userId!==user.user?.user?.uuid){
           return <Card
                  title={item.title}
                  subTitle={item.address}

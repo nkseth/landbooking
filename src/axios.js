@@ -2,6 +2,7 @@ import axios from 'axios';
 import {nulluser,renewtoken,loading, logout, fcmupdate, opensnackbar} from './redux/slices/user'
 import moment from 'moment';
 import {baseurl} from './config'
+import { authmodalopen } from './redux/slices/profile';
 // ----------------------------------------------------------------------
 
 
@@ -94,6 +95,9 @@ axiosInstance.interceptors.response.use(config => {
      store.dispatch(logout())
     store.dispatch(nulluser())
    }
+  }
+  if(error.response?.status===401){
+    store.dispatch(authmodalopen(true))
   }
 
  return Promise.reject(error)

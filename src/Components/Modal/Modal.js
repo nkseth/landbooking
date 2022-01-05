@@ -2,22 +2,22 @@ import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
-import { useDispatch } from "react-redux";
-import {login} from '../../redux/slices/user'
+import { useDispatch, useSelector } from "react-redux";
+import {login, opensnackbar} from '../../redux/slices/user'
 import {Link} from 'react-router-dom'
 import Forgototp from './forgotpass'
+import { authmodalopen } from "../../redux/slices/profile";
 const LBModal = () => {
   const [show, setShow] = useState(false);
   const [forshow, setforShow] = useState(false);
   const dispatch=useDispatch()
  const [logininfo,setlogininfo]=useState({un:'',pass:""})
 const [error,seterror]=useState("")
+const authmodal=useSelector((state) => state.profile.authmodalopen)
 const onLogin=()=>{
   if(logininfo.un==="" || (logininfo.pass.length<6 || logininfo.pass===""))
-      {seterror("please enter the right Username Or Password")
-    setTimeout(()=>{
-      seterror("")
-    },2000)
+      {
+   dispatch(opensnackbar("error","please enter the right Username Or Password"))
     }else {
       dispatch(login(logininfo.un,logininfo.pass))
       setShow(false)
@@ -27,8 +27,11 @@ const onLogin=()=>{
 }
 
 const onclose=()=>{
+ 
   setforShow(false)
+  
 }
+
   return (
     <>
    <Forgototp show={forshow} close={onclose}   />
@@ -52,8 +55,8 @@ const onclose=()=>{
 
       <Modal
         size="md"
-        show={show}
-        onHide={() => {setShow(false)}}
+        show={show || authmodal}
+        onHide={() => {setShow(false); dispatch(authmodalopen(false));}}
         dialogClassName="modal-150w"
         aria-labelledby="example-custom-modal-styling-title"
       >

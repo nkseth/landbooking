@@ -14,6 +14,7 @@ import { withRouter } from "react-router-dom";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import { baseurl } from "../../config";
 import {opensnackbar} from '../../redux/slices/user'
+import { authmodalopen } from "../../redux/slices/profile";
 
 const Reservation = ({data,id,history,setmo,resetdata,reservationid}) => {
 const [avaliabletime,setavaliabletime]=React.useState([])
@@ -212,7 +213,14 @@ if(eventtype!==null){
 const dispatch=useDispatch()
 
 const Booknow=()=>{
+
   let ifnoterror= true
+
+  if(!user.user){
+    ifnoterror=false
+    dispatch(opensnackbar('error','please login to book a venue'))
+    dispatch(authmodalopen(true))
+  }
 console.log(selecttime)
 console.log(finalslot)
  const schedules= selecttime
