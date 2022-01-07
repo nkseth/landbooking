@@ -1,6 +1,6 @@
 import React from "react";
 
-const Overview = ({data}) => {
+const Overview = ({ data }) => {
   return (
     <div
       className="overview-container my-4"
@@ -16,9 +16,7 @@ const Overview = ({data}) => {
         className="overview p-3"
         style={{ color: "#334E6F", fontSize: "14px" }}
       >
-        <p>
-         {data}
-        </p>
+        <p>{data}</p>
       </div>
     </div>
   );

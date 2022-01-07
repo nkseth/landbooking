@@ -47,41 +47,43 @@ const Signup = () => {
             </h1>
           </div>
           <div className="py-4 px-3 ">
-          <div className="listing-box-header">
-            <div className="avater-box">
-              <Avatar src="" 
-              style={{width: '50px', height: '',borderRadius:"100%"}}
-              className="img-fluid img-circle edit-avater" alt="" />
-              <div className="upload-btn-wrapper">
-                <button className="btn theme-btn">Change Avatar</button>
-                <input type="file" name="myfile" />
+            <div className="listing-box-header">
+              <div className="avater-box">
+                <Avatar
+                  src=""
+                  style={{ width: "50px", height: "", borderRadius: "100%" }}
+                  className="img-fluid img-circle edit-avater"
+                  alt=""
+                />
+                <div className="upload-btn-wrapper">
+                  <button className="btn theme-btn">Change Avatar</button>
+                  <input type="file" name="myfile" />
+                </div>
               </div>
             </div>
-            
-          </div>
-          <div className="row mrg-r-10 mrg-l-10">
-            <div className="my-3 col-md-6">
-              <Form.Label style={{ fontWeight: 500, color: "#798092" }}>
-                User Name
-              </Form.Label>
-              <Form.Control
-                size="lg"
-                type="text"
-                placeholder="username"
-                style={{ fontSize: "16px", boxShadow: "none" }}
-              />
-            </div>
-            <div className="my-3 col-md-6">
-              <Form.Label style={{ fontWeight: 500, color: "#798092" }}>
-                Password
-              </Form.Label>
-              <Form.Control
-                size="lg"
-                type="password"
-                placeholder="********"
-                style={{ fontSize: "16px", boxShadow: "none" }}
-              />
-            </div>
+            <div className="row mrg-r-10 mrg-l-10">
+              <div className="my-3 col-md-6">
+                <Form.Label style={{ fontWeight: 500, color: "#798092" }}>
+                  User Name
+                </Form.Label>
+                <Form.Control
+                  size="lg"
+                  type="text"
+                  placeholder="username"
+                  style={{ fontSize: "16px", boxShadow: "none" }}
+                />
+              </div>
+              <div className="my-3 col-md-6">
+                <Form.Label style={{ fontWeight: 500, color: "#798092" }}>
+                  Password
+                </Form.Label>
+                <Form.Control
+                  size="lg"
+                  type="password"
+                  placeholder="********"
+                  style={{ fontSize: "16px", boxShadow: "none" }}
+                />
+              </div>
             </div>
             <div className="my-3">
               <Form.Label style={{ fontWeight: 500, color: "#798092" }}>

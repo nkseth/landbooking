@@ -3,8 +3,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { Typography } from "@mui/material";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-const Amenities = ({data}) => {
- 
+const Amenities = ({ data }) => {
   return (
     <div
       className="overview-container my-4"
@@ -27,7 +26,7 @@ const Amenities = ({data}) => {
               <Checkbox
                 style={{ color: "#1EFFAC" }}
                 {...label}
-               checked={item.status===1}
+                checked={item.status === 1}
               />
               <Typography>{item.name}</Typography>
             </div>

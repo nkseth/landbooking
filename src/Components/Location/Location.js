@@ -2,7 +2,7 @@ import React from "react";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { Typography } from "@mui/material";
 
-const Location = ({data}) => {
+const Location = ({ data }) => {
   return (
     <div
       className="location-container p-2 my-4"

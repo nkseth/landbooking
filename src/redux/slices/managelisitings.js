@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "../../axios";
-import {opensnackbar} from './user'
+import { opensnackbar } from "./user";
 const initialState = {
-  addedlisting:null,
-
+  addedlisting: null,
 };
 
 const slice = createSlice({
@@ -17,51 +16,46 @@ const slice = createSlice({
 
     // HAS ERROR
     hasError(state, action) {
-  
       state.error = action.payload;
     },
 
     // GET PRODUCTS
-  
   },
 });
 
 // Reducer
 export default slice.reducer;
 
-
-export const addlisting=(fromdata)=>{
-return async (dispatch)=>{
-  return await axios({
-  method: 'post',
-  url: '/api/v1/venue/create',
-  data:fromdata
-  
-}).then(async (res)=>{
-  console.log("heloo listin is creted",res.data)
-  dispatch(opensnackbar("success","new Venue created succesfully"))
-
-      }).catch((err)=>{
-        dispatch(opensnackbar("error",err?.response?.data.message))
-      })
-}
-}
-
-export const editlisting=(fromdata,id)=>{
-    return async (dispatch)=>{
-      return await axios({
-      method: 'put',
-      url: `/api/v1/venue/${id}/update`,
-      data:fromdata
+export const addlisting = (fromdata) => {
+  return async (dispatch) => {
+    return await axios({
+      method: "post",
+      url: "/api/v1/venue/create",
+      data: fromdata,
+    })
+      .then(async (res) => {
       
-    }).then(async (res)=>{
-      console.log("heloo listin is creted",res.data)
-      dispatch(opensnackbar("success","Venue updated created succesfully"))
-    
-          }).catch((err)=>{
-            dispatch(opensnackbar("error",err?.response?.data.message))
-          })
-    }
-    }
+        dispatch(opensnackbar("success", "new Venue created succesfully"));
+      })
+      .catch((err) => {
+        dispatch(opensnackbar("error", err?.response?.data.message));
+      });
+  };
+};
 
-
+export const editlisting = (fromdata, id) => {
+  return async (dispatch) => {
+    return await axios({
+      method: "put",
+      url: `/api/v1/venue/${id}/update`,
+      data: fromdata,
+    })
+      .then(async (res) => {
+       
+        dispatch(opensnackbar("success", "Venue updated created succesfully"));
+      })
+      .catch((err) => {
+        dispatch(opensnackbar("error", err?.response?.data.message));
+      });
+  };
+};

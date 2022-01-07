@@ -1,12 +1,11 @@
 import React from "react";
-import {Modal} from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
-import { Grid,Box } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import { BookCard } from "..";
-import BookCard2 from '../BookCard/bookcard2'
+import BookCard2 from "../BookCard/bookcard2";
 const LBModal = (props) => {
- 
-const CardData = [
+  const CardData = [
     {
       title: "Yardcan",
       imageSrc:
@@ -17,12 +16,12 @@ const CardData = [
   ];
   return (
     <>
- 
-
       <Modal
         size="lg"
         show={props.show}
-        onHide={() => {props.close()}}
+        onHide={() => {
+          props.close();
+        }}
         dialogClassName="modal-150w"
         aria-labelledby="example-custom-modal-styling-title"
       >
@@ -31,47 +30,39 @@ const CardData = [
             id="example-custom-modal-styling-title"
             style={{ fontWeight: 400 }}
           >
-           View Details
+            View Details
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Grid
-        container
-        
-       
-justifyContent='center'
-
-        sx={{ display: "flex", justifyContent: "center" ,width: "100%",}}
-      >
-       
-        <Grid  container  justifyContent="center">
-      
-        <Grid item xs={11}  container  justifyContent="center" >
-          <Box style={{width:'100%'}}>
-          {CardData.map((item, index) => {
-            return (
-                <>
-                {
-                   ! props.reservations?
-              <BookCard
-                title={item.title}
-                subTitle={item.location}
-                amount={item.amount}
-                imageSrc={item.imageSrc}
-                data={props.data}
-              />:<BookCard2
-             
-              data={props.data}
-            />
-                }
-              </>
-              
-            );
-          })}
-          </Box>
-        </Grid>
-        </Grid>
-      </Grid>
+          <Grid
+            container
+            justifyContent="center"
+            sx={{ display: "flex", justifyContent: "center", width: "100%" }}
+          >
+            <Grid container justifyContent="center">
+              <Grid item xs={11} container justifyContent="center">
+                <Box style={{ width: "100%" }}>
+                  {CardData.map((item, index) => {
+                    return (
+                      <>
+                        {!props.reservations ? (
+                          <BookCard
+                            title={item.title}
+                            subTitle={item.location}
+                            amount={item.amount}
+                            imageSrc={item.imageSrc}
+                            data={props.data}
+                          />
+                        ) : (
+                          <BookCard2 data={props.data} />
+                        )}
+                      </>
+                    );
+                  })}
+                </Box>
+              </Grid>
+            </Grid>
+          </Grid>
         </Modal.Body>
       </Modal>
     </>

@@ -1,9 +1,8 @@
 import React from "react";
 import CollectionsOutlinedIcon from "@mui/icons-material/CollectionsOutlined";
 import { Typography } from "@mui/material";
-import {baseurl} from"../../config" 
-const Gallery = ({data}) => {
-  
+import { baseurl } from "../../config";
+const Gallery = ({ data }) => {
   return (
     <div
       className="gallery-container p-2 my-4"
@@ -27,7 +26,11 @@ const Gallery = ({data}) => {
               <div key={index}>
                 <img
                   src={`${baseurl}${item}`}
-                  style={{ width: "90%", borderRadius: "5px" ,maxWidth:'170px'}}
+                  style={{
+                    width: "90%",
+                    borderRadius: "5px",
+                    maxWidth: "170px",
+                  }}
                   alt=""
                 />
               </div>

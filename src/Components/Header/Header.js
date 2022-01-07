@@ -3,12 +3,12 @@ import "./Header.css";
 import Modal from "../Modal/Modal";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Logout from './logoutbtn'
+import Logout from "./logoutbtn";
 import { useSelector } from "react-redux";
-import Logo from '../../assets/yardcanlogo.png'
+import Logo from "../../assets/yardcanlogo.png";
 const Header = (props) => {
   const data = useSelector((state) => state.user);
-const [expanded,setexpaned]=React.useState(false)
+  const [expanded, setexpaned] = React.useState(false);
   return (
     <>
       <Navbar
@@ -17,21 +17,32 @@ const [expanded,setexpaned]=React.useState(false)
         expand="lg"
         expanded={expanded}
         className="m-0 p-0"
-        style={{ boxShadow: "0 0 8px 0 rgb(0 0 0 / 12%)" ,}}
+        style={{ boxShadow: "0 0 8px 0 rgb(0 0 0 / 12%)" }}
       >
-      
-      <div style={{margin:'0',maxHeight:"65px",marginLeft:'10px',marginTop:'2px'}}><img src={Logo} alt={'logo'}
-      style={{ maxHeight:"63px"}}
-      /></div>
-  
+        <div
+          style={{
+            margin: "0",
+            maxHeight: "65px",
+            marginLeft: "10px",
+            marginTop: "2px",
+          }}
+        >
+          <img src={Logo} alt={"logo"} style={{ maxHeight: "63px" }} />
+        </div>
+
         <Navbar.Toggle
           aria-controls="basic-navbar-nav"
           className="m-0 p-0"
-          style={{ boxShadow: "none", border: "none"}}
-          onClick={()=>setexpaned(!expanded)}
+          style={{ boxShadow: "none", border: "none" }}
+          onClick={() => setexpaned(!expanded)}
         />
-        <Navbar.Collapse id="basic-navbar-nav" className="m-0 p-0 " >
-          <Nav style={{width:'100%',display:'flex',justifyContent: 'center'}}  onClick={()=>{setexpaned(false)}}>
+        <Navbar.Collapse id="basic-navbar-nav" className="m-0 p-0 ">
+          <Nav
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+            onClick={() => {
+              setexpaned(false);
+            }}
+          >
             <Link to="/" className="link">
               <Nav.Link
                 className=" link"
@@ -42,7 +53,6 @@ const [expanded,setexpaned]=React.useState(false)
                   marginLeft: "2rem",
                   paddingLeft: "2rem",
                 }}
-               
               >
                 Home
               </Nav.Link>
@@ -89,9 +99,14 @@ const [expanded,setexpaned]=React.useState(false)
                 Why Us?
               </Nav.Link>
             </Link>
-          </Nav>   
-          <div  onClick={()=>{setexpaned(false)}} style={{minHeight: "100%"}} >
-            {data?.user?<Logout/>:<Modal />}
+          </Nav>
+          <div
+            onClick={() => {
+              setexpaned(false);
+            }}
+            style={{ minHeight: "100%" }}
+          >
+            {data?.user ? <Logout /> : <Modal />}
           </div>
         </Navbar.Collapse>
       </Navbar>

@@ -1,8 +1,7 @@
 import React from "react";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { Typography, Rating } from "@mui/material";
-const Info = ({data,reviewno}) => {
- 
+const Info = ({ data, reviewno }) => {
   return (
     <div>
       <div
@@ -10,7 +9,7 @@ const Info = ({data,reviewno}) => {
         style={{ boxShadow: "0px 0px 10px 1px rgb(71 85 95 / 8%)" }}
       >
         <div className="heading-container p-3" style={{ color: "#334E6F" }}>
-          <div className="d-flex align-items-center"> 
+          <div className="d-flex align-items-center">
             <h3>
               <b>{data?.title}</b>{" "}
             </h3>
@@ -39,10 +38,16 @@ const Info = ({data,reviewno}) => {
           style={{ color: "#334E6F", fontSize: "14px" }}
         >
           <div>
-            <Rating  readOnly value={parseFloat(data?.rating).toFixed(1)} precision={0.5}/>
+            <Rating
+              readOnly
+              value={parseFloat(data?.rating).toFixed(1)}
+              precision={0.5}
+            />
           </div>
           <div className="mx-3">
-            <Typography>{reviewno?.length >0? reviewno.length:0 } Reviews</Typography>
+            <Typography>
+              {reviewno?.length > 0 ? reviewno.length : 0} Reviews
+            </Typography>
           </div>
         </div>
       </div>

@@ -7,9 +7,13 @@ import Accordian from "../Accordian/Accordian";
 
 const PaymentForm = () => {
   return (
-    <div 
+    <div
       className="payment-method-container p-3 py-4 my-3"
-      style={{ boxShadow: "0px 0px 10px 1px rgb(71 85 95 / 8%)",width: "100%",height: "100"}}
+      style={{
+        boxShadow: "0px 0px 10px 1px rgb(71 85 95 / 8%)",
+        width: "100%",
+        height: "100",
+      }}
     >
       <div className="heading-container " style={{ color: "#334E6F" }}>
         <div
