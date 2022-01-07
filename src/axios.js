@@ -127,7 +127,7 @@ axiosInstance.interceptors.response.use(
       store.dispatch(authmodalopen(true));
     }
 
-    return Promise.reject(error);
+    return error
   }
 );
 export default axiosInstance;
