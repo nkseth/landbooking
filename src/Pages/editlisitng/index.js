@@ -15,7 +15,7 @@ import {
 
 import Addgallery from "./Addgalary";
 import { useParams } from "react-router-dom";
-import { viewdetailsprivate } from "../../redux/slices/popularlisting";
+import { viewdetailsprivate, viewhostedlisting } from "../../redux/slices/popularlisting";
 import { updatelisting } from "../../redux/slices/Addlisting";
 import { withRouter } from "react-router-dom";
 
@@ -145,6 +145,9 @@ const Listing = ({ history }) => {
     );
     formdata.append("deleteImages", JSON.stringify(del));
     dispatch(updatelisting(formdata, id));
+    setTimeout(() => {
+      dispatch(viewhostedlisting());
+    }, 1000);
     history.push("/managelistings");
   };
   React.useEffect(() => {

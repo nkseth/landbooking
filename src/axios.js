@@ -4,7 +4,6 @@ import {
   renewtoken,
   loading,
   logout,
-  fcmupdate,
   opensnackbar,
 } from "./redux/slices/user";
 import moment from "moment";
@@ -42,7 +41,7 @@ axiosInstance.interceptors.request.use(async (config) => {
   store.dispatch(loading(true));
 
   const state = store.getState().user;
-  console.log("wwwwwwwwwww", state.user);
+ 
 
   if (state.user !== null) {
     if (
@@ -60,14 +59,13 @@ axiosInstance.interceptors.request.use(async (config) => {
             moment(),
             "seconds"
           )
-        );
-        console.log("new1");
+        ); 
 
         await renewtokencall(
           state.fcmtoken,
           state.user.tokens.refresh.value
         ).then((res) => {
-          console.log(res);
+      
 
           store.dispatch(renewtoken(res.data.data));
           config.headers.authorization = `Bearer ${res.data.data.tokens.access.value}`;
@@ -94,7 +92,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     store.dispatch(loading(false));
 
-    console.log("asdsadasd", error.response);
+  
     if (typeof error.response?.data?.details === "string") {
       store.dispatch(opensnackbar("error", error.response?.data?.details));
     } else store.dispatch(opensnackbar("error", error.response?.data?.message));

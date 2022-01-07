@@ -55,19 +55,7 @@ const Venue = ({ data, history, deleteone, index }) => {
             Amount:{data.amount}
           </div>
 
-          <div
-            onClick={() => {
-              history.push(`/view-detail/${data.uuid}`);
-            }}
-            className="light-gray-btn btn-square"
-            style={{ width: "150px" }}
-            data-placement="top"
-            data-toggle="tooltip"
-            title="Edit Item"
-          >
-            <i className="ti-pencil" />
-            View Details
-          </div>
+          
         </div>
       </div>
     </li>

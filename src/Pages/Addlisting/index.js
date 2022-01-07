@@ -74,9 +74,10 @@ const Listing = ({ history }) => {
     formdata.append("description", data.discription);
     formdata.append("status", data.status);
     formdata.append("rent", data.rent);
-    if (data.slots > 0) formdata.append("slots", data.slots);
+    if (data?.slots > 0) formdata.append("slots", data.slots);
     formdata.append("categoryId", selectedcategory.uuid);
     formdata.append("amenityIds", JSON.stringify(selectedamenity));
+    debugger
     gImages.map((item) => formdata.append("images", item));
     formdata.append("latitude", location?.latitude);
     formdata.append("longitude", location?.longitude);
@@ -85,7 +86,7 @@ const Listing = ({ history }) => {
     formdata.append("guestLimit", JSON.stringify(data.guestLimit));
     formdata.append("timezone", location?.timezone?.id);
     let ifnotallinfo = true;
-    Object.values(data).map((i) => {
+    Object.values(data)?.map((i) => {
       if (typeof i === "object") {
         Object.values(data.guestLimit).map((i2) => {
           if (i2 === "") ifnotallinfo = false;
@@ -110,7 +111,7 @@ const Listing = ({ history }) => {
 
   return (
     <section>
-      {console.log("thisdjijwaidjqwd", data)}
+     
       <div className="container d-flex flex-direction-column align-items-center justify-content-center">
         <div className="col-md-10 col-sm-12 col-md-offset-1 mob-padd-0">
           {/* General Information */}
