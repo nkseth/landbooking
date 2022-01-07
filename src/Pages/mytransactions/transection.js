@@ -17,7 +17,7 @@ const Venue = ({ data, history, deleteone, index }) => {
     <li>
       <div className="small-listing-box light-gray">
         <div className="small-list-detail mx-2">
-          <h4>{data.stripeId}</h4>
+          <h4>{data.uuid}</h4>
           <p>{moment(data.createdAt).format("YYYY-MM-DD HH:mm:ss")}</p>
         </div>
         <div className="small-list-action light d-flex flex-wrap justify-content-center">
@@ -34,13 +34,13 @@ const Venue = ({ data, history, deleteone, index }) => {
           <div style={{ marginRight: "10px" }}>
             <p style={{ marginBottom: 0 }}>Status</p>
             <h6>
-              {data.status === 1
+              {data.initialization === 1
                 ? "PENDING"
-                : data.status === 2
+                : data.initialization === 2
                 ? "FAILED"
-                : data.status === 3 
-                ? "SUCCEEDED"
-                :data.status === 4 && "CANCELLED"
+                : data.initialization === 3 
+                ? "CANCELLED" 
+                :data.initialization === 4 &&  "SUCCEEDED"
                 }
             </h6>
           </div>

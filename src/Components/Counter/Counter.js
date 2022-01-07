@@ -16,12 +16,12 @@ const Counter = ({ guestchange, state, name }) => {
           border: "1px solid #eaeff5",
           boxShadow: "0px 0px 10px 1px rgb(71 85 95 / 8%)",
           marginRight: "10px",
+          postion:'relative'
         }}
         onClick={() => {
           guestchange("-", name);
         }}
-      >
-        <div>-</div>
+       > <div  style={{position: "absolute" , top:'50%',left:'50%',transform: "translate(-50%,-55%)"}}>-</div>
       </Button>
       <Typography style={{ color: "#53616D", marginRight: "10px" }}>
         {name === "adults"
@@ -41,12 +41,13 @@ const Counter = ({ guestchange, state, name }) => {
           height: "35px",
           border: "1px solid #eaeff5",
           boxShadow: "0px 0px 10px 1px rgb(71 85 95 / 8%)",
+          postion:'relative'
         }}
         onClick={() => {
           guestchange("+", name);
         }}
       >
-        <div>+</div>
+        <div style={{position: "absolute" , top:'50%',left:'50%',transform: "translate(-50%,-55%)"}}>+</div>
       </Button>
     </div>
   );

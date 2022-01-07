@@ -86,6 +86,8 @@ const Reservation = ({
     }
   };
   React.useEffect(() => {
+   
+   
     const changed = [];
     selectedate.map((item) => {
       changed.push(moment(item.toDate()).format("YYYY-MM-DD"));
@@ -95,7 +97,7 @@ const Reservation = ({
 
   React.useEffect(() => {
     const selecteddate = [];
-
+    
     selectedatec.map((date) => {
       data?.schedules.map((item) => {
         if (item.date === date && item.status === 1) selecteddate.push(item);
@@ -106,7 +108,6 @@ const Reservation = ({
 
     if (selecteddate.length !== selectedatec.length) setavv(false);
     else setavv(true);
-    console.log("first step", selecteddate);
     setallslotarry([]);
     setfinalslot([]);
     setselectitme([]);

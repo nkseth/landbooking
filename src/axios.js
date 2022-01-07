@@ -70,6 +70,8 @@ axiosInstance.interceptors.request.use(async (config) => {
           store.dispatch(renewtoken(res.data.data));
           config.headers.authorization = `Bearer ${res.data.data.tokens.access.value}`;
           return config;
+        }).catch((err) => {
+          localStorage.removeItem("redux-root");
         });
       } else {
         config.headers.authorization = `Bearer ${state.user.tokens.access.value}`;
@@ -93,7 +95,7 @@ axiosInstance.interceptors.response.use(
     store.dispatch(loading(false));
 
   
-    if (typeof error.response?.data?.details === "string") {
+    if (error.response?.data?.details && typeof error.response?.data?.details === "string" ) {
       store.dispatch(opensnackbar("error", error.response?.data?.details));
     } else store.dispatch(opensnackbar("error", error.response?.data?.message));
 
@@ -125,6 +127,7 @@ axiosInstance.interceptors.response.use(
     }
     if (error.response?.status === 401) {
       store.dispatch(authmodalopen(true));
+      
     }
 
     return error

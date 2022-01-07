@@ -467,9 +467,9 @@ const LBModal = (props) => {
             }}
           >
             <option value={""}>Select Time</option>
-            {datearray.map((item) => {
+            {datearray.map((item,index) => {
               return (
-                <option key={item} value={item}>
+                <option key={item} value={item} key={index}>
                   {item}
                 </option>
               );
@@ -544,7 +544,7 @@ const LBModal = (props) => {
               {addonce[index]?.intervals.map((item, index2) => {
                 return (
                   <div
-                    className="p-2 text-center d-flex m-1"
+                    className="p-2 text-center d-flex m-1" key={index2}
                     style={{ border: "1px solid pink", borderRadius: "10px" }}
                   >
                     {item.from}-{item.to}
@@ -645,36 +645,7 @@ const LBModal = (props) => {
         </Modal.Header>
         <Modal.Body>
           <div>
-            <div className="d-flex">
-              <Button
-                className="m-2 h-100"
-                style={{ fontSize: "14px" }}
-                onClick={() => {
-                  additem(1);
-                }}
-              >
-                ADD ONCE
-              </Button>
-              <Button
-                className="m-2 h-100"
-                style={{ fontSize: "14px" }}
-                onClick={() => {
-                  additem(2);
-                }}
-              >
-                WEEKLY REPEAT
-              </Button>
-              <Button
-                className="m-2 h-100"
-                style={{ fontSize: "14px" }}
-                onClick={() => {
-                  additem(3);
-                }}
-              >
-                CUSTOM REPEAT
-              </Button>
-            </div>
-            <div className="d-flex">
+          <div className="d-flex">
               <div className="col-md-3 ">
                 <label>Alter Reservations</label>
                 <select
@@ -717,21 +688,51 @@ const LBModal = (props) => {
               </div>
             </div>
 
+            <div className="d-flex">
+              <Button
+                className="m-2 h-100"
+                style={{ fontSize: "14px" }}
+                onClick={() => {
+                  additem(1);
+                }}
+              >
+                ADD ONCE
+              </Button>
+              <Button
+                className="m-2 h-100"
+                style={{ fontSize: "14px" }}
+                onClick={() => {
+                  additem(2);
+                }}
+              >
+                WEEKLY REPEAT
+              </Button>
+              <Button
+                className="m-2 h-100"
+                style={{ fontSize: "14px" }}
+                onClick={() => {
+                  additem(3);
+                }}
+              >
+                CUSTOM REPEAT
+              </Button>
+            </div>
+           
             {addonce.map((item, index) => {
               if (item.type === 1) {
-                return <Once index={index} />;
+                return <Once index={index} key={index} />;
               }
               if (item.type === 2) {
-                return <Weeklyrepeat index={index} />;
+                return <Weeklyrepeat index={index} key={index} />;
               }
               if (item.type === 3) {
-                return <Customrepeat index={index} />;
+                return <Customrepeat index={index} key={index} />;
               }
             })}
 
-            {props.id}
+            
           </div>
-          {addonce.length > 0 ? <Button onClick={submit}>Submit</Button> : null}
+          {addonce.length > 0 ? <Button onClick={submit} style={{marginTop:'20px'}}>Submit</Button> : null}
         </Modal.Body>
       </Modal>
     </>

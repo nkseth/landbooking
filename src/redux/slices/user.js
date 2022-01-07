@@ -113,13 +113,6 @@ export const login = (un, pass) => {
             dispatch(setverificationstate(paper));
           })
           .catch((err) => {
-            console.error(err.message);
-            dispatch(
-              slice.actions.opensnackbar({
-                type: "error",
-                message: err?.response?.data?.message,
-              })
-            );
           });
       });
   };
