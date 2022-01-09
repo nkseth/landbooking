@@ -4,11 +4,16 @@ import Modal from "../Modal/Modal";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Logout from "./logoutbtn";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Accordion } from "react-bootstrap";
 import Logo from "../../assets/yardcanlogo.png";
+import { logout } from "../../redux/slices/user";
+import { Hidden } from "@mui/material";
 const Header = (props) => {
   const data = useSelector((state) => state.user);
+  const state = useSelector((state) => state.user);
   const [expanded, setexpaned] = React.useState(false);
+  const dispatch = useDispatch();
   return (
     <>
       <Navbar
@@ -99,7 +104,9 @@ const Header = (props) => {
                 Why Us?
               </Nav.Link>
             </Link>
+          
           </Nav>
+        
           <div
             onClick={() => {
               setexpaned(false);

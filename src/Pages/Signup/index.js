@@ -77,7 +77,7 @@ const Editprofile = ({ history }) => {
       formdata.append("dob", profiledetails.dob);
       formdata.append("address", data.locationstring[0]);
       formdata.append("registerAsHost", profiledetails.ishost);
-
+      formdata.append('designation',profiledetails.owner);
       if (profiledetails.image) formdata.append("image", profiledetails.image);
       dispatch(signup(formdata));
     } else {

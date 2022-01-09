@@ -30,7 +30,7 @@ const Logout = () => {
 
   const dispatch = useDispatch();
   return (
-    <div style={{ backgroundColor: "#1effac" }}>
+    <div style={{ backgroundColor: "#1effac",display:'flex',justifyContent: "center"}}>
       <Button
         className="btn"
         onCLick={() => {
@@ -54,6 +54,7 @@ const Logout = () => {
           borderRadius: 0,
           border: "none",
           display: "flex",
+          justifyContent: "center",
           textTransform: "capitalize",
           alignItems: "center",
           fontWeight: "bold",
