@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -8,6 +8,7 @@ import StripeCheckout from "react-stripe-checkout";
 import { baseurl } from "../../config";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import logo from "../../assets/yardcanlogo.png";
+import { opensnackbar } from "../../redux/slices/user";
 const LBModal = (props) => {
   const [data, setdata] = React.useState(null);
   const venue = useSelector((state) => state.popularlisting.listingdetails);
@@ -52,12 +53,31 @@ const LBModal = (props) => {
         eventSource2.close();
       };
       eventSource2.onerror = (e) => {
-        eventSource2.close();
+       
+        console.log("An error occurred while attempting to connect.");
+      };
+
+      let eventSource3 = new EventSourcePolyfill(
+        `${baseurl}api/v1/event/restricted/subscribe/reservation_confirmed`,
+        {
+          headers: { Authorization: "Bearer " + user.user.tokens.access.value },
+          heartbeatTimeout: 300000,
+        }
+      );
+
+      eventSource3.onmessage = (e) => {
+        setdata(JSON.parse(e.data));
+        seteventtype("paymentalready");
+        eventSource.close();
+      };
+      eventSource3.onerror = (e) => {
+      
         console.log("An error occurred while attempting to connect.");
       };
       return () => {
         eventSource2.close();
         eventSource.close();
+        eventSource3.close();
       };
     }
   }, [user.user]);
@@ -71,6 +91,13 @@ const LBModal = (props) => {
     props.close();
   };
 
+  useEffect(()=>{
+    if(eventtype==="paymentalready"){
+      dispatch(opensnackbar('success','Rescheduling Successfull'))
+      props.history.push('/thankyou')
+    }
+  },[eventtype])
+  
   return (
     <>
       <Modal
@@ -199,6 +226,8 @@ const LBModal = (props) => {
               <Button style={{ marginTop: 50 }}>Proceeed With Payment</Button>
             </StripeCheckout>
           )}
+        
+          
         </Modal.Body>
       </Modal>
     </>

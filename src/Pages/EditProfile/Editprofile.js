@@ -77,6 +77,7 @@ const Editprofile = ({ history }) => {
         zipcode: profile.profile.zipcode,
         latitude: profile.profile.latitude,
         longitude: profile.profile.longitude,
+        owner:profile.profile.designation
       });
       setbaseurl(`${baseurl}${profile.profile?.image?.path}`);
       setlocalddress(profile.profile.address);
@@ -155,7 +156,7 @@ const Editprofile = ({ history }) => {
     finalobject["gender"] = profiledetails.gender;
     finalobject["dob"] = profiledetails.dob;
     finalobject["address"] = localaddress;
-
+    finalobject["designation"] = profiledetails.owner;
     dispatch(updategeneralsettings(finalobject));
   };
 

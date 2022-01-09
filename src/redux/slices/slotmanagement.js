@@ -26,11 +26,11 @@ export default slice.reducer;
 
 export const updatecurrentslotdetials = (rid, data, sch, slot, alter) => {
   const finaldata = data.map((item) => {
-    if (typeof item.date === "string") {
+ 
       const newitem = { ...item };
       newitem.date = JSON.stringify(item.date);
       return newitem;
-    } else return item;
+ 
   });
 
   const newdata = {

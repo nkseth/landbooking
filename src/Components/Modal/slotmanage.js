@@ -626,6 +626,7 @@ const LBModal = (props) => {
 
   return (
     <>
+    {console.log(addonce)}
       <Modal
         size="lg"
         show={props.show}

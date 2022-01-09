@@ -130,3 +130,26 @@ export const gettransaction = (data) => {
       .catch((err) => {});
   };
 };
+
+
+
+export const cancelReservation = (reservationid) => {
+  return async (dispatch) => {
+    return await axios({
+      method: "put",
+      url: `/api/v1/reservation/cancell/${reservationid}`,
+      headers: { "Content-Type": "application/json" },
+     
+    })
+      .then(async (res) => {
+  
+       
+        dispatch(
+          opensnackbar("success", "Cancellation request submitted successfully")
+        );
+      })
+      .catch((err) => {
+        dispatch(opensnackbar("error", err?.response?.data?.message));
+      });
+  };
+};

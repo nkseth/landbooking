@@ -3,6 +3,8 @@ import Bookingmodal from "../../Components/Modal/bookings";
 import { FaPencilAlt, FaTimesCircle } from "react-icons/fa";
 import { withRouter } from "react-router-dom";
 import Reviewmodal from "../../Components/Modal/review";
+import { cancelReservation } from "../../redux/slices/reservations";
+import { useDispatch } from "react-redux";
 const Booking = ({ data, history }) => {
   const [show, setshow] = React.useState(false);
   const [rshow, setrshow] = React.useState(false);
@@ -12,6 +14,7 @@ const Booking = ({ data, history }) => {
   const rclose = () => {
     setrshow(false);
   };
+ const  dispatch=useDispatch()
   return (
     <li>
       <Bookingmodal show={show} close={close} data={data} />
@@ -89,6 +92,7 @@ const Booking = ({ data, history }) => {
               className="theme-btn btn-square"
               data-toggle="tooltip"
               title="Cancel"
+              onClick={()=>{dispatch(cancelReservation(data.uuid))}}
             >
               <i className="ti-trash" />{" "}
               <FaTimesCircle style={{ fontSize: 16, margin: 5 }} />

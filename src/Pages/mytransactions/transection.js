@@ -21,6 +21,19 @@ const Venue = ({ data, history, deleteone, index }) => {
           <p>{moment(data.createdAt).format("YYYY-MM-DD HH:mm:ss")}</p>
         </div>
         <div className="small-list-action light d-flex flex-wrap justify-content-center">
+        <div style={{ marginRight: "10px" }}>
+            <p style={{ marginBottom: 0 }}>INITIALIZATION</p>
+            <h6>
+            {data.initialization === 1
+                ? "PENDING"
+                : data.initialization === 2
+                ? "FAILED"
+                : data.initialization === 3 
+                ? "CANCELLED" 
+                :data.initialization === 4 &&  "SUCCEEDED"
+                }
+            </h6>
+          </div>
           <div style={{ marginRight: "10px" }}>
             <p style={{ marginBottom: 0 }}>Type</p>
             <h6>
@@ -34,13 +47,11 @@ const Venue = ({ data, history, deleteone, index }) => {
           <div style={{ marginRight: "10px" }}>
             <p style={{ marginBottom: 0 }}>Status</p>
             <h6>
-              {data.initialization === 1
+              {data.status === 1
                 ? "PENDING"
-                : data.initialization === 2
+                : data.status === 2
                 ? "FAILED"
-                : data.initialization === 3 
-                ? "CANCELLED" 
-                :data.initialization === 4 &&  "SUCCEEDED"
+                : data.status === 3 &&  "SUCCEEDED"
                 }
             </h6>
           </div>

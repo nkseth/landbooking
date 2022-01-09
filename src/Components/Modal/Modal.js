@@ -36,10 +36,7 @@ const LBModal = () => {
 
   const [noti, setnoti] = useState(true);
 
-  React.useEffect(() => {
-    let permission = Notification.permission;
-    setnoti(permission);
-  }, []);
+ 
 
   return (
     <>
@@ -81,7 +78,7 @@ const LBModal = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {noti === "granted" || noti === "default" ? (
+         
             <>
               <div
                 className="heading-container text-center"
@@ -175,12 +172,7 @@ const LBModal = () => {
                 </div>
               </div>
             </>
-          ) : (
-            <h5>
-              Please Allow Notification Form your Browser Settings To continue
-              Using the Application. Once done Please Reload the Application
-            </h5>
-          )}
+         
         </Modal.Body>
       </Modal>
     </>

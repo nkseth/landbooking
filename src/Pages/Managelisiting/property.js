@@ -78,6 +78,7 @@ const Property = ({ item }) => {
             <DeleteTwoTone style={{ fontSize: 25 }} />
             <p style={{ fontSize: "10px", marginBottom: 0 }}> Delete</p>
           </div>
+        
         </div>
 
         <div
@@ -86,7 +87,18 @@ const Property = ({ item }) => {
         >
           <h4>{item.title}</h4>
           <p className="listing-description">{item.description}</p>
+          {!item?.approved &&
+          <div
+           
+           style={{textAlign:"center",margin:'5px 10px',backgroundColor:'#456081',
+          padding:'4px 10px',borderRadius: "10px",color:'white',maxWidth:'fit-content'
+          }}
+          >
+           
+            <p style={{ fontSize: "10px", marginBottom: 0 }}> Pending Approval</p>
+          </div>}
         </div>
+      
         <div className="listing-shot-info rating">
           <div className="row extra d-flex justify-content-end">
             <div className="col-md-12  col-xs-6 pull-right">

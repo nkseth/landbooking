@@ -2,8 +2,10 @@ import React from "react";
 import DoneIcon from "@mui/icons-material/Done";
 import Bannerbg from "../../assets/title-bg.jpg";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { useSelector } from "react-redux";
 
 const ThankYou = () => {
+  const user= useSelector((state) => state.user);
   return (
     <div className="thankyou-page mt-5">
       <div
@@ -38,11 +40,11 @@ const ThankYou = () => {
         </div>
       </div>
       <div
-        className="thank-you-card d-flex flex-column justify-content-center align-items-md-center"
+        className="thank-you-card d-flex flex-column justify-content-center align-items-center"
         style={{ padding: "6rem 0" }}
       >
         <div
-          className="tick-container d-flex justify-content-center align-items-center mb-3"
+          className="tick-container d-flex justify-content-center align-items-center mb-3 "
           style={{
             width: "6rem",
             height: "6rem",
@@ -56,7 +58,7 @@ const ThankYou = () => {
         </div>
         <div className="thankyou-text text-center">
           <h2 style={{ color: "#05BF83" }}>Thanks for your booking!</h2>
-          <p>You'll receive a confirmation email at mail@yourgmail.com</p>
+          <p>You'll receive a confirmation email at {user?.user?.user?.email}</p>
         </div>
       </div>
     </div>

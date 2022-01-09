@@ -167,8 +167,8 @@ const ViewDetail = ({ history }) => {
               <h4 style={{ lineHeight: "15px", marginTop: "15px" }}>
                 {data.listingdetails?.host?.name}
               </h4>
-              <p style={{ color: "#1EFFAC", lineHeight: "10px" }}>
-                Business Man
+              <p style={{ color: "#1EFFAC", lineHeight: "10px",marginTop:'5px' }}>
+              {data.listingdetails?.host?.designation}
               </p>
             </div>
           </div>

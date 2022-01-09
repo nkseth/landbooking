@@ -66,24 +66,24 @@ export default slice.reducer;
 
 export const login = (un, pass) => {
   return async (dispatch) => {
-    message
-      .getToken({
+  let currentoken
+    try{
+    currentoken=await message.getToken({
         vapidKey:
           "BOIjFPKNQYl0YHeWETsCqh0Fh9UbTG4V9EalDPldQ9IBCdZyShSi8WG0dipZX4mvC7Zc0GzPK9QsVCxivhDdelk",
       })
-      .then(async (currentoken) => {
-     
-
-        dispatch(slice.actions.fcmtokenupdate(currentoken));
-
+      dispatch(slice.actions.fcmtokenupdate(currentoken)); 
+    } catch{
+        dispatch(opensnackbar('info',"your Browser Notification is  not active"))
+    }
+   
+debugger
+const data={ userName: un,password: pass,}
+  if(currentoken) data['fcmToken']=currentoken
         await axios({
           method: "post",
           url: "/api/v1/auth/login",
-          data: {
-            userName: un,
-            password: pass,
-            fcmToken: currentoken,
-          },
+          data: data
         })
           .then(async (res) => {
           
@@ -112,9 +112,12 @@ export const login = (un, pass) => {
 
             dispatch(setverificationstate(paper));
           })
+
           .catch((err) => {
+
+            console.error(err);
           });
-      });
+    
   };
 };
 

@@ -9,13 +9,20 @@ import Loading from "./Components/loading";
 import { message } from "./fireabse";
 import { notification } from "./redux/slices/reservations";
 import { opensnackbar } from "./redux/slices/user";
+import { useEffect } from "react";
 function App() {
   injectStore(store);
-  message.onMessage((payload) => {
-    console.log("Message received. ", payload);
-    store.dispatch(opensnackbar("info", "this is notification"));
-    store.dispatch(notification(payload));
-  });
+
+  useEffect(() => {
+    message.onMessage((payload) => {
+      console.log("Message received. ", payload);
+      store.dispatch(opensnackbar("info", "this is notification"));
+      store.dispatch(notification(payload));
+      debugger
+    });
+  },[])
+  
+
   return (
     <div style={{ maxWidth: "100vw", width: "100%", overflowX: "hidden" }}>
       <Snackbar />

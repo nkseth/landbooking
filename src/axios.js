@@ -65,13 +65,11 @@ axiosInstance.interceptors.request.use(async (config) => {
           state.fcmtoken,
           state.user.tokens.refresh.value
         ).then((res) => {
-      
-
-          store.dispatch(renewtoken(res.data.data));
+            store.dispatch(renewtoken(res.data.data));
           config.headers.authorization = `Bearer ${res.data.data.tokens.access.value}`;
           return config;
         }).catch((err) => {
-          localStorage.removeItem("redux-root");
+          //localStorage.removeItem("redux-root");
         });
       } else {
         config.headers.authorization = `Bearer ${state.user.tokens.access.value}`;
