@@ -91,7 +91,17 @@ const Listing = ({ history }) => {
   }, [user.user]);
 
   const handleChange = (event, value) => {
+  
     setqueryperams({ ...queryperams, page: value });
+    if (user.user) {
+      if (user.user.user.emailVerified && user.user.user.phoneVerified) {
+        dispatch(getlistingprivate({ ...queryperams, page: value }));
+        dispatch(getcategory());
+      }
+    } else {
+      dispatch(getlistingpublic({ ...queryperams, page: value }));
+      dispatch(getcategorypublic());
+    }
   };
 
   const undofilter = () => {
@@ -143,17 +153,8 @@ const Listing = ({ history }) => {
       dispatch(getlistingprivate(data));
     else dispatch(getlistingpublic(data));
   };
-  const [supercount, setsupercount] = React.useState();
-  React.useEffect(() => {
-    let datai = 0;
-    data?.listing?.map((item, index) => {
-      if (item?.host?.userId !== user?.user?.user?.uuid) {
-        datai = datai + 1;
-      }
-    });
-    setsupercount(datai);
-    debugger;
-  }, [data.listing]);
+
+
 
   return (
     <div
@@ -308,7 +309,7 @@ const Listing = ({ history }) => {
       </div>
       <div className="d-flex justify-content-center">
         <Pagination
-          count={Math.ceil(supercount / queryperams.limit)}
+          count={Math.ceil(data?.listingcount / queryperams.limit)}
           variant="outlined"
           color="primary"
           page={queryperams.page}

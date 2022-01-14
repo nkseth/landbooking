@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import { Typography } from "@mui/material";
 import { Form, Button } from "react-bootstrap";
@@ -12,6 +12,7 @@ import {
   requestreservation,
   EmptyReservation,
   reschedulereservation,
+  getreservatio,
 } from "../../redux/slices/reservations";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -86,14 +87,15 @@ const Reservation = ({
     }
   };
   React.useEffect(() => {
-   
-   
-    const changed = [];
+   const changed = [];
     selectedate.map((item) => {
-      changed.push(moment(item.toDate()).format("YYYY-MM-DD"));
+      if(typeof item === 'string') changed.push(item)
+      else changed.push(moment(typeof item.toDate()).format("YYYY-MM-DD"));
     });
     setselecteddatec(changed);
   }, [selectedate]);
+
+
 
   React.useEffect(() => {
     const selecteddate = [];
@@ -111,6 +113,8 @@ const Reservation = ({
     setallslotarry([]);
     setfinalslot([]);
     setselectitme([]);
+
+    
   }, [selectedatec]);
 
   const [eventtype, seteventtype] = React.useState(null);
@@ -163,7 +167,7 @@ const Reservation = ({
       console.log(ii);
       clength = clength + ii.intervals.length;
     });
-    console.log("wowo", clength);
+   
     avaliabletime.map((item) => {
       selecttime.map((s) => {
         if (item.date === s.date && item.status === 1) {
@@ -224,6 +228,15 @@ const Reservation = ({
   }, [eventtype]);
 
   const dispatch = useDispatch();
+  
+  useEffect(()=>{
+   
+    if(reservationid){
+      
+      dispatch(getreservatio(reservationid))
+    }
+   },[])
+
 
   const Booknow = () => {
     let ifnoterror = true;
@@ -300,8 +313,27 @@ const Reservation = ({
     if (reservation.reservationdetails) {
       setmodal(true);
     }
+  
   }, [reservation.reservationdetails]);
 
+
+  const reshudule= useSelector((state) => state.reservartions)
+
+  useEffect(() => {
+    if(reshudule.reshuduleslisting){
+      const date=[]
+      reshudule.reshuduleslisting?.schedules.map((tt)=>{
+   date.push(tt.date)
+      })
+      setselecteddate(date)
+   
+      setselectitme(reshudule.reshuduleslisting?.schedules)
+   
+    }
+   
+  },[reshudule.reshuduleslisting])
+  
+  
   return (
     <div
       className="Reservation-container p-3 py-4 my-4"

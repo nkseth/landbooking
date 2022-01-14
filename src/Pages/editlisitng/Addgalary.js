@@ -92,8 +92,18 @@ const Addgallery = (props) => {
         <div className="dz-default dz-message d-flex justify-content-center ">
         <Dropzone
       onSubmit={handleSubmit}
+      submitButtonContent	='Save My Collection'
       styles={{
-        previewImage:{height:'100px'}
+        dropzone:{flexDirection:'row',flexWrap:'wrap',justifyContent: "center"
+      ,alignItems: 'center',overflow:'hidden',margin:'10px'
+      },
+        previewImage:{minWidth:'auto',height:'auto'},
+        preview:{maxWidth:'fit-content'},
+        inputLabelWithFiles:{alignSelf:"center",width:'100%',
+        padding:'10px 10px',margin:'3%'},
+        submitButtonContainer:{width:'100%',
+        display: 'flex',alignItems: 'center',
+        justifyContent: "center"}
       }}
       accept="image/*"
     />

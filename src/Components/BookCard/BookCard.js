@@ -1,8 +1,10 @@
 import React from "react";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import "./BookCard.css";
+import { baseurl } from "../../config";
 
 const BookCard = ({ data }) => {
+  console.log(data)
   return (
     <div className="card  " style={{ border: "none" }}>
       <Card
@@ -16,7 +18,7 @@ const BookCard = ({ data }) => {
           <CardMedia
             component="img"
             sx={{ width: "100%", height: "30vh", objectFit: "cover" }}
-            image={data.venue.images.length > 0 && data.venue.images.length[0]}
+            image={data.venue.images.length > 0 && `${baseurl}${data.venue.images[0]}`}
             alt="green iguana"
           />
         </div>

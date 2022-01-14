@@ -279,7 +279,7 @@ const Listing = ({ history }) => {
                   />
                 </div>
                 <div className="col-sm-6">
-                  <label>Maximum Children allowed</label>
+                  <label>Maximum Infants allowed</label>
                   <input
                     type="number"
                     className="form-control"

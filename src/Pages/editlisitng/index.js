@@ -303,7 +303,7 @@ const Listing = ({ history }) => {
                 </div>
 
                 <div className="col-sm-6">
-                  <label>Adults</label>
+                  <label>Maximum Adult allowed</label>
                   <input
                     type="text"
                     className="form-control"
@@ -320,7 +320,7 @@ const Listing = ({ history }) => {
                   />
                 </div>
                 <div className="col-sm-6">
-                  <label>Children</label>
+                  <label>Maximum Children allowed</label>
                   <input
                     type="text"
                     className="form-control"
@@ -337,7 +337,7 @@ const Listing = ({ history }) => {
                   />
                 </div>
                 <div className="col-sm-6">
-                  <label>Infants</label>
+                  <label>Maximum Infants allowed</label>
                   <input
                     type="text"
                     className="form-control"

@@ -118,17 +118,14 @@ axiosInstance.interceptors.response.use(
           )
         );
       }
-      if (error.response?.data?.data?.fcmTokenStatus !== 1) {
-        store.dispatch(logout());
-        store.dispatch(nulluser());
-      }
+     
     }
     if (error.response?.status === 401) {
       store.dispatch(authmodalopen(true));
       
     }
 
-    return error
+    return Promise.reject(error);
   }
 );
 export default axiosInstance;

@@ -179,7 +179,7 @@ const Editprofile = ({ history }) => {
         <div className="col-md-10 translateY-60 col-sm-12 col-md-offset-1">
           {/* General Information */}
           <div className="add-listing-box edit-info mrg-bot-25 padd-bot-30 padd-top-25">
-            {!user?.user?.user?.emailVerified &&
+            {!user?.user?.user?.emailVerified ||
             !user?.user?.user?.phoneVerified ? (
               <div
                 className="d-flex justify-content-center align-content-center w-100 p-3"

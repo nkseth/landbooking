@@ -7,7 +7,7 @@ const Footer = () => {
       style={{ maxWidth: "100vw" }}
     >
       <div className="footer-copyright">
-        <p>Copyright@ 2021 Yardcan Maintained By riolabz</p>
+        <p>Copyright@ 2021 Yardcan Maintained By <a href="http://riolabz.com/">riolabz</a></p>
       </div>
     </footer>
   );

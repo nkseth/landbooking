@@ -11,7 +11,7 @@ const Cards = ({ title, subTitle, amount, imageSrc, rating, id }) => {
     <div className="col-md-4 col-sm-6">
       <div className="listing-shot grid-style">
         <div className="listing-shot-img">
-          <img src={imageSrc} className="img-responsive" alt="" />
+          <img src={imageSrc} className="img-responsive mw-100" alt="" />
           <span className="listing-price">${amount}/hr</span>
         </div>
         <div className="listing-shot-caption">

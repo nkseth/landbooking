@@ -244,7 +244,7 @@ export const addfavour = (id) => {
       url: `/api/v1/venue/favourite/add/${id}`,
     })
       .then(async (res) => {
-        dispatch(opensnackbar("success", "Addes ot your Favourites"));
+        dispatch(opensnackbar("success", "Added to your Favourites"));
       })
       .catch((err) => {
         // dispatch(opensnackbar("error",err?.response?.data.message))

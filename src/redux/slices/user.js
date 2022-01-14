@@ -76,8 +76,7 @@ export const login = (un, pass) => {
     } catch{
         dispatch(opensnackbar('info',"your Browser Notification is  not active"))
     }
-   
-debugger
+
 const data={ userName: un,password: pass,}
   if(currentoken) data['fcmToken']=currentoken
         await axios({
@@ -87,7 +86,7 @@ const data={ userName: un,password: pass,}
         })
           .then(async (res) => {
           
-            dispatch(slice.actions.userdetails(res.data.data));
+            dispatch(slice.actions.userdetails(res?.data?.data));
             dispatch(
               slice.actions.opensnackbar({
                 type: "success",
