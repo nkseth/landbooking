@@ -6,6 +6,7 @@ const initialState = {
   reservationdetails: null,
   booked: null,
   transaction: null,
+  reshuduleslisting:null
 };
 
 const slice = createSlice({
@@ -24,6 +25,9 @@ const slice = createSlice({
     },
     transaction(state, action) {
       state.transaction = action.payload;
+    },
+    reshuduleslisting(state, action) {
+      state.reshuduleslisting = action.payload;
     },
   },
 });
@@ -151,5 +155,21 @@ export const cancelReservation = (reservationid) => {
       .catch((err) => {
         dispatch(opensnackbar("error", err?.response?.data?.message));
       });
+  };
+};
+
+export const getreservatio = (id) => {
+  
+  return async (dispatch) => {
+    return await axios({
+      method: "get",
+      url: `api/v1/reservation/view/${id}`,
+    })
+      .then(async (res) => {
+        debugger
+        dispatch(slice.actions.reshuduleslisting(res.data.data));
+       
+      })
+      .catch((err) => {});
   };
 };
