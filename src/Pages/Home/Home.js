@@ -7,6 +7,7 @@ import {
   PopularListing,
   BookingSteps,
   Testimonials,
+  ListingSteps
 } from "../../Components";
 
 const Home = ({ history }) => {
@@ -24,6 +25,7 @@ const Home = ({ history }) => {
       <MainBanner />
       <PopularListing />
       <BookingSteps />
+      <ListingSteps />
       <Testimonials />
     </div>
   );

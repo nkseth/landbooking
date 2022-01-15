@@ -87,7 +87,7 @@ const Header = (props) => {
                   paddingLeft: "2rem",
                 }}
               >
-                How we Work?
+                How We Work?
               </Nav.Link>
             </Link>
             <Link to="/" className="link">

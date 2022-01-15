@@ -11,6 +11,7 @@ import {
   getcurrentslotdetials,
   updatecurrentslotdetials,
 } from "../../redux/slices/slotmanagement";
+import { Switch } from "@mui/material";
 const LBModal = (props) => {
   const dispatch = useDispatch();
 
@@ -182,7 +183,8 @@ const LBModal = (props) => {
             }}
           >
             <AddAlarmIcon />
-            <p style={{ fontSize: 8, marginBottom: 0 }}>Add Interval</p>
+            <p style={{ fontSize: 12, marginBottom: 0 }}>
+              Add Interval </p>
           </div>
           <div
             style={{
@@ -566,49 +568,279 @@ const LBModal = (props) => {
     );
   };
 
+  const specifictoggle=(e,index)=>{
+   
+    let local=[...addonce]
+   if(e.target.checked){
+    local[index]={
+      date:"",
+            intervals: [],
+            type: 1,
+
+    }
+   }
+   else{
+    local[index]={
+      date:[],
+            intervals: [],
+            type: 2,
+
+    }
+   }
+   setaddonce([...local])
+    
+  }
+
+  
+  const customrepeat=(e,index)=>{
+   
+    let local=[...addonce]
+   if(e.target.checked){
+    local[index]={
+      date:"",
+            intervals: [],
+            type: 3,
+            unit: 2,
+            frequency: 2
+    }
+   }
+   else{
+    local[index]={
+      date:[],
+            intervals: [],
+            type: 2,
+
+    }
+   }
+   setaddonce([...local])
+    
+  }
+
+
+const Component =({index})=>{
+ return  <div
+ className="d-flex mt-2 p-2 flex-wrap justify-content-center align-items-center"
+ style={{ border: "1px solid gray", borderRadius: "10px",position:'relative' }}
+>
+{addonce[index].type===2 &&
+ <div className="col-md-12 p-1 d-flex justify-content-around flex-wrap">
+   {days.map((item, index2) => {
+     return (
+       <div
+         style={{
+           padding: 8,
+           border: "1px solid #1effac",
+           borderRadius: "10px",
+           cursor: "pointer",
+           backgroundColor: addonce[index].date.includes(item.value)
+             ? "#1effac"
+             : "white",
+           color: addonce[index].date.includes(item.value)
+             ? "white"
+             : "gray",
+           margin: 2,
+         }}
+         onClick={() => {
+           addday(index, item.value);
+         }}
+       >
+         {item.name}
+       </div>
+     );
+   })}
+ </div> }
+
+ {(addonce[index].type===1 || addonce[index].type===3) &&
+  <div className="col-md-3 p-1">
+  <label>Date</label>
+  <input
+    type="date"
+    className="form-control"
+    value={addonce[index].date}
+    onChange={(e) => {
+      addate(index, e.target.value);
+    }}
+  />
+</div> }
+
+{addonce[index].type===3 &&
+<>
+<div className="col-md-4 p-2">
+          <label>Unit</label>
+          <select
+            data-placeholder="Choose Category"
+            className="form-control chosen-select"
+            value={addonce[index].unit}
+            onChange={(e) => {
+              setunit(index, e.target.value);
+            }}
+          >
+            <option value={""}>Select Time</option>
+            {["DAYS", "WEEKS", "MONTHS", "YEARS"].map((item, ind) => {
+              return (
+                <option key={item} value={ind + 1}>
+                  {item}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className="col-md-3 ">
+          <label>Frequency</label>
+          <input
+            type="number"
+            className="form-control"
+            min={1}
+            onChange={(e) => {
+              setfrequency(index, e.target.value);
+            }}
+            value={addonce[index].frequency}
+          />
+        </div>
+        </>}
+ <div className="col-md-3 p-2">
+   <label>From</label>
+   <select
+     data-placeholder="Choose Category"
+     className="form-control chosen-select"
+     value={from[index]}
+     onChange={(e) => {
+       onFromselect(index, e.target.value);
+     }}
+   >
+     <option value={""}>Select Time</option>
+     {datearray.map((item) => {
+       return (
+         <option key={item} value={item}>
+           {item}
+         </option>
+       );
+     })}
+   </select>
+ </div>
+ <div className="col-md-3 ">
+   <label>To</label>
+   <select
+     data-placeholder="Choose Category"
+     className="form-control chosen-select"
+     value={to[index]}
+     onChange={(e) => {
+       onToselect(index, e.target.value);
+     }}
+   >
+     <option value={""}>Select Time</option>
+     {datearray.map((item) => {
+       return (
+         <option key={item} value={item}>
+           {item}
+         </option>
+       );
+     })}
+   </select>
+ </div>
+
+ <div className="col-md-2 p-1 d-flex justify-content-center align-items-center">
+   <div
+     style={{
+       borderRadius: "10px",
+       marginTop: "10px",
+       color: "black",
+       display: "flex",
+       justifyContent: "center",
+       flexDirection: "column",
+       alignItems: "center",
+       cursor: "pointer",
+     }}
+     onClick={() => {
+       addinteval(index);
+     }}
+   >
+     <AddAlarmIcon />
+     <p style={{ fontSize: 8, marginBottom: 0 }}>Add Interval</p>
+   </div>
+   <div
+     style={{
+       borderRadius: "10px",
+       marginLeft: "5px",
+       color: "black",
+       cursor: "pointer",
+       display: "flex",
+       justifyContent: "center",
+       flexDirection: "column",
+       alignItems: "center",
+       position: "absolute", 
+       bottom:10,
+       right:10
+     }}
+     onClick={() => {
+       removeitem(index);
+     }}
+   >
+     <DeleteTwoTone />
+   </div>
+ </div>
+ <div style={{width:'100%',display: 'flex'}}>
+  <div>
+    <label>On a specific date</label>
+    <Switch onChange={(e)=>{specifictoggle(e,index)}} checked={addonce[index].type===1}/>
+  </div>
+  <div>
+    <label>Custom Repeat</label>
+    <Switch onChange={(e)=>{customrepeat(e,index)}} checked={addonce[index].type===3} />
+  </div>
+</div>
+ <div className="col-12 p-1 d-flex justify-content-start align-items-center">
+   <div>
+     <p style={{ marginBottom: 0 }}>Added Intervals :-</p>
+     <div className="p-2 text-center d-flex m-1 flex-wrap">
+       {console.log(addonce[index])}
+       {addonce[index]?.intervals.map((item, index2) => {
+         return (
+           <div
+             className="p-2 text-center d-flex m-1"
+             style={{ border: "1px solid pink", borderRadius: "10px" }}
+           >
+             {item.from}-{item.to}
+             <div
+               onClick={() => {
+                 intervaldel(index, index2);
+               }}
+               style={{ cursor: "pointer" }}
+             >
+               <DeleteTwoTone />
+             </div>
+           </div>
+         );
+       })}
+     </div>
+   </div>
+ </div>
+</div>
+}
+
   const removeitem = (i) => {
     const newobb = [...addonce];
     newobb.splice(i, 1);
     setaddonce([...newobb]);
   };
-  const additem = (type) => {
-    switch (type) {
-      case 1:
+
+
+  const additem = () => {
+   
         setaddonce([
           ...addonce,
           {
-            date: "",
-            intervals: [],
-            type: 1,
-          },
-        ]);
-        break;
-      case 2:
-        setaddonce([
-          ...addonce,
-          {
-            uuid: props.id,
             date: [],
             intervals: [],
             type: 2,
           },
-        ]);
-        break;
-      case 3:
-        setaddonce([
-          ...addonce,
-          {
-            uuid: props.id,
-            date: "",
-            intervals: [],
-            type: 3,
-            unit: 1,
-            frequency: 2,
-          },
-        ]);
-      default:
-    }
+        ])
+       
+     
   };
+
+
+
   React.useEffect(() => {
     if (data.currentdetails) {
       setaddonce([...data.currentdetails]);
@@ -692,43 +924,21 @@ const LBModal = (props) => {
             <div className="d-flex">
               <Button
                 className="m-2 h-100"
-                style={{ fontSize: "14px" }}
+                style={{ fontSize: "14px" ,maxWidth: "fit-content"}}
                 onClick={() => {
-                  additem(1);
+                  additem();
                 }}
               >
-                ADD ONCE
+                ADD NEW
               </Button>
-              <Button
-                className="m-2 h-100"
-                style={{ fontSize: "14px" }}
-                onClick={() => {
-                  additem(2);
-                }}
-              >
-                WEEKLY REPEAT
-              </Button>
-              <Button
-                className="m-2 h-100"
-                style={{ fontSize: "14px" }}
-                onClick={() => {
-                  additem(3);
-                }}
-              >
-                CUSTOM REPEAT
-              </Button>
+              
+            
             </div>
            
             {addonce.map((item, index) => {
-              if (item.type === 1) {
-                return <Once index={index} key={index} />;
-              }
-              if (item.type === 2) {
-                return <Weeklyrepeat index={index} key={index} />;
-              }
-              if (item.type === 3) {
-                return <Customrepeat index={index} key={index} />;
-              }
+              
+                return <Component index={index} key={index} />;
+         
             })}
 
             

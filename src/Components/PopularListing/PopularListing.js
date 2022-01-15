@@ -35,7 +35,7 @@ const PopularListing = () => {
         style={{ color: "#334E6F" }}
       >
         <h1>
-          Popular <span style={{ color: "#1EFFAC" }}>Listng</span>
+          Popular <span style={{ color: "#1EFFAC" }}>Listing</span>
         </h1>
         <p>Check our most Popular Listing</p>
       </div>

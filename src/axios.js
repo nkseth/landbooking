@@ -31,9 +31,7 @@ const renewtokencall = async (token, refresh) => {
     method: "put",
     url: `${baseurl}api/v1/auth/token/access/renew`,
     headers: { Authorization: `Bearer ${refresh}` },
-    data: {
-      fcmToken: token,
-    },
+   
   });
 };
 

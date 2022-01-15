@@ -123,8 +123,9 @@ const LBModal = () => {
                   <h6
                     style={{ fontSize: 15, fontWeight: 300, cursor: "pointer" }}
                     onClick={() => {
-                      setforShow(true);
+                    
                       setShow(false);
+                         setforShow(true);
                     }}
                   >
                     Forgot Password?
