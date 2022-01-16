@@ -225,9 +225,9 @@ const LBModal = (props) => {
               </div>
               <div className="col-md-6 px-1 d-flex justify-content-center align-items-center ">
                 {props.slot === null ? null : (
-                  <div className=" d-flex justify-content-center align-items-center p-2">
+                  <div className=" d-flex justify-content-center align-items-center p-2 flex-wrap">
                     <p style={{ marginBottom: 0 }}>Slots to block</p>
-                    {slotss.map((item) => {
+                    {[...slotss].map((item) => {
                       return (
                         <div
                           style={{

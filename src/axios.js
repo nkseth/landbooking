@@ -106,13 +106,13 @@ axiosInstance.interceptors.response.use(
         );
       }
       if (
-        !error.response?.data?.data?.emailVerified &&
+        !error.response?.data?.data?.emailVerified ||
         !error.response?.data?.data?.phoneVerified
       ) {
         store.dispatch(
           opensnackbar(
             "error",
-            "Please verify your Phone No to continue using the Application"
+            "Please verify your Phone No & email to continue using the Application"
           )
         );
       }
