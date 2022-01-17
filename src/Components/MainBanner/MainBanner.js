@@ -103,7 +103,8 @@ const MainBanner = ({ history }) => {
               />
             </div>
 
-            <div className="d-flex justify-content-center align-items-center bg-white  w-100 py-0  p-0">
+            <div className="d-flex justify-content-center px-2
+             align-items-center bg-white  w-100 py-0  p-0">
               <FilterNoneIcon style={{ color: "gray" }} />
               <select
                 data-placeholder="Choose Category"

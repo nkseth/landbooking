@@ -260,7 +260,8 @@ const LBModal = (props) => {
                 )}
               </div>
               <div className="col-12 p-1 d-flex flex-wrap">
-                <div className="col-md-2 p-1 d-flex justify-content-center align-items-center">
+                <div className="w-100 d-flex flex-wrap  justify-content-center">
+                <div className="col-md-2 p-1 d-flex  justify-content-center align-items-center">
                   <h6>FROM</h6>
                 </div>
 
@@ -275,7 +276,7 @@ const LBModal = (props) => {
                     }}
                   />
                 </div>
-                {console.log(finalobject?.from?.time)}
+               
                 <div className="col-md-5 p-1">
                   <label>Time</label>
                   <select
@@ -296,7 +297,9 @@ const LBModal = (props) => {
                     })}
                   </select>
                 </div>
-                <div className="col-md-2 p-1 d-flex justify-content-center align-items-center">
+                </div>
+                <div className="w-100 d-flex flex-wrap  justify-content-center">
+                <div className="col-2 p-1 d-flex justify-content-center align-items-center">
                   <h6>TO</h6>
                 </div>
                 <div className="col-md-5 p-1">
@@ -330,6 +333,7 @@ const LBModal = (props) => {
                       );
                     })}
                   </select>
+                </div>
                 </div>
               </div>
             </div>

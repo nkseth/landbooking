@@ -22,7 +22,9 @@ const Header = (props) => {
         expand="lg"
         expanded={expanded}
         className="m-0 p-0"
-        style={{ boxShadow: "0 0 8px 0 rgb(0 0 0 / 12%)" }}
+        style={{ boxShadow: "0 0 8px 0 rgb(0 0 0 / 12%)" ,
+        zIndex:1000
+        }}
       >
         <div
           style={{
@@ -43,7 +45,9 @@ const Header = (props) => {
         />
         <Navbar.Collapse id="basic-navbar-nav" className="m-0 p-0 ">
           <Nav
-            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          className="justify-content-md-center"
+            style={{ width: "100%", display: "flex",
+             justifyContent: "flex-start",flexDirection:'row',flexWrap:"wrap" }}
             onClick={() => {
               setexpaned(false);
             }}
@@ -80,6 +84,7 @@ const Header = (props) => {
               <Nav.Link
                 className=" link"
                 href="/listing"
+                
                 style={{
                   color: "#798791",
                   fontSize: "14px",
@@ -104,16 +109,172 @@ const Header = (props) => {
                 Why Us?
               </Nav.Link>
             </Link>
-          
+            
+            
+           
+
           </Nav>
+          <Hidden mdUp>
+          <div style={{padding:'10px'}}>
+          {state.user.user.host &&<Accordion style={{width:'100%'}}>
+              <Accordion.Item eventKey="0">
+              <Accordion.Header>Seller Tools</Accordion.Header>  
+              <Accordion.Body style={{display:'flex',flexDirection:'column'}}
+                onClick={() => {
+                  setexpaned(false);
+                }}
+              >
+               
+              <Link
+                style={{
+                  padding: "10px",
+                  width: "100%",
+                  borderBottom: "1px solid #eeeeee",
+                  fontWeight: "bold",
+                  color: "gray",
+                  textAlign: "left",
+                }}
+                to="/addlisting"
+              >
+                Add Listing
+              </Link>   
+              <Link
+                className="link"
+                style={{
+                  padding: "10px",
+                  width: "100%",
+                  borderBottom: "1px solid #eeeeee",
+                  fontWeight: "bold",
+                  color: "gray",
+                  textAlign: "left",
+                }}
+                to="/managelistings"
+              >
+                Manage Listing
+              </Link>
+              <Link
+              className="link"
+              style={{
+                padding: "10px",
+                width: "100%",
+                borderBottom: "1px solid #eeeeee",
+                fontWeight: "bold",
+                color: "gray",
+                textAlign: "left",
+              }}
+              to="/mytransactions/seller"
+            >
+              Transactions
+            </Link>
+           
+            </Accordion.Body>
+              </Accordion.Item>
+            
+
+  </Accordion>}
+
+ 
+
+        </div>
+        </Hidden>
+        <Hidden mdUp>
+          <div style={{padding:'10px'}}>
+         <Accordion style={{width:'100%'}}>
+              <Accordion.Item eventKey="0">
+              <Accordion.Header>Customer Tools</Accordion.Header>  
+              <Accordion.Body style={{display:'flex',flexDirection:'column'}}
+                onClick={() => {
+                  setexpaned(false);
+                }}
+              >
+              <Link
+              className="link"
+              style={{
+                padding: "10px",
+                width: "100%",
+                borderBottom: "1px solid #eeeeee",
+                fontWeight: "bold",
+                color: "gray",
+                textAlign: "left",
+              }}
+              to="/mybookings"
+            >
+              My Bookings
+            </Link>
+            <Link
+              className="link"
+              style={{
+                padding: "10px",
+                width: "100%",
+                borderBottom: "1px solid #eeeeee",
+                fontWeight: "bold",
+                color: "gray",
+                textAlign: "left",
+              }}
+              to="/mytransactions/customer"
+            >
+              My Transactions
+            </Link>
+            <Link
+              className="link"
+              style={{
+                padding: "10px",
+                width: "100%",
+                borderBottom: "1px solid #eeeeee",
+                fontWeight: "bold",
+                color: "gray",
+                textAlign: "left",
+              }}
+              to="/myfavourite"
+            >
+              My Favourites
+            </Link>
+            <Link
+              className="link"
+              style={{
+                padding: "10px",
+                width: "100%",
+                fontWeight: "bold",
+                color: "gray",
+                textAlign: "left",
+                borderBottom: "1px solid #eeeeee",
+              }}
+              to="/editprofile"
+            >
+              Profile Edit
+            </Link>
+
+            <div
+              className="link"
+              onClick={() => {
+                dispatch(logout(state.user.tokens.access));
+              }}
+              style={{
+                padding: "10px",
+                width: "100%",
+                fontWeight: "bold",
+                textAlign: "left",
+                color: "gray",
+                cursor: "pointer",
+              }}
+              to="/addlisting"
+            >
+              Logout
+            </div>
         
+            </Accordion.Body>
+              </Accordion.Item>
+            
+
+  </Accordion>
+
+        </div>
+        </Hidden>
           <div
-            onClick={() => {
-              setexpaned(false);
-            }}
+           
             style={{ minHeight: "100%" }}
           >
-            {data?.user ? <Logout /> : <Modal />}
+            {data?.user ? <Logout setexpand={setexpaned} /> : <Modal />}
           </div>
         </Navbar.Collapse>
       </Navbar>
