@@ -23,13 +23,13 @@ const Header = (props) => {
         expanded={expanded}
         className="m-0 p-0"
         style={{ boxShadow: "0 0 8px 0 rgb(0 0 0 / 12%)" ,
-        zIndex:1000
+        padding:'0',height:'65px'
         }}
       >
         <div
           style={{
             margin: "0",
-            maxHeight: "65px",
+         
             marginLeft: "10px",
             marginTop: "2px",
           }}
@@ -43,7 +43,7 @@ const Header = (props) => {
           style={{ boxShadow: "none", border: "none" }}
           onClick={() => setexpaned(!expanded)}
         />
-        <Navbar.Collapse id="basic-navbar-nav" className="m-0 p-0 ">
+        <Navbar.Collapse id="basic-navbar-nav" className="m-0 p-0 bg-white">
           <Nav
           className="justify-content-md-center"
             style={{ width: "100%", display: "flex",
@@ -116,7 +116,7 @@ const Header = (props) => {
           </Nav>
           <Hidden mdUp>
           <div style={{padding:'10px'}}>
-          {state.user.user.host &&<Accordion style={{width:'100%'}}>
+          {state?.user?.user?.host &&<Accordion style={{width:'100%'}}>
               <Accordion.Item eventKey="0">
               <Accordion.Header>Seller Tools</Accordion.Header>  
               <Accordion.Body style={{display:'flex',flexDirection:'column'}}
@@ -272,7 +272,7 @@ const Header = (props) => {
         </Hidden>
           <div
            
-            style={{ minHeight: "100%" }}
+            style={{padding:'0px',margin:0,height:'inherit' }}
           >
             {data?.user ? <Logout setexpand={setexpaned} /> : <Modal />}
           </div>

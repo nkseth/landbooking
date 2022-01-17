@@ -147,7 +147,7 @@ const BookNow = ({ history }) => {
             }}
           />
         </div>
-        <div style={{ marginLeft: "20px" }}>
+        <div className="mx-md-2">
           <label>To</label>
           <input
             type="date"
@@ -158,7 +158,9 @@ const BookNow = ({ history }) => {
             }}
           />
         </div>
-        <div style={{ marginLeft: "20px", marginTop: 10 }}>
+        <div style={{  marginTop: 10 }}
+         className="mx-md-2"
+        >
           <Button
             style={{ maxWidth: "fit-content" }}
             onClick={() => {

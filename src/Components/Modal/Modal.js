@@ -44,19 +44,22 @@ const LBModal = () => {
       <Button
         variant="btn"
         style={{
-          height: "100%",
-          padding: "17px 50px",
+          height: "inherit",
+          padding: "11.5px 50px",
           backgroundColor: "#1EFFAC",
           color: "white",
           boxShadow: "none",
-          fontSize: "14px",
+        
           borderRadius: 0,
-          display: "flex",
+         
+         
         }}
         onClick={() => setShow(true)}
       >
+        <div className='h-100 py-2 d-flex'>
         <PersonOutlineIcon style={{ color: "#FFC8B8" }} />
         Login/Signup
+</div>
       </Button>
 
       <Modal

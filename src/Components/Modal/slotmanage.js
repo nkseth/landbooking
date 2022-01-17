@@ -665,7 +665,7 @@ const Component =({index})=>{
 
 {addonce[index].type===3 &&
 <>
-<div className="col-md-4 p-2">
+<div className="col-md-4  p-2">
           <label>Unit</label>
           <select
             data-placeholder="Choose Category"
@@ -685,7 +685,7 @@ const Component =({index})=>{
             })}
           </select>
         </div>
-        <div className="col-md-3 ">
+        <div className="col-md-3 col-3">
           <label>Frequency</label>
           <input
             type="number"
