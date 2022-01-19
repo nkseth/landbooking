@@ -359,7 +359,7 @@ const Editprofile = ({ history }) => {
                 title="Submit Listing"
                 onClick={updateprivacysettingslocal}
               >
-                Update Privacy Settings
+                Update
               </Button>
             </div>
           </div>

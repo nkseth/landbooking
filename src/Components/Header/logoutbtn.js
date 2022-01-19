@@ -3,7 +3,7 @@ import React from "react";
 import { logout } from "../../redux/slices/user";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Avatar } from "@mui/material";
+import { Avatar, Hidden } from "@mui/material";
 
 import { baseurl } from "../../config";
 import { Accordion } from "react-bootstrap";
@@ -84,6 +84,7 @@ const Logout = () => {
             boxShadow: "5px 0px 10px lightgray ",
           }}
         >
+          <Hidden mdDown>
           <div
             style={{
               padding: "10px 15px",
@@ -222,7 +223,9 @@ const Logout = () => {
               Logout
             </div>
           </div>
+          </Hidden>
         </div>
+       
       </Button>
     </div>
   );

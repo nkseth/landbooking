@@ -55,10 +55,7 @@ const BookNow = ({ history }) => {
         display: "flex",
         justifyContent: "center",
         width: "100%",
-      
-     
-      
-     
+      alignItems: "center"
       }}
     >
        <section
@@ -122,7 +119,7 @@ const BookNow = ({ history }) => {
         justifyContent="space-between"
         style={{}}
       >
-        <div className="d-flex justify-content-between p-3 align-items-center">
+        <div className="d-flex justify-content-between p-3 align-items-center flex-wrap">
           <h5>Blocked Dates</h5>
 
           <Button
@@ -135,7 +132,9 @@ const BookNow = ({ history }) => {
           </Button>
         </div>
       </Grid>
-      <Grid item xs={6} container justifyContent="center" alignItems="center">
+      <Grid item xs={12} md={6} container justifyContent="center" alignItems="center"   
+    
+      >
         <div>
           <label>From</label>
           <input
@@ -161,16 +160,18 @@ const BookNow = ({ history }) => {
         <div style={{  marginTop: 10 }}
          className="mx-md-2"
         >
-          <Button
-            style={{ maxWidth: "fit-content" }}
+          
+        </div>
+
+      </Grid>
+      <Button
+            style={{ maxWidth: "fit-content",marginTop:'10px' }}
             onClick={() => {
               dispatch(viewblock(id, searchtodate, searchFromdate));
             }}
           >
             SEARCH
           </Button>
-        </div>
-      </Grid>
       <Grid
         item
         md={12}

@@ -49,14 +49,14 @@ const LBModal = () => {
           backgroundColor: "#1EFFAC",
           color: "white",
           boxShadow: "none",
-        
+        width: "100%",
           borderRadius: 0,
          
          
         }}
         onClick={() => setShow(true)}
       >
-        <div className='h-100 py-2 d-flex'>
+        <div className='h-100 py-2 d-flex '>
         <PersonOutlineIcon style={{ color: "#FFC8B8" }} />
         Login/Signup
 </div>

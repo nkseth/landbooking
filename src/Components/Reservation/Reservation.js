@@ -91,12 +91,12 @@ const Reservation = ({
    const changed = [];
    
     selectedate.map((item) => {
-   debugger
+  
       if(typeof item === 'string') changed.push(item)
       else changed.push(moment(item.toDate()).format("YYYY-MM-DD"));
     });
     setselecteddatec(changed);
-    debugger
+    
   }, [selectedate]);
 
 
@@ -111,7 +111,7 @@ const Reservation = ({
     });
 
     setavaliabletime(selecteddate);
-debugger
+
     if (selecteddate.length !== selectedatec.length) setavv(false);
     else setavv(true);
     setallslotarry([]);

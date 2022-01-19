@@ -54,7 +54,8 @@ export const getlistingprivate = ({
   if (search !== null) restdata["search"] = search;
   if (categoryId) restdata["categoryId"] = categoryId;
   if (coordinateRange?.latitude)
-    restdata["coordinateRange"] = JSON.stringify(coordinateRange);
+    {if(coordinateRange.radius===null) coordinateRange["radius"]=50
+    restdata["coordinateRange"] = JSON.stringify(coordinateRange);}
   if (zipcode) restdata["zipcode"] = zipcode;
 
   const qs = Object.keys(restdata)
@@ -100,7 +101,8 @@ export const getlistingpublic = ({
   }
   if (categoryId) restdata["categoryId"] = categoryId;
   if (coordinateRange?.latitude)
-    restdata["coordinateRange"] = JSON.stringify(coordinateRange);
+   {  coordinateRange["radius"]=radius?radius:50
+      restdata["coordinateRange"] = JSON.stringify(coordinateRange);}
   if (zipcode) restdata["zipcode"] = zipcode;
 
   const qs = Object.keys(restdata)

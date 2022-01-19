@@ -3,7 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import { Deletelisting } from "../../redux/slices/popularlisting";
+import { Deletelisting, viewhostedlisting } from "../../redux/slices/popularlisting";
 
 const LBModal = (props) => {
   const [data, setdata] = React.useState(null);
@@ -12,6 +12,10 @@ const LBModal = (props) => {
 
   const deletes = () => {
     dispatch(Deletelisting(props.id));
+    setTimeout(() =>{
+      dispatch(viewhostedlisting());
+    },1000)
+   
   };
   console.log(data);
   return (
@@ -39,7 +43,7 @@ const LBModal = (props) => {
         </Modal.Header>
         <Modal.Body>
           <div className="d-flex justify-content-center align-items-center flex-column">
-            <h6>Aur you sure you want to delete this listing</h6>
+            <h6>Are you sure you want to delete this listing?</h6>
             <div className="d-flex justify-content-center align-items-center mt-5">
               <Button
                 style={{
@@ -47,7 +51,7 @@ const LBModal = (props) => {
                   width: "100px",
                   marginRight: "20px",
                 }}
-                onClick={deletes}
+                onClick={()=>{deletes(); props.close()}}
               >
                 Yes
               </Button>

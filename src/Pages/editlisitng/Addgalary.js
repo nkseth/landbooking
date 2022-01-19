@@ -36,7 +36,7 @@ const Addgallery = (props) => {
     <div className="add-listing-box full-detail mrg-bot-25 padd-bot-30 padd-top-25">
       <div className="listing-box-header">
         <i className="ti-gallery theme-cl" />
-        <h3>Add Gallery</h3>
+        <h3>Upload Good Photos Of Your Place</h3>
         <p>Write full detail information about listing Owner</p>
       </div>
 

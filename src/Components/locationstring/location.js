@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
+import React, { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   locationfind,
@@ -20,11 +20,25 @@ const Locationstring = (props) => {
   }, [locationstring]);
 
   React.useEffect(() => {
+    
     if (props?.dtype) setdisplayauto(props.dtype);
+    
   }, []);
+
+ 
+  React.useEffect(()=>{
+      if(props?.settonull){
+        setlocationstring("");
+        props?.setsettonull(false)
+      }
+    
+    },[props?.settonull])
+    
+console.log("safdsdfsdf",props?.settonull)
 
   React.useEffect(() => {
     props?.getaddress && props.onaddresschanging(locationstring);
+   
   }, [locationstring]);
   return (
     <div

@@ -66,19 +66,21 @@ const Listing = ({ history }) => {
         : null,
     zipcode: null,
     address: plocation !== "" && plocation ? plocation : localaddress,
-    radius: pr !== undefined ? pr : 10,
+    radius: pr !== undefined && pr!==null ? pr : 10,
     latitude: plocation ? location.latitude : null,
     longitude: plocation ? location.longitude : null,
   });
 
   const [selectedcategory, setselectedcategory] = React.useState({});
 
+
+  const [settonull,setsettonull]=React.useState(false)
   const updateaddress = (string) => {
     setlocalddress(string);
   };
 
   React.useEffect(() => {
-    if (selectedcategory.uuid) {
+    if (selectedcategory?.uuid) {
       setqueryperams({ ...queryperams, categoryId: selectedcategory.uuid });
     }
   }, [selectedcategory]);
@@ -105,6 +107,8 @@ const Listing = ({ history }) => {
   };
 
   const undofilter = () => {
+    setsettonull(true)
+   
     setqueryperams({
       search: null,
       limit: 6,
@@ -130,8 +134,11 @@ const Listing = ({ history }) => {
       latitude: null,
       longitude: null,
     });
+
     if (plocation || pcategoryId) history.push("/listing");
   };
+
+
   React.useEffect(() => {
     if (user.user) {
       if (user.user.user.emailVerified && user.user.user.phoneVerified) {
@@ -145,6 +152,8 @@ const Listing = ({ history }) => {
   }, [user.user]);
 
   const searchclicked = (data) => {
+  
+    
     if (
       user.user &&
       user.user.user.emailVerified &&
@@ -213,7 +222,9 @@ const Listing = ({ history }) => {
                 label="none"
                 size="col-12 col-md-5"
                 onaddresschanging={updateaddress}
-                getaddress={true}
+                getaddress={false}
+                settonull={settonull}
+               setsettonull={setsettonull}
               />
               <Form.Control
                 size="lg"
@@ -249,7 +260,8 @@ const Listing = ({ history }) => {
                   })}
                 </select>
               </div>
-              <Button onClick={undofilter} style={{ marginTop: "-10px" }}>
+              <Button onClick={undofilter} style={{ 
+                marginTop: "-10px",minWidth:'fit-content' }}>
                 Undo Filter
               </Button>
             </Form>

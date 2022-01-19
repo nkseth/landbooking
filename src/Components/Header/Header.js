@@ -47,7 +47,7 @@ const Header = (props) => {
           <Nav
           className="justify-content-md-center"
             style={{ width: "100%", display: "flex",
-             justifyContent: "flex-start",flexDirection:'row',flexWrap:"wrap" }}
+             justifyContent: "flex-start",flexWrap:"wrap" }}
             onClick={() => {
               setexpaned(false);
             }}
@@ -179,7 +179,7 @@ const Header = (props) => {
         </Hidden>
         <Hidden mdUp>
           <div style={{padding:'10px'}}>
-         <Accordion style={{width:'100%'}}>
+          {state?.user?.user?.host && <Accordion style={{width:'100%'}}>
               <Accordion.Item eventKey="0">
               <Accordion.Header>Customer Tools</Accordion.Header>  
               <Accordion.Body style={{display:'flex',flexDirection:'column'}}
@@ -266,7 +266,7 @@ const Header = (props) => {
               </Accordion.Item>
             
 
-  </Accordion>
+  </Accordion>}
 
         </div>
         </Hidden>

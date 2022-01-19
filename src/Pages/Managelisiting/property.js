@@ -42,7 +42,8 @@ const Property = ({ item }) => {
       </a>
       <div className="verticle-listing-caption ">
         <div
-          style={{ position: "absolute", display: "flex", top: 10, right: 10 }}
+          style={{ position: "absolute", display: "flex", 
+          top: 10, right: 10 }}
         >
           {/* <Link  to={`/blockedDates/${item.uuid}`>
       <div className="editlisting" >  
@@ -82,7 +83,7 @@ const Property = ({ item }) => {
         </div>
 
         <div
-          className="listing-shot-caption "
+          className="listing-shot-caption mt-3 mt-md-2"
           style={{ maxWidth: "75%", minHeight: "75%" }}
         >
           <h4>{item.title}</h4>
@@ -90,7 +91,8 @@ const Property = ({ item }) => {
           {!item?.approved &&
           <div
            
-           style={{textAlign:"center",margin:'5px 10px',backgroundColor:'#456081',
+           style={{textAlign:"center",margin:'5px 10px',
+           backgroundColor:'#456081',
           padding:'4px 10px',borderRadius: "10px",color:'white',maxWidth:'fit-content'
           }}
           >
@@ -110,6 +112,7 @@ const Property = ({ item }) => {
                   color: "white",
                   fontWeight: "bold",
                   padding: "7px 12px",
+                  fontSize: "10px"
                 }}
                 className="detail-link"
               >
@@ -125,6 +128,7 @@ const Property = ({ item }) => {
                   color: "white",
                   fontWeight: "bold",
                   padding: "7px 12px",
+                  fontSize: "10px"
                 }}
               >
                 View Reservations

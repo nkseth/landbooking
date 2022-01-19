@@ -878,7 +878,7 @@ const Component =({index})=>{
         </Modal.Header>
         <Modal.Body>
           <div>
-          <div className="d-flex">
+          <div className="d-flex align-items-end">
               <div className="col-md-3 ">
                 <label>Alter Reservations</label>
                 <select
