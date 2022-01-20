@@ -32,7 +32,7 @@ const Booking = ({ data, history }) => {
         </div>
         <div className="small-list-detail">
           <h4>{data.venue.title}</h4>
-          <p>{data.venue.category ? data.venue.title : "Category"}</p>
+          <p>{data.venue.category ? data.venue.category : "Category"}</p>
         </div>
         <div className="small-list-action light d-flex flex-wrap justify-content-center">
           <div

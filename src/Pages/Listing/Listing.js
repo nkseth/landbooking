@@ -13,6 +13,7 @@ import "./Listing.css";
 import {
   getlistingpublic,
   getlistingprivate,
+  viewFavourites,
 } from "../../redux/slices/popularlisting";
 import { useSelector, useDispatch } from "react-redux";
 import { baseurl } from "../../config";
@@ -23,6 +24,7 @@ import { useLocation } from "react-router-dom";
 const Listing = ({ history }) => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.popularlisting);
+
   const user = useSelector((state) => state.user);
   const location = useSelector((state) => state.location);
   const [localaddress, setlocalddress] = React.useState("");
@@ -144,6 +146,7 @@ const Listing = ({ history }) => {
       if (user.user.user.emailVerified && user.user.user.phoneVerified) {
         dispatch(getlistingprivate(queryperams));
         dispatch(getcategory());
+        dispatch(viewFavourites());
       }
     } else {
       dispatch(getlistingpublic(queryperams));
@@ -302,6 +305,7 @@ const Listing = ({ history }) => {
                   amount={item.rent}
                   rating={item.rating}
                   id={item.uuid}
+                  favour={data?.favourite?.find((i)=>i.uuid===item.uuid)}
                 />
               );
             }
@@ -314,6 +318,7 @@ const Listing = ({ history }) => {
                 amount={item.rent}
                 rating={item.rating}
                 id={item.uuid}
+                favour={null}
               />
             );
           }

@@ -24,7 +24,7 @@ const BookingSteps = () => {
     },
   ];
   return (
-    <div
+    <div id="HowWeWork"
       className="bookind-steps-container  container"
       style={{ marginTop: "8rem" }}
     >

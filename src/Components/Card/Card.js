@@ -3,9 +3,10 @@ import { Rating } from "@mui/material";
 import "./Card.css";
 import { Link } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { addfavour } from "../../redux/slices/popularlisting";
+import { addfavour, viewFavourites } from "../../redux/slices/popularlisting";
 import { useDispatch } from "react-redux";
-const Cards = ({ title, subTitle, amount, imageSrc, rating, id }) => {
+import { FavoriteBorder, FavoriteSharp } from "@mui/icons-material";
+const Cards = ({ title, subTitle, amount, imageSrc, rating, id ,favour}) => {
   const dispatch = useDispatch();
   return (
     <div className="col-md-4 col-sm-6">
@@ -30,9 +31,15 @@ const Cards = ({ title, subTitle, amount, imageSrc, rating, id }) => {
             }}
             onClick={() => {
               dispatch(addfavour(id));
+              setTimeout(() =>{
+                dispatch(viewFavourites());
+              },1000)
             }}
           >
-            <FavoriteBorderOutlinedIcon style={{ color: "white" }} />
+            { favour?
+            <FavoriteSharp style={{ color:"red" }} />
+            :<FavoriteBorderOutlinedIcon style={{ color:"white" }} />
+              }
           </span>
         </div>
         <div className="listing-shot-info rating">

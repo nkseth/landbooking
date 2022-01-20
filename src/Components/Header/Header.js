@@ -9,6 +9,7 @@ import { Accordion } from "react-bootstrap";
 import Logo from "../../assets/yardcanlogo.png";
 import { logout } from "../../redux/slices/user";
 import { Hidden } from "@mui/material";
+import { HashLink as Linki } from 'react-router-hash-link';
 const Header = (props) => {
   const data = useSelector((state) => state.user);
   const state = useSelector((state) => state.user);
@@ -80,10 +81,10 @@ const Header = (props) => {
                 Listing
               </Nav.Link>
             </Link>
-            <Link to="/" className="link">
+            <Linki to="#HowWeWork" className="link">
               <Nav.Link
                 className=" link"
-                href="/listing"
+                href="#HowWeWork"
                 
                 style={{
                   color: "#798791",
@@ -94,11 +95,11 @@ const Header = (props) => {
               >
                 How We Work?
               </Nav.Link>
-            </Link>
-            <Link to="/" className="link">
+            </Linki>
+            <Linki to="#becomeahost" className="link">
               <Nav.Link
                 className=" link"
-                href="/listing"
+                href="#becomeahost"
                 style={{
                   color: "#798791",
                   fontSize: "14px",
@@ -106,9 +107,9 @@ const Header = (props) => {
                   paddingLeft: "2rem",
                 }}
               >
-                Why Us?
+                Become A Host
               </Nav.Link>
-            </Link>
+            </Linki>
             
             
            

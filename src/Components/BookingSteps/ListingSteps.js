@@ -26,7 +26,7 @@ const BookingSteps = () => {
     },
   ];
   return (
-    <div
+    <div id='becomeahost'
       className="bookind-steps-container  container"
       style={{ marginTop: "8rem" }}
     >

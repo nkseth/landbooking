@@ -21,7 +21,8 @@ const Property = ({ item }) => {
     setdel(false);
   };
   return (
-    <div className="add-listing-box edit-info verticleilist listing-shot">
+    <div className="add-listing-box edit-info verticleilist
+     listing-shot" style={{minWidth:'fit-content'}}>
       <Slotmanger id={item.uuid} show={show} close={close} slots={item.slots} />
       <Bolkmanager
         id={item.uuid}
@@ -40,18 +41,11 @@ const Property = ({ item }) => {
           <span className="listing-price">${item.rent}</span>
         </div>
       </a>
-      <div className="verticle-listing-caption ">
+      <div className="verticle-listing-caption d-flex flex-column justify-content-between">
         <div
           style={{ position: "absolute", display: "flex", 
           top: 10, right: 10 }}
         >
-          {/* <Link  to={`/blockedDates/${item.uuid}`>
-      <div className="editlisting" >  
-            <BlockRounded style={{fontSize:20,}} />
-           <p style={{fontSize:'10px',marginBottom:0}}> Block dates</p>
-     </div>
-   </Link> */}
-
           <Link to={`/blockedDates/${item.uuid}`} className="editlisting">
             <div className="text-center" >
               <BlockRounded style={{ fontSize: 25 }} />
@@ -84,7 +78,7 @@ const Property = ({ item }) => {
 
         <div
           className="listing-shot-caption mt-3 mt-md-2"
-          style={{ maxWidth: "75%", minHeight: "75%" }}
+          style={{ maxWidth: "75%", minHeight: "fit-content" }}
         >
           <h4>{item.title}</h4>
           <p className="listing-description">{item.description}</p>
@@ -101,9 +95,12 @@ const Property = ({ item }) => {
           </div>}
         </div>
       
-        <div className="listing-shot-info rating">
-          <div className="row extra d-flex justify-content-end">
-            <div className="col-md-12  col-xs-6 pull-right">
+        <div className="listing-shot-info rating" >
+          <div className="row extra d-flex justify-content-end" 
+          >
+            <div className="col-md-12  col-xs-6 pull-right" 
+           
+            >
               <Link
                 to={`./view-detail/${item.uuid}`}
                 style={{

@@ -83,7 +83,7 @@ const Reviewmodal = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h5 className="mt-3">Add New Reviews</h5>
+          <h5 className="mt-3">Add New Review</h5>
           <div className="text-center">
             <div className="mt-3 mb-3">
               <Rating
@@ -103,11 +103,12 @@ const Reviewmodal = (props) => {
                 }}
               />
             </div>
-            <Button onClick={submitrating}>Submit Rerview</Button>
+            <Button onClick={submitrating}>Submit Review</Button>
           </div>
+          {data?.length > 0 ? 
           <div className="d-flex justify-content-between mt-2">
             <h5 className="mt-3 ">Previous Reviews</h5>
-            {data?.length > 0 ? (
+           
               <Button
                 onClick={() => {
                   setur(!ur);
@@ -120,8 +121,9 @@ const Reviewmodal = (props) => {
               >
                 Update/Delete A Review
               </Button>
-            ) : null}
+            
           </div>
+          : null}
           <div className="d-flex">
             {previews?.reviews?.length > 0 ? (
               data?.map((item, index) => {
@@ -181,9 +183,7 @@ const Reviewmodal = (props) => {
                   </div>
                 );
               })
-            ) : (
-              <p>No Reviews Yet</p>
-            )}
+            ) :null}
           </div>
         </Modal.Body>
       </Modal>

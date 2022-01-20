@@ -273,7 +273,7 @@ const Listing = ({ history }) => {
                   )}
                 </div>
                 <div className="col-sm-6">
-                  <label>Amount per hour</label>
+                  <label>Amount per hour(in $)</label>
                   <input
                     type="number"
                     className="form-control"
@@ -354,7 +354,7 @@ const Listing = ({ history }) => {
                   />
                 </div>
                 <div className="col-sm-6">
-                  <label>Default Status</label>
+                  <label>Status</label>
                   <select
                     data-placeholder="Choose Category"
                     onChange={(e) => {
@@ -396,6 +396,7 @@ const Listing = ({ history }) => {
                 <textarea
                   className="h-500 form-control"
                   defaultValue={""}
+                  style={{height:'150px'}}
                   value={data.discription}
                   onChange={(e) => {
                     setdata({ ...data, discription: e.target.value });

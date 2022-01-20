@@ -324,14 +324,8 @@ const Reservation = ({
 
   useEffect(() => {
     if(reshudule.reshuduleslisting){
-      const date=[]
-      reshudule.reshuduleslisting?.schedules.map((tt)=>{
-   date.push(tt.date)
-      })
-      setselecteddate(date)
-   
-      setselectitme(reshudule.reshuduleslisting?.schedules)
-   
+     
+      setguestlimit(reshudule.reshuduleslisting?.guestList)
     }
    
   },[reshudule.reshuduleslisting])
