@@ -11,6 +11,7 @@ import Booking from "./transection";
 import Bannerbg from "../../assets/title-bg.jpg";
 import { gettransaction } from "../../redux/slices/reservations";
 import { useParams } from "react-router-dom";
+import moment from "moment";
 const Mybookings = ({ history }) => {
   const {type}=useParams()
   const [f, setf] = React.useState([]);
@@ -95,7 +96,7 @@ const Mybookings = ({ history }) => {
                 <div className="small-list-wrapper">
                   <ul>
                     {f?.length > 0 ? (
-                      f?.map((item) => {
+                      f?.sort((a,b)=>{return moment(b.createdAt).diff(a.createdAt,"seconds")})?.map((item) => {
                         if(type==="seller" && (item.type===3))
                         return <Booking data={item} typeofuser={type} />
                         else if((item.type===1 || item.type===2 ) && type!=="seller")

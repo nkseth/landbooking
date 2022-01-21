@@ -35,6 +35,7 @@ const Booking = ({ data, history }) => {
           <p>{data.venue.category ? data.venue.category : "Category"}</p>
         </div>
         <div className="small-list-action light d-flex flex-wrap justify-content-center">
+        {data.status ===2 && 
           <div
             onClick={() => {
               setrshow(true);
@@ -47,7 +48,7 @@ const Booking = ({ data, history }) => {
           >
             <i className="ti-pencil" />
             Add/View Review
-          </div>
+          </div>}
           <div style={{ marginRight: "10px" }}>
             <p style={{ marginBottom: 0 }}>status</p>
             <h6>

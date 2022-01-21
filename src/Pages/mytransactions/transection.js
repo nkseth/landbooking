@@ -18,7 +18,7 @@ const Venue = ({ data, history, deleteone, index }) => {
       <div className="small-listing-box light-gray">
         <div className="small-list-detail mx-2">
           <h4>{data.uuid}</h4>
-          <p>{moment(data.createdAt).format("YYYY-MM-DD HH:mm:ss")}</p>
+          <p>{moment(data.createdAt).format("DD MMM YYYY HH:mm:ss")}</p>
         </div>
         <div className="small-list-action light d-flex flex-wrap justify-content-center">
         <div style={{ marginRight: "10px" }}>

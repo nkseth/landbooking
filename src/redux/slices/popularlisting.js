@@ -199,7 +199,7 @@ export const givereviews = (id, data) => {
       data: data,
     })
       .then(async (res) => {
-        dispatch(opensnackbar("success", "Thanks fro your feedback"));
+        dispatch(opensnackbar("success", "Thanks for your feedback"));
         dispatch(slice.actions.reviews(res.data.data));
       })
       .catch((err) => {

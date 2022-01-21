@@ -74,8 +74,7 @@ const MainBanner = ({ history }) => {
               marginTop: "-100px",
             }}
           >
-            Looking to rent a Yard, parking space or Tennis Court for an Hour or
-            more!!
+            Rent a private backyard, swimming pool, or parking space in your favorite place for an hour or more
           </h1>
           <p
             style={{
