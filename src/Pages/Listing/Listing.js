@@ -61,14 +61,14 @@ const Listing = ({ history }) => {
     coordinateRange:
       plocation !== "" && plocation
         ? {
-            radius: pr ? pr : 10,
+            radius: pr && pr ,
             longitude: location.longitude,
             latitude: location.latitude,
           }
         : null,
     zipcode: null,
     address: plocation !== "" && plocation ? plocation : localaddress,
-    radius: pr !== undefined && pr!==null ? pr : 10,
+    radius: (pr !== undefined && pr!==null) && pr,
     latitude: plocation ? location.latitude : null,
     longitude: plocation ? location.longitude : null,
   });

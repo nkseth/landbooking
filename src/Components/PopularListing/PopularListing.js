@@ -51,6 +51,7 @@ const PopularListing = () => {
                   amount={item.rent}
                   rating={item.rating}
                   id={item.uuid}
+                  favour={data?.favourite?.find((i)=>i.uuid===item.uuid)}
                 />
               );
             }

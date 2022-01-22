@@ -52,12 +52,7 @@ axiosInstance.interceptors.request.use(async (config) => {
           "seconds"
         ) < 0
       ) {
-        alert(
-          moment(state.user?.tokens?.access?.expiresAt).diff(
-            moment(),
-            "seconds"
-          )
-        ); 
+        
 
         await renewtokencall(
           state.fcmtoken,

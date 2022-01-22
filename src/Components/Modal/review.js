@@ -107,7 +107,7 @@ const Reviewmodal = (props) => {
           </div>
           {data?.length > 0 ? 
           <div className="d-flex justify-content-between mt-2">
-            <h5 className="mt-3 ">Previous Reviews</h5>
+           
            
               <Button
                 onClick={() => {
@@ -124,7 +124,7 @@ const Reviewmodal = (props) => {
             
           </div>
           : null}
-          <div className="d-flex">
+          <div className="d-flex flex-wrap ">
             {previews?.reviews?.length > 0 ? (
               data?.map((item, index) => {
                 console.log(item);

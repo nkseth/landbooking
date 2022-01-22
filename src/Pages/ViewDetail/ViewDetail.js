@@ -23,11 +23,13 @@ import {
   viewdetailspublic,
   reviews,
   addfavour,
+  viewFavourites,
 } from "../../redux/slices/popularlisting";
 import { withRouter } from "react-router-dom";
 import { booking } from "../../redux/slices/reservations";
 import { useLocation } from "react-router-dom";
 import { baseurl } from "../../config";
+import { FavoriteSharp } from "@mui/icons-material";
 
 const ViewDetail = ({ history }) => {
   const dispatch = useDispatch();
@@ -120,10 +122,19 @@ const ViewDetail = ({ history }) => {
                 className="short-list-btn d-flex justify-content-center m-1"
                 onClick={() => {
                   dispatch(addfavour(id));
+                  setTimeout(() =>{
+                   dispatch(viewFavourites())
+                  },1000)
                 }}
+                disabled={ data?.favourite?.find((i)=>i.uuid===id)?true:false}
               >
-                <FavoriteBorderOutlinedIcon />
-                <Typography className="short-list"> Short List</Typography>
+                { data?.favourite?.find((i)=>i.uuid===id)?
+            <FavoriteSharp style={{ color:"red" }} />
+            :<FavoriteBorderOutlinedIcon style={{ color:"white" }} />
+              }
+              {data?.favourite?.find((i)=>i.uuid===id)?
+                <Typography className="short-list">Shortlisted </Typography>:
+                <Typography className="short-list"> Short List</Typography>}
               </button>
             </div>
           </div>

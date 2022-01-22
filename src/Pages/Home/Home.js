@@ -24,8 +24,12 @@ const Home = ({ history }) => {
     <div style={{ maxWidth: "100vw" }}>
       <MainBanner />
       <PopularListing />
+      <div style={{paddingTop: "8rem"}} id="HowWeWork">
       <BookingSteps />
+      </div>
+      <div style={{paddingTop: "8rem"}}id='becomeahost'>
       <ListingSteps />
+      </div>
       <Testimonials />
     </div>
   );

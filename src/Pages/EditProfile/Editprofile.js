@@ -318,7 +318,7 @@ const Editprofile = ({ history }) => {
                 <div className="col-sm-6">
                   <label>Password</label>
                   <input
-                    type="text"
+                    type="password"
                     className="form-control"
                     placeholder="Password"
                     value={profiledetails.password}
@@ -333,7 +333,7 @@ const Editprofile = ({ history }) => {
                 <div className="col-sm-6">
                   <label>Confirm Password</label>
                   <input
-                    type="text"
+                    type="password"
                     className="form-control"
                     placeholder="Password"
                     value={profiledetails.cpassword}
