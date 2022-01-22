@@ -261,11 +261,12 @@ const LBModal = (props) => {
               </div>
               <div className="col-12 p-1 d-flex flex-wrap">
                 <div className="w-100 d-flex flex-wrap  justify-content-center">
-                <div className="col-md-2 p-1 d-flex  justify-content-center align-items-center">
+                <div className="col-12 col-md-4
+                 p-1 d-flex  justify-content-center align-items-center">
                   <h6>FROM</h6>
                 </div>
 
-                <div className="col-md-5 p-1">
+                <div className="col-12 col-md-8 p-1">
                   <label>Date</label>
                   <input
                     type="date"
@@ -275,9 +276,6 @@ const LBModal = (props) => {
                       onchangedate(1, e.target.value);
                     }}
                   />
-                </div>
-               
-                <div className="col-md-5 p-1">
                   <label>Time</label>
                   <select
                     data-placeholder="Choose Category"
@@ -297,12 +295,12 @@ const LBModal = (props) => {
                     })}
                   </select>
                 </div>
-                </div>
+               </div>
                 <div className="w-100 d-flex flex-wrap  justify-content-center">
-                <div className="col-2 p-1 d-flex justify-content-center align-items-center">
+                <div className="col-12 col-md-4 p-1 d-flex justify-content-center align-items-center">
                   <h6>TO</h6>
                 </div>
-                <div className="col-md-5 p-1">
+                <div className="col-12 col-md-8 p-1">
                   <label>Date</label>
                   <input
                     type="date"
@@ -312,10 +310,7 @@ const LBModal = (props) => {
                       onchangedate(2, e.target.value);
                     }}
                   />
-                </div>
-
-                <div className="col-md-5 p-1 ">
-                  <label>Time</label>
+                    <label>Time</label>
                   <select
                     data-placeholder="Choose Category"
                     className="form-control chosen-select"
@@ -334,6 +329,8 @@ const LBModal = (props) => {
                     })}
                   </select>
                 </div>
+
+             
                 </div>
               </div>
             </div>

@@ -135,21 +135,23 @@ const BookNow = ({ history }) => {
       <Grid item xs={12} md={6} container justifyContent="center" alignItems="center"   
     
       >
-        <div>
+        <div style={{minWidth:'100px'}}>
           <label>From</label>
           <input
             type="date"
             className="form-control"
             value={searchFromdate}
+            style={{minWidth:'200px'}}
             onChange={(e) => {
               setsearchFromdate(e.target.value);
             }}
           />
-        </div>
-        <div className="mx-md-2">
+        </div >
+        <div className="mx-md-2" style={{minWidth:'200px'}}>
           <label>To</label>
           <input
             type="date"
+            style={{minWidth:'100px'}}
             className="form-control"
             value={searchtodate}
             onChange={(e) => {
