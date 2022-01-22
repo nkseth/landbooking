@@ -388,7 +388,7 @@ const Listing = ({ history }) => {
             <div className="listing-box-header">
               <i className="ti-write theme-cl" />
               <h3>Full Details</h3>
-              <p>Write full detail information about listing Owner</p>
+              <p>Write Detail Information About Listing Place</p>
             </div>
             <div className="row mrg-r-10 mrg-l-10">
               <div className="col-sm-12">

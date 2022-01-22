@@ -179,7 +179,7 @@ const ViewDetail = ({ history }) => {
                 {data.listingdetails?.host?.name}
               </h4>
               <p style={{ color: "#1EFFAC", lineHeight: "10px",marginTop:'5px' }}>
-              {data.listingdetails?.host?.designation}
+              {data.listingdetails?.host?.designation || "Venue Owner"}
               </p>
             </div>
           </div>
