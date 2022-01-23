@@ -26,7 +26,7 @@ export const getcategory = () => {
       method: "get",
       url: "/api/v1/category/viewall",
     }).then(async (res) => {
-      debugger
+     
       dispatch(slice.actions.category(res?.data?.data));
     });
   };

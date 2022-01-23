@@ -81,7 +81,7 @@ const Header = (props) => {
                 Listing
               </Nav.Link>
             </Link>
-            <Linki to="#HowWeWork" className="link">
+            <Linki to="/#HowWeWork" className="link">
               <Nav.Link
                 className=" link"
                 href="#HowWeWork"
@@ -96,10 +96,10 @@ const Header = (props) => {
                 How We Work?
               </Nav.Link>
             </Linki>
-            <Linki to="#becomeahost" className="link">
+            <Linki to="/#becomeahost" className="link">
               <Nav.Link
                 className=" link"
-                href="#becomeahost"
+                href="/#becomeahost"
                 style={{
                   color: "#798791",
                   fontSize: "14px",
