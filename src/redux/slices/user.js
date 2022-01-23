@@ -66,16 +66,22 @@ export default slice.reducer;
 
 export const login = (un, pass) => {
   return async (dispatch) => {
-  let currentoken
-    try{
-    currentoken=await message.getToken({
-        vapidKey:
-          "BOIjFPKNQYl0YHeWETsCqh0Fh9UbTG4V9EalDPldQ9IBCdZyShSi8WG0dipZX4mvC7Zc0GzPK9QsVCxivhDdelk",
-      })
-      dispatch(slice.actions.fcmtokenupdate(currentoken)); 
-    } catch{
-        dispatch(opensnackbar('info',"your Browser Notification is  not active"))
-    }
+    var NotificationIsSupported = !!(window.Notification /* W3C Specification */) 
+    let currentoken
+    debugger
+    if(NotificationIsSupported){
+      try{
+        currentoken=await message.getToken({
+            vapidKey:
+              "BOIjFPKNQYl0YHeWETsCqh0Fh9UbTG4V9EalDPldQ9IBCdZyShSi8WG0dipZX4mvC7Zc0GzPK9QsVCxivhDdelk",
+          })
+          dispatch(slice.actions.fcmtokenupdate(currentoken)); 
+        } catch{
+            dispatch(opensnackbar('info',"your Browser Notification is  not active"))
+        }
+}
+  
+   
 
 const data={ userName: un,password: pass,}
   if(currentoken) data['fcmToken']=currentoken
