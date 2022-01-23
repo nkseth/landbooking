@@ -141,6 +141,7 @@ const BookNow = ({ history }) => {
             type="date"
             className="form-control"
             value={searchFromdate}
+            placeholder="DD/MM/YYYY"
             style={{minWidth:'200px'}}
             onChange={(e) => {
               setsearchFromdate(e.target.value);
@@ -154,6 +155,7 @@ const BookNow = ({ history }) => {
             style={{minWidth:'100px'}}
             className="form-control"
             value={searchtodate}
+            placeholder="DD/MM/YYYY"
             onChange={(e) => {
               setsearchtodate(e.target.value);
             }}

@@ -78,7 +78,7 @@ export const getlistingprivate = ({
               count: res.data.count,
             })
           );
-          else dispatch(opensnackbar("info", "No Result found! Checkour our other listing"));
+          else dispatch(opensnackbar("info", "No Result found! Check our other listing"));
       })
       .catch((err) => {
         dispatch(opensnackbar("error", err?.response?.data?.message));
