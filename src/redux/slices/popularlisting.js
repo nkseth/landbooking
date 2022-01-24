@@ -53,7 +53,7 @@ export const getlistingprivate = ({
   latitude,
   longitude,
   radius,
-}) => {
+},searched) => {
   let restdata = { limit, page };
   if (search !== null) restdata["search"] = search;
   if (categoryId) restdata["categoryId"] = categoryId;
@@ -85,10 +85,12 @@ export const getlistingprivate = ({
           else {
             
             dispatch(opensnackbar("info", "No Result found! Check our other listing"))};
-      dispatch(slice.actions.noresultfound("no results found check for other listings"))
-      setTimeout(()=>{
-        dispatch(slice.actions.noresultfound(""))
-      },2000)
+            if(searched){
+              dispatch(slice.actions.noresultfound("no results found check for other listings"))
+              setTimeout(()=>{
+                dispatch(slice.actions.noresultfound(""))
+              },2000) 
+            }
           })
       .catch((err) => {
         dispatch(opensnackbar("error", err?.response?.data?.message));
@@ -106,7 +108,8 @@ export const getlistingpublic = ({
   latitude,
   longitude,
   radius,
-}) => {
+  
+},searched) => {
   let restdata = { limit, page };
   if (search) {
     restdata["search"] = search;
@@ -136,12 +139,16 @@ export const getlistingpublic = ({
               count: res.data.count,
             })
           );
-        else { debugger
+        else { 
           dispatch(opensnackbar("info", "No Result found! Check our other listing"));
-        dispatch(slice.actions.noresultfound("no results found check for other listings"))
-        setTimeout(()=>{
-          dispatch(slice.actions.noresultfound(""))
-        },2000)    
+        if(searched){
+          dispatch(slice.actions.noresultfound("no results found check for other listings"))
+          setTimeout(()=>{
+            dispatch(slice.actions.noresultfound(""))
+          },2000) 
+        }
+       
+        
       }
       })
       .catch((err) => {

@@ -6801,3 +6801,8 @@ a.cl-box {
     margin-bottom:5px;
     
 }
+
+.rmdp-day .sd:hover{
+    color: black;
+    background:'red'
+}

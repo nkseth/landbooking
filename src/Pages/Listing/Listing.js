@@ -162,8 +162,8 @@ const Listing = ({ history }) => {
       user.user.user.emailVerified &&
       user.user.user.phoneVerified
     )
-      dispatch(getlistingprivate(data));
-    else dispatch(getlistingpublic(data));
+      dispatch(getlistingprivate(data,true));
+    else dispatch(getlistingpublic(data,true));
   };
 
 

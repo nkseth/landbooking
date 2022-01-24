@@ -4,6 +4,7 @@ import DatePicker from "react-multi-date-picker";
 import Icon from "react-multi-date-picker/components/icon";
 import "react-multi-date-picker/styles/layouts/mobile.css"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
+import "react-multi-date-picker/styles/colors/green.css"
 export default function Multidatepicker({
   element,
   style,
@@ -22,11 +23,13 @@ export default function Multidatepicker({
   return (
     <DatePicker
       multiple
-      className="rmdp-mobile"
+   
+      className="green"
       value={value}
       onChange={onChange}
       render={<Icon />}
       style={style}
+     
       plugins={[
         <DatePanel />
        ]}
