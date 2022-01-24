@@ -70,6 +70,9 @@ export const login = (un, pass) => {
     let currentoken
     debugger
     if(NotificationIsSupported){
+      if(message){
+
+      
       try{
         currentoken=await message.getToken({
             vapidKey:
@@ -79,6 +82,7 @@ export const login = (un, pass) => {
         } catch{
             dispatch(opensnackbar('info',"your Browser Notification is  not active"))
         }
+      }
 }
   
    

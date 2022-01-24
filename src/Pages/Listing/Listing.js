@@ -286,7 +286,9 @@ const Listing = ({ history }) => {
             >
               Search
             </Button>
+            <p style={{color:'red'}}>{data?.noresultfound}</p>
           </div>
+         
         </div>
       </div>
 

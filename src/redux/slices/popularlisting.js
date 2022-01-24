@@ -9,6 +9,7 @@ const initialState = {
   reviews: null,
   listingcount: null,
   favourite: null,
+  noresultfound:""
 };
 
 const slice = createSlice({
@@ -32,6 +33,9 @@ const slice = createSlice({
     },
     favourite(state, action) {
       state.favourite = action.payload;
+    },
+    noresultfound(state, action) {
+      state.noresultfound =action.payload ;
     },
   },
 });
@@ -78,8 +82,14 @@ export const getlistingprivate = ({
               count: res.data.count,
             })
           );
-          else dispatch(opensnackbar("info", "No Result found! Check our other listing"));
-      })
+          else {
+            
+            dispatch(opensnackbar("info", "No Result found! Check our other listing"))};
+      dispatch(slice.actions.noresultfound("no results found check for other listings"))
+      setTimeout(()=>{
+        dispatch(slice.actions.noresultfound(""))
+      },2000)
+          })
       .catch((err) => {
         dispatch(opensnackbar("error", err?.response?.data?.message));
       });
@@ -126,9 +136,17 @@ export const getlistingpublic = ({
               count: res.data.count,
             })
           );
-        else dispatch(opensnackbar("info", "No Result found! Check our other listing"));
+        else { debugger
+          dispatch(opensnackbar("info", "No Result found! Check our other listing"));
+        dispatch(slice.actions.noresultfound("no results found check for other listings"))
+        setTimeout(()=>{
+          dispatch(slice.actions.noresultfound(""))
+        },2000)    
+      }
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err)
+      });
   };
 };
 

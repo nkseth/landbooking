@@ -14,12 +14,14 @@ function App() {
   injectStore(store);
 
   useEffect(() => {
+    if(message){
     message.onMessage((payload) => {
       console.log("Message received. ", payload);
       store.dispatch(opensnackbar("info", "this is notification"));
       store.dispatch(notification(payload));
       debugger
     });
+  }
   },[])
   
 

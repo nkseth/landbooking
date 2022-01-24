@@ -28,7 +28,7 @@ export const getcategory = () => {
     }).then(async (res) => {
      
       dispatch(slice.actions.category(res?.data?.data));
-    });
+    }).catch(error => {console.log(error);});
   };
 };
 
@@ -39,6 +39,6 @@ export const getcategorypublic = () => {
       url: "/api/v1/category/viewall/public",
     }).then(async (res) => {
       dispatch(slice.actions.category(res?.data?.data));
-    });
+    }).catch(error => {console.log(error);});
   };
 };

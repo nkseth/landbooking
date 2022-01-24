@@ -4,7 +4,7 @@ import { Avatar, Grid} from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { Button } from "react-bootstrap";
+import { Button, FormControl } from "react-bootstrap";
 import Blockmodal from "../../Components/Modal/blockdates";
 import { Link, useParams } from "react-router-dom";
 import { viewdetailsprivate } from "../../redux/slices/popularlisting";
@@ -132,12 +132,12 @@ const BookNow = ({ history }) => {
           </Button>
         </div>
       </Grid>
-      <Grid item xs={12} md={6} container justifyContent="center" alignItems="center"   
-    
-      >
-        <div style={{minWidth:'100px'}}>
+      <Grid item container xs={12}  style={{flexWrap:'wrap'}}
+      justifyContent="center" alignItems="center">
+       <Grid item xs={12} md={3} container justifyContent="center">
+        <div style={{minWidth:'100px',maxWidth:'200px'}}>
           <label>From</label>
-          <input
+          <FormControl
             type="date"
             className="form-control"
             value={searchFromdate}
@@ -148,9 +148,11 @@ const BookNow = ({ history }) => {
             }}
           />
         </div >
-        <div className="mx-md-2" style={{minWidth:'200px'}}>
+        </Grid>
+        <Grid item xs={12} md={3} container  justifyContent="center"> 
+        <div className="mx-md-2" style={{minWidth:'200px',maxWidth:'200px'}}>
           <label>To</label>
-          <input
+          <FormControl
             type="date"
             style={{minWidth:'100px'}}
             className="form-control"
@@ -161,6 +163,7 @@ const BookNow = ({ history }) => {
             }}
           />
         </div>
+        </Grid>
         <div style={{  marginTop: 10 }}
          className="mx-md-2"
         >
