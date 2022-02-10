@@ -15,6 +15,7 @@ const Booking = ({ data, history }) => {
     setrshow(false);
   };
  const  dispatch=useDispatch()
+
   return (
     <li>
       <Bookingmodal show={show} close={close} data={data} />
@@ -32,7 +33,7 @@ const Booking = ({ data, history }) => {
         </div>
         <div className="small-list-detail">
           <h4>{data.venue.title}</h4>
-          <p>{data.venue.category ? data.venue.category : "Category"}</p>
+          <p>{data.venue.category ? data.venue.category.name : "Category"}</p>
         </div>
         <div className="small-list-action light d-flex flex-wrap justify-content-center">
         {data.status ===2 && 

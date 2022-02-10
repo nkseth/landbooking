@@ -52,7 +52,9 @@ const Listing = ({ history }) => {
   const pcategoryId = query.get("categoryId");
   const plocation = query.get("address");
   const pr = query.get("r");
+  const fromDate = query.get("fromDate")
 
+const toDate=query.get("toDate")
   const [queryperams, setqueryperams] = React.useState({
     search: null,
     limit: 6,
@@ -71,6 +73,8 @@ const Listing = ({ history }) => {
     radius: (pr !== undefined && pr!==null) && pr,
     latitude: plocation ? location.latitude : null,
     longitude: plocation ? location.longitude : null,
+    fromDate:fromDate || null,
+    toDate:toDate || null
   });
 
   const [selectedcategory, setselectedcategory] = React.useState({});
@@ -112,30 +116,36 @@ const Listing = ({ history }) => {
     setsettonull(true)
    
     setqueryperams({
-      search: null,
+      search: "",
       limit: 6,
       page: 1,
-      categoryId: null,
+      categoryId: 0,
       coordinateRange: null,
       zipcode: null,
       address: null,
-      radius: 10,
+      radius: "",
       latitude: null,
       longitude: null,
+      toDate:"",
+    fromDate:"",
     });
 
+    setselectedcategory({})
+    debugger
     searchclicked({
       search: null,
       limit: 6,
       page: 1,
-      categoryId: null,
+      categoryId: "",
       coordinateRange: null,
       zipcode: null,
       address: null,
-      radius: 10,
+      radius: null,
       latitude: null,
       longitude: null,
-    });
+      fromDate:null,
+      toDate:null
+    },false);
 
     if (plocation || pcategoryId) history.push("/listing");
   };
@@ -154,16 +164,16 @@ const Listing = ({ history }) => {
     }
   }, [user.user]);
 
-  const searchclicked = (data) => {
-  
+  const searchclicked = (data,t) => {
+  debugger
     
     if (
       user.user &&
       user.user.user.emailVerified &&
       user.user.user.phoneVerified
     )
-      dispatch(getlistingprivate(data,true));
-    else dispatch(getlistingpublic(data,true));
+      dispatch(getlistingprivate(data,t));
+    else dispatch(getlistingpublic(data,t));
   };
 
 
@@ -212,6 +222,7 @@ const Listing = ({ history }) => {
             <Form.Control
               size="lg"
               type="dropdown"
+              value={queryperams.search}
               placeholder="Search By Name"
               className="w-90 p-3 form-control"
               id="form-input"
@@ -220,6 +231,38 @@ const Listing = ({ history }) => {
                 setqueryperams({ ...queryperams, search: e.target.value });
               }}
             />
+            <div className="row">
+            <div className="col-6">
+              <label>From</label>
+             <Form.Control
+              size="lg"
+              type="date"
+              value={queryperams.fromDate}
+              placeholder="Search By Name"
+              className="w-90 p-3 form-control"
+              id="form-input"
+              style={{ marginBottom: "10px" }}
+              onChange={(e) => {
+                setqueryperams({ ...queryperams, fromDate: e.target.value });
+              }}
+            />
+            </div>
+            <div className="col-6">
+            <label>To</label>
+             <Form.Control
+              size="lg"
+              type="date"
+              value={queryperams.toDate}
+              placeholder="Search By Name"
+              className="w-90 p-3 form-control"
+              id="form-input"
+              style={{ marginBottom: "10px" }}
+              onChange={(e) => {
+                setqueryperams({ ...queryperams, toDate: e.target.value });
+              }}
+            />
+            </div>
+            </div>
             <Form className="d-flex justify-content-center align-items-center flex-md-row flex-column">
               <Locationstring
                 label="none"
@@ -247,11 +290,7 @@ const Listing = ({ history }) => {
                   data-placeholder="Choose Category"
                   value={queryperams.categoryId}
                   onChange={(e) => {
-                    setselectedcategory(
-                      categories?.categories?.find((item, index) => {
-                        if (e.target.value === item.uuid) return true;
-                      })
-                    );
+                  setqueryperams({...queryperams,categoryId:e.target.value});
                   }}
                   className="form-control chosen-select"
                   tabIndex={2}
@@ -281,7 +320,7 @@ const Listing = ({ history }) => {
                 marginBottom: "10px",
               }}
               onClick={() => {
-                searchclicked(queryperams);
+                searchclicked(queryperams,true);
               }}
             >
               Search

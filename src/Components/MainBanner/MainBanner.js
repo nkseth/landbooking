@@ -11,6 +11,7 @@ import Locationstring from "../locationstring/location";
 import { withRouter } from "react-router-dom";
 import { getcategory, getcategorypublic } from "../../redux/slices/categories";
 import LocationOnOutlined from "@mui/icons-material/LocationOnOutlined";
+import { HashLink } from "react-router-hash-link";
 const MainBanner = ({ history }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -33,7 +34,8 @@ const MainBanner = ({ history }) => {
   }, [data]);
 
   const [selectedcategory, setselectedcategory] = React.useState({});
-
+const [fromDate,setfromdate]=React.useState("")
+const [toDate,settodate]=React.useState("")
   const categories = useSelector((state) => state.categories);
 
   return (
@@ -84,13 +86,51 @@ const MainBanner = ({ history }) => {
             You Are At The Right Place. Lets Go Ahead And Grab The Best Deal
           </p>
         </div>
-        <div className="form-container container d-flex justify-content-center ">
-          <Form className="d-flex flex-md-row flex-column form-inputs">
-            <div className="d-flex justify-content-flex align-items-center bg-white  w-100 p-2  p-0 flex-wrap flex-md-nowrap">
+        <div className="form-container container
+         d-flex flex-column justify-content-center align-items-center">
+     
+           
+          <Form className="d-flex  flex-column  form-inputs">
+        <div className="d-flex flex-wrap">
+          <div className="col-md-6 col-12 p-0 m-0 ">
+              <label>From</label>
+             <Form.Control
+              size="lg"
+              type="date"
+              value={fromDate}
+              placeholder="Search By Name"
+              className="w-90  form-control"
+              id="form-input"
+             
+              onChange={(e) => {
+                setfromdate(e.target.value);
+              }}
+            />
+            </div>
+            <div className="col-md-6 col-12 p-0 m-0 ">
+            <label>To</label>
+             <Form.Control
+              size="lg"
+              type="date"
+              value={toDate}
+              placeholder="Search By Name"
+              className="w-90 form-control"
+              id="form-input"
+             
+              onChange={(e) => {
+                settodate(e.target.value );
+              }}
+            />
+            </div>
+           </div>
+           <div className="d-flex flex-wrap">
+            <div className="d-flex justify-content-flex
+             align-items-center bg-white col-12 col-md-6  p-2  p-0 
+             flex-wrap flex-md-nowrap">
               <LocationOnOutlined style={{ color: "gray" }} />
               <Locationstring
                 label="none"
-                size="col-sm-10"
+                size="col-6"
                 onaddresschanging={updateaddress}
                 getaddress={true}
                 style={{
@@ -101,9 +141,9 @@ const MainBanner = ({ history }) => {
                 }}
               />
             </div>
-
-            <div className="d-flex justify-content-center px-2
-             align-items-center bg-white  w-100 py-0  p-0">
+           
+            <div className="d-flex justify-content-center px-2 col-md-6
+             align-items-center bg-white  py-0  p-0 col-12" >
               <FilterNoneIcon style={{ color: "gray" }} />
               <select
                 data-placeholder="Choose Category"
@@ -125,6 +165,7 @@ const MainBanner = ({ history }) => {
                 })}
               </select>
             </div>
+            </div>
             <Button
               variant="btn"
               style={{
@@ -139,13 +180,16 @@ const MainBanner = ({ history }) => {
                 history.push(
                   `/listing?categoryId=${
                     selectedcategory && selectedcategory.uuid
-                  }&address=${localaddress && localaddress}&r=${r && r}`
+                  }&address=${localaddress && localaddress}&r=${r && r}&fromDate=${fromDate}&toDate=${toDate}`
                 );
               }}
             >
               Search
             </Button>
+            
           </Form>
+        <HashLink to="/#becomeahost" style={{color:'white'}} >
+          Start generating secondary income Become a Host with us</HashLink>
         </div>
       </div>
     </div>

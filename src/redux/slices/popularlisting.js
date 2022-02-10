@@ -53,6 +53,8 @@ export const getlistingprivate = ({
   latitude,
   longitude,
   radius,
+  fromDate,
+  toDate,
 },searched) => {
   let restdata = { limit, page };
   if (search !== null) restdata["search"] = search;
@@ -63,7 +65,9 @@ export const getlistingprivate = ({
      else  coordinateRange["radius"]=radius
     restdata["coordinateRange"] = JSON.stringify(coordinateRange);}
   if (zipcode) restdata["zipcode"] = zipcode;
-
+if(fromDate) restdata["fromDate"] = fromDate
+if(toDate) restdata["toDate"] = toDate
+debugger
   const qs = Object.keys(restdata)
     .map((key) => `${key}=${restdata[key]}`)
     .join("&");
@@ -74,7 +78,7 @@ export const getlistingprivate = ({
       data: { limit, page, ...restdata },
     })
       .then(async (res) => {
-      
+      debugger
         if (res.data.data.length > 0)
           dispatch(
             slice.actions.listing({
@@ -84,13 +88,14 @@ export const getlistingprivate = ({
           );
           else {
             
-            dispatch(opensnackbar("info", "No Result found! Check our other listing"))};
+            dispatch(opensnackbar("info", "No Result found! Check our other listing"))
             if(searched){
               dispatch(slice.actions.noresultfound("no results found check for other listings"))
               setTimeout(()=>{
                 dispatch(slice.actions.noresultfound(""))
               },2000) 
             }
+          }
           })
       .catch((err) => {
         dispatch(opensnackbar("error", err?.response?.data?.message));

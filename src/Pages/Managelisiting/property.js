@@ -82,6 +82,7 @@ const Property = ({ item }) => {
         >
           <h4>{item.title}</h4>
           <p className="listing-description">{item.description}</p>
+          <p className="listing-description">{item.category.name}</p>
           {!item?.approved &&
           <div
            

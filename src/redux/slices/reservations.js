@@ -153,7 +153,7 @@ export const cancelReservation = (reservationid) => {
         );
       })
       .catch((err) => {
-        dispatch(opensnackbar("error", err?.response?.data?.message));
+     
       });
   };
 };

@@ -85,7 +85,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     store.dispatch(loading(false));
 
-  
+
     if (error.response?.data?.details && typeof error.response?.data?.details === "string" ) {
       store.dispatch(opensnackbar("error", error.response?.data?.details));
     } else store.dispatch(opensnackbar("error", error.response?.data?.message));
