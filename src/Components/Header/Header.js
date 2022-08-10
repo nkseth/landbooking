@@ -96,7 +96,7 @@ const Header = (props) => {
                 How We Work?
               </Nav.Link>
             </Linki>
-            <Linki to="/#becomeahost" className="link">
+            <Linki to="/becomeahost" className="link">
               <Nav.Link
                 className=" link"
                 href="/#becomeahost"

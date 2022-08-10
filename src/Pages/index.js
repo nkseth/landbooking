@@ -13,3 +13,4 @@ export { default as Favourites } from "./favourates";
 export { default as Reservations } from "./reservations";
 export { default as Blockdates } from "./blockeddates";
 export { default as Mytransactions } from "./mytransactions";
+export { default as Becomeahost} from './BecomeAhost'

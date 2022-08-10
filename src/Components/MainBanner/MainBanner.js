@@ -8,7 +8,7 @@ import "./MainBanner.css";
 import { useDispatch, useSelector } from "react-redux";
 
 import Locationstring from "../locationstring/location";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { getcategory, getcategorypublic } from "../../redux/slices/categories";
 import LocationOnOutlined from "@mui/icons-material/LocationOnOutlined";
 import { HashLink } from "react-router-hash-link";
@@ -50,7 +50,7 @@ const [toDate,settodate]=React.useState("")
         height: "100vh",
         maxWidth: "100vw",
         color: "white",
-        marginTop: "0px",
+        marginTop: "60px",
         padding: "0px",
       }}
     >
@@ -63,18 +63,11 @@ const [toDate,settodate]=React.useState("")
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
+          padding: "10px"
         }}
       >
-        <div className="text-container text-white text-center  ">
-          <h1
-            style={{
-              fontWeight: 550,
-              letterSpacing: 1.3,
-              wordSpacing: 3,
-              color: "white",
-
-              marginTop: "-100px",
-            }}
+        <div className=" text-white text-center ">
+          <h1 className="maintext"
           >
             Rent a private backyard, swimming pool, or parking space in your favorite place for an hour or more
           </h1>
@@ -188,8 +181,8 @@ const [toDate,settodate]=React.useState("")
             </Button>
             
           </Form>
-        <HashLink to="/#becomeahost" style={{color:'white'}} >
-          Start generating secondary income Become a Host with us</HashLink>
+        <Link to="/becomeahost" style={{color:'white'}} >
+          Start generating secondary income Become a Host with us</Link>
         </div>
       </div>
     </div>

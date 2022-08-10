@@ -6806,3 +6806,17 @@ a.cl-box {
     color: black;
     background:'red'
 }
+
+.maintext{
+    font-size: 45px;
+    font-weight: 550;
+    letter-spacing: 1.3px;
+    word-spacing: 3px;
+    color:white
+}
+
+@media only screen and (max-width: 600px) {
+    .maintext{
+        font-size: 30px;
+    }
+}

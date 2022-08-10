@@ -17,6 +17,7 @@ import {
   Reservations,
   Blockdates,
   Mytransactions,
+  Becomeahost,
 } from "./Pages";
 import PrivateRoute from "./privateroute";
 
@@ -26,6 +27,7 @@ const Routes = () => {
       <Route exact path="/" component={Home} />
       <Route exact path="/listing" component={Listing} />
       <Route exact path="/Signup" component={Signup} />
+      <Route exact path="/becomeahost" component={Becomeahost} />
       <Route exact path="/view-detail/:id" component={ViewDetail} />
       <PrivateRoute>
         {" "}

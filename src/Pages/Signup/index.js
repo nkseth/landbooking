@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {  Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import InputMask from "react-input-mask";
@@ -10,11 +10,20 @@ import { Avatar } from "@mui/material";
 import Locationstring from "../../Components/locationstring/location";
 import { locationnull } from "../../redux/slices/location";
 import { opensnackbar, signup } from "../../redux/slices/user";
-import { withRouter } from "react-router-dom";
+import { withRouter,useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useMemo } from "react";
 
 const Editprofile = ({ history }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  function useQuery() {
+    const { search } = useLocation();
+  
+    return useMemo(() => new URLSearchParams(search), [search]);
+  }
+let query = useQuery();
+
   React.useEffect(() => {
     if (user.user) {
       history.push("/");
@@ -35,7 +44,7 @@ const Editprofile = ({ history }) => {
     zipcode: "",
     gender: 1,
     dob: "",
-    ishost: false,
+    ishost: query.get("host")==="true",
     password: "",
     cpassword: "",
     image: null,

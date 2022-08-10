@@ -95,7 +95,7 @@ const Logout = () => {
               borderRadius: "5px",
             }}
           >
-            {state.user.user.host &&<Accordion style={{width:'100%'}}>
+            {state.user?.user?.host &&<Accordion style={{width:'100%'}}>
               <Accordion.Item eventKey="0">
               <Accordion.Header>Seller Tools</Accordion.Header>  
               <Accordion.Body style={{display:'flex',flexDirection:'column'}}>
